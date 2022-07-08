@@ -1,0 +1,30 @@
+// Normalize
+@import-normalize;
+
+// Override normalize stylesheet
+h1 {
+  margin: 0;
+}
+
+// Variables 
+@import './scss/variables/typography.module.scss';
+
+// Reset
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// Base
+
+html {
+  font-size: 100%;
+}
+
+body {
+  font-family: $font-stack;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: $blh;
+}
