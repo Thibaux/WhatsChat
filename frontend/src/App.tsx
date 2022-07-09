@@ -1,10 +1,11 @@
 import React from 'react';
+import styles from './App.module.scss';
+import { ChatPage } from './pages/ChatPage/ChatPage';
 
 export const App = () => {
   return (
-    <>
-      <p>Hello world!</p>
-      <p>Hello world!</p>
-    </>
+    <div className={styles.appWrapper}>
+      <ChatPage />
+    </div>
   );
 };
