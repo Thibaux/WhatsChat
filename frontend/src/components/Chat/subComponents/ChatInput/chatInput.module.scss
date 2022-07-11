@@ -6,26 +6,15 @@
 
   textarea {
     height: 100%;
-    width: 60%;
+    width: 80%;
     padding: 1rem;
     padding-top: 1.5rem;
     font-size: 1.2rem;
   }
 
   &__sendButton {
-    margin-left: 4%;
-    width: 150px;
-    height: 60px;
-    border: none;
-    outline: none;
-    background: #2f2f2f;
-    color: #fff;
-    font-size: 22px;
-    border-radius: 40px;
-    text-align: center;
-    box-shadow: 0 6px 20px -5px rgba(0, 0, 0, 0.4);
-    position: relative;
-    overflow: hidden;
+    height: 100%;
+    width: 10rem;
     cursor: pointer;
   }
 }

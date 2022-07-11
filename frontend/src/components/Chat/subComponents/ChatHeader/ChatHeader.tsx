@@ -1,12 +1,13 @@
 import * as React from 'react';
+import { useChatStore } from '../../../../store/store';
 import styles from './chatHeader.module.scss';
 
 export const ChatHeader = () => {
-  const chatTitel = 'sdf';
+  const { chatName } = useChatStore();
 
   return (
     <div className={styles.titleWrapper}>
-      <h2>{chatTitel}</h2>
+      <h2>{chatName}</h2>
     </div>
   );
 };

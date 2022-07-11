@@ -1,7 +1,13 @@
-import create from 'zustand'
+import create from 'zustand';
 
-const useStore = create((set) => ({
-  bears: 0,
-  increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-  removeAllBears: () => set({ bears: 0 }),
-}))
+interface ChatStoreInterface {
+  chatName: string;
+  increasePopulation: () => void;
+  removeAllBears: () => void;
+}
+
+export const useChatStore = create<ChatStoreInterface>((set) => ({
+  chatName: 'default name',
+  increasePopulation: () => set(() => ({ chatName: 'chatName - up' })),
+  removeAllBears: () => set(() => ({ chatName: 'chatName - up' })),
+}));
