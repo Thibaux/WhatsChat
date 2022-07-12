@@ -1,6 +1,15 @@
 .messageWrapper {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: gray;
+  padding: 0.5rem;
+  width: 100%;
+
+  &__senderTitle {
+    font-size: 600;
+    margin-right: auto;
+    margin-left: 0;
+  }
 }
