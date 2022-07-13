@@ -6,9 +6,14 @@
   background-color: #212d33;
   color: #fafafa;
   padding: 0.5rem;
-  width: 45%;
+  width: auto;
+  max-width: 75%;
   border-radius: 5px;
   margin-bottom: 1rem;
+
+  @media (max-width: 800px) {
+    max-width: 90%;
+  }
 
   &__senderTitle {
     font-weight: 700;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
-import styles from './chatContent.module.scss';
 import { useChatContent } from './useChatContent';
+import styles from './chatContent.module.scss';
 
 export const ChatContent = () => {
   const { chatMessages, senderOfFirstMessage, myRef } = useChatContent();

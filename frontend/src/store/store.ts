@@ -19,7 +19,8 @@ export const useChatStore = create<ChatStoreInterface>((set) => ({
     {
       id: 2,
       sender: 'piet',
-      message: 'this is mss van pietmss van pietmss van pietmss van piet',
+      message:
+        'this is mss van pietmss van pietmss van pietmss van pietthis is mss van pietmss van pietmss van pietmss van piet',
     },
     {
       id: 3,
