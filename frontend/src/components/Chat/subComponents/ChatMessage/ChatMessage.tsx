@@ -1,10 +1,10 @@
 import * as React from 'react';
 import styles from './chatMessage.module.scss';
 
-interface ChatMessageInterface {
+type ChatMessageInterface = {
   sender: string;
   message: string;
-}
+};
 
 export const ChatMessage = ({ sender, message }: ChatMessageInterface) => {
   return (

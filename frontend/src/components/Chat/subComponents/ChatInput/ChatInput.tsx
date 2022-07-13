@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useState } from 'react';
 import styles from './chatInput.module.scss';
-import { UseSendInput } from './UseSendInput';
+import { useSendInput } from './useSendInput';
 
 export const ChatInput = () => {
-  const { handleSend } = UseSendInput();
+  const { handleSend } = useSendInput();
   const [messageValue, setMessageValue] = useState("Type you're message...");
 
   return (
