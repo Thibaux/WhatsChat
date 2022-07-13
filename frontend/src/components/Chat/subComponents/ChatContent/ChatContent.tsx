@@ -9,9 +9,9 @@ export const ChatContent = () => {
   return (
     <div className={styles.contentWrapper}>
       <div className={styles.contentWrapper__chats}>
-        {chatMessages.map(({ sender, message }) => (
-          <div className={styles.contentWrapper__chat}>
-            <ChatMessage sender={sender} message={message} />
+        {chatMessages.map((mss) => (
+          <div key={mss.id} className={styles.contentWrapper__chat}>
+            <ChatMessage sender={mss.sender} message={mss.message} />
           </div>
         ))}
       </div>
