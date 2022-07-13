@@ -19,7 +19,12 @@ export const useChatStore = create<ChatStoreInterface>((set) => ({
     {
       id: 2,
       sender: 'piet',
-      message: 'this is mss van piet',
+      message: 'this is mss van pietmss van pietmss van pietmss van piet',
+    },
+    {
+      id: 3,
+      sender: 'jan',
+      message: 'this is mss van pietmss van pietmss van pietmss van piet',
     },
   ],
   clearMessages: () =>

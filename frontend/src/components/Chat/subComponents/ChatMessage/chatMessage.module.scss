@@ -3,13 +3,21 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: gray;
+  background-color: #212d33;
+  color: #fafafa;
   padding: 0.5rem;
-  width: 100%;
+  width: 45%;
+  border-radius: 5px;
+  margin-bottom: 1rem;
 
   &__senderTitle {
-    font-size: 600;
+    font-weight: 700;
     margin-right: auto;
+    margin-left: 0;
+  }
+
+  &__messageBody {
+    width: 100%;
     margin-left: 0;
   }
 }

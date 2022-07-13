@@ -1,9 +1,11 @@
 .contentWrapper {
   display: flex;
-  align-items: center;
-  margin-left: 3rem;
+  flex-direction: column;
+  width: 100%;
+  padding: 2rem;
 
-  &__chat {
-    margin-bottom: 2rem;
+  &__leftMss {
+    display: flex;
+    justify-content: flex-end;
   }
 }

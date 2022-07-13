@@ -9,8 +9,8 @@ type ChatMessageInterface = {
 export const ChatMessage = ({ sender, message }: ChatMessageInterface) => {
   return (
     <div className={styles.messageWrapper}>
-      <div className={styles.messageWrapper__senderTitle}>S: {sender}</div>
-      <div className={styles.messageWrapper__messageBody}>M: {message}</div>
+      <div className={styles.messageWrapper__senderTitle}>{sender}</div>
+      <div className={styles.messageWrapper__messageBody}>{message}</div>
     </div>
   );
 };
