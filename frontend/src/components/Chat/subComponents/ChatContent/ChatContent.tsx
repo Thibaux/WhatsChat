@@ -1,23 +1,30 @@
-import * as React from 'react';
-import { useChatStore } from '../../../../store/store';
+import React from 'react';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
 import styles from './chatContent.module.scss';
+import { useChatContent } from './useChatContent';
 
 export const ChatContent = () => {
-  const { chatMessages } = useChatStore();
-  const senderOfFirstMessage = String(chatMessages[0].sender);
+  const { chatMessages, senderOfFirstMessage, myRef } = useChatContent();
 
   return (
     <div className={styles.contentWrapper}>
       {chatMessages.map(({ id, sender, message }) => {
         if (sender === senderOfFirstMessage) {
           return (
-            <div key={id} className={styles.contentWrapper__leftMss}>
+            <div
+              id={String(id)}
+              key={id}
+              className={styles.contentWrapper__leftMss}
+            >
               <ChatMessage sender={sender} message={message} />;
             </div>
           );
         }
-        return <ChatMessage key={id} sender={sender} message={message} />;
+        return (
+          <div ref={myRef} id={String(id)} key={id}>
+            <ChatMessage sender={sender} message={message} />
+          </div>
+        );
       })}
     </div>
   );

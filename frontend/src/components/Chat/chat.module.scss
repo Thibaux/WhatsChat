@@ -15,8 +15,8 @@
   }
 
   &__contentWapper {
-    padding-top: 3rem;
     min-height: calc(100% - 10rem);
+    overflow-y: auto;
   }
 
   &__intputWapper {

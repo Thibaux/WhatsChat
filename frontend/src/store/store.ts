@@ -1,7 +1,7 @@
 import create from 'zustand';
 import produce from 'immer';
 
-interface ChatStoreInterface {
+export interface ChatStoreInterface {
   chatName: string;
   chatMessages: ChatMessage[];
   clearMessages: () => void;
@@ -13,7 +13,7 @@ export const useChatStore = create<ChatStoreInterface>((set) => ({
   chatMessages: [
     {
       id: 1,
-      sender: 'jan',
+      sender: 'piet',
       message: 'this is mss',
     },
     {
@@ -24,6 +24,16 @@ export const useChatStore = create<ChatStoreInterface>((set) => ({
     {
       id: 3,
       sender: 'jan',
+      message: 'this is mss van pietmss van pietmss van pietmss van piet',
+    },
+    {
+      id: 4,
+      sender: 'jan',
+      message: 'this is mss van pietmss van pietmss van pietmss van piet',
+    },
+    {
+      id: 5,
+      sender: 'piet',
       message: 'this is mss van pietmss van pietmss van pietmss van piet',
     },
   ],
