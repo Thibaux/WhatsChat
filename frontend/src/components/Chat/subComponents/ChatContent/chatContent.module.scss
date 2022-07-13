@@ -8,4 +8,9 @@
     display: flex;
     justify-content: flex-end;
   }
+
+  &__rightMss {
+    display: flex;
+    justify-content: flex-start;
+  }
 }
