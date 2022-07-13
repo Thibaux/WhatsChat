@@ -21,7 +21,12 @@ export const ChatContent = () => {
           );
         }
         return (
-          <div ref={myRef} id={String(id)} key={id}>
+          <div
+            ref={myRef}
+            id={String(id)}
+            key={id}
+            className={styles.contentWrapper__rightMss}
+          >
             <ChatMessage sender={sender} message={message} />
           </div>
         );
