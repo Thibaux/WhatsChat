@@ -16,7 +16,7 @@ export const ChatContent = () => {
               key={id}
               className={styles.contentWrapper__leftMss}
             >
-              <ChatMessage sender={sender} message={message} />;
+              <ChatMessage sender={sender} message={message} />
             </div>
           );
         }

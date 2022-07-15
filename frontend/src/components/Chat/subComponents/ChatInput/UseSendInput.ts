@@ -3,7 +3,7 @@ import { useChatStore } from '../../../../store/store';
 
 export const useSendInput = () => {
   const { addMessage } = useChatStore();
-  const [messageValue, setMessageValue] = useState("Type you're message...");
+  const [messageValue, setMessageValue] = useState('');
 
   const handleSend = () => {
     addMessage({

@@ -1,21 +1,18 @@
 .inputWrapper {
   display: flex;
-  align-items: center;
-  justify-content: left;
+  align-items: flex-end;
+  justify-items: center;
   height: 100%;
 
   textarea {
-    height: 100%;
-    width: 70%;
-    padding-top: 1.5rem;
-    padding: 1rem;
+    padding: 0.9rem;
     font-size: 1rem;
   }
 
   &__sendButton {
     height: 100%;
-    width: 30%;
-    font-size: 1.2rem;
+    width: 100%;
+    font-size: 1.4rem;
     font-weight: 500;
     cursor: pointer;
     display: flex;
