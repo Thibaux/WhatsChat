@@ -18,5 +18,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    .sendIcon {
+      height: 40%;
+      margin-top: 0;
+      padding-left: 1rem;
+    }
   }
 }
