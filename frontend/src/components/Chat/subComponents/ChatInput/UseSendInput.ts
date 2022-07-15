@@ -2,11 +2,11 @@ import { ChangeEventHandler, useState } from 'react';
 import { useChatStore } from '../../../../store/store';
 
 export const useSendInput = () => {
-  const { addMessage } = useChatStore();
+  const { sendMessage } = useChatStore();
   const [messageValue, setMessageValue] = useState('');
 
   const handleSend = () => {
-    addMessage({
+    sendMessage({
       id: 6,
       sender: 'jan',
       message: messageValue,
