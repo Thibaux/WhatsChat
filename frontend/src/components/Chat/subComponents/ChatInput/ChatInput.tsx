@@ -13,8 +13,8 @@ export const ChatInput = () => {
           value={messageValue}
           onChange={handleTextChange}
           placeholder='Your comment'
+          label='Press ctrl + enter to send'
           radius='xs'
-          required
           styles={{ root: { width: 650 } }}
         />
       </div>
