@@ -9,7 +9,7 @@ export const ChatContent = () => {
   return (
     <div className={styles.contentWrapper}>
       {chatMessages.map(({ id, sender, message }) => {
-        if (sender === senderOfFirstMessage) {
+        if (senderOfFirstMessage === sender) {
           return (
             <div
               id={String(id)}

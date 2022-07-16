@@ -1,16 +1,20 @@
-import { ChangeEventHandler, useState } from 'react';
+import { ChangeEventHandler, useEffect, useState } from 'react';
+import io from 'socket.io-client';
+import { v4 as uuidv4 } from 'uuid';
 import { useChatStore } from '../../../../store/store';
 
+const serverPort = 'http://localhost:8080';
+
+const socket = io(serverPort, {
+  withCredentials: false,
+});
+
 export const useSendInput = () => {
-  const { sendMessage } = useChatStore();
+  const { chatMessages, sendMessage } = useChatStore();
   const [messageValue, setMessageValue] = useState('');
 
   const handleSend = () => {
-    sendMessage({
-      id: 6,
-      sender: 'jan',
-      message: messageValue,
-    });
+    socket.emit('sendMessage', messageValue, () => setMessageValue(''));
   };
 
   const handleTextChange: ChangeEventHandler = (
@@ -20,6 +24,22 @@ export const useSendInput = () => {
 
     setMessageValue(text);
   };
+
+  const getIdOfLastMessage = (): number => {
+    if (!chatMessages) return 0;
+    return chatMessages[chatMessages.length].id;
+  };
+
+  useEffect(() => {
+    socket.on('message', (message) => {
+      console.log(message.message);
+      sendMessage({
+        id: getIdOfLastMessage(),
+        sender: 'jan',
+        message: message.message,
+      });
+    });
+  });
 
   return {
     messageValue,
