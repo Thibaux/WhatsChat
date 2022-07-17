@@ -1,17 +1,7 @@
 import mongoose, { Schema } from "mongoose";
+import { UserSchema } from "../interfaces";
 
-type properyType = {
-	type: string;
-	required: [boolean, string];
-	unique: [boolean, string];
-};
-
-export interface UserI extends Document {
-	username: properyType;
-	password: properyType;
-}
-
-export const userSchema: Schema = new mongoose.Schema<UserI>({
+export const userSchema: Schema = new mongoose.Schema<UserSchema>({
 	username: {
 		type: String,
 		required: [true, "Please provide an username!"],

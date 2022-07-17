@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { userModel } from "../db/models/User";
-import { hashPassword } from "../utils/hashPassword";
+import { saveUser } from "../../db/controllers/User";
+import { hashPassword } from "../../utils/HashPassword";
 
 export const createUser = async (
 	req: Request,
@@ -14,16 +14,10 @@ export const createUser = async (
 
 		const hash = await hashPassword(req.body.password);
 
-		const user = new userModel({
+		const user = await saveUser({
 			username: req.body.username,
 			password: hash,
 		});
-
-		const result = await user.save();
-
-		if (!result) {
-			res.status(500).send({ message: "Error creating user" });
-		}
 
 		res.status(201).send({ message: "User created!", newUserId: user._id });
 	} catch (error) {

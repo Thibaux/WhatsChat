@@ -1,7 +1,8 @@
-import express, { NextFunction, Request, Response } from "express";
+import express, { Request, Response } from "express";
 import bodyParser from "body-parser";
-import { connectToDb } from "./db/connect";
-import { createUser } from "./handlers/user";
+import { connectToDb } from "./db/Connect";
+import { createUser } from "./handlers/User/CreateUser";
+import { createChat } from "./handlers/Chat/CreateChat";
 
 const app = express();
 connectToDb();
@@ -18,6 +19,12 @@ app.get("/", (req: Request, res: Response) => {
 app.post(
 	"/create-user",
 	async (req, res, next) => await createUser(req, res, next)
+);
+
+// chat
+app.post(
+	"/create-chat",
+	async (req, res, next) => await createChat(req, res, next)
 );
 
 export default app;
