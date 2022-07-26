@@ -1,16 +1,12 @@
-import { Request, Response, NextFunction } from 'express';
 import {
   GetUserByUserId,
   GetUserByUsername,
   saveChat,
   updateUsersWithChat,
 } from '../../../Infrastructure/Database/Controllers';
+import { HandlerInterface } from '../interfaces';
 
-export const createChat = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const createChat = async ({ req, res, next }: HandlerInterface) => {
   try {
     if (!req.params.userId)
       res.status(400).send({ error: 'User ID is not provided!' });

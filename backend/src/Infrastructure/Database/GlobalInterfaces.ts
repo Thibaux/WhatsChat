@@ -8,8 +8,9 @@ export type BasicProperyType = {
 
 export interface UserSchema extends mongoose.Document {
   username: BasicProperyType;
+  email: BasicProperyType;
   password: BasicProperyType;
-  chats: ChatSchema;
+  picture: BasicProperyType;
 }
 
 export interface ChatSchema extends Document {

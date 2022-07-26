@@ -1,5 +1,5 @@
 import { HydratedDocument } from 'mongoose';
-import { userModel } from '../Models/User';
+import { userModel } from '../Models/UserModel';
 import { UserSchema } from '../GlobalInterfaces';
 
 export const saveUser = async ({
@@ -17,6 +17,14 @@ export const saveUser = async ({
   try {
     await user.save();
     return user;
+  } catch (e) {
+    return e.message;
+  }
+};
+
+export const getAllUsers = async () => {
+  try {
+    return await userModel.find({});
   } catch (e) {
     return e.message;
   }

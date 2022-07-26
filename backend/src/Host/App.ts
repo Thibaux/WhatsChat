@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
-import { connectToDb } from '../Infrastructure/Database/Connect';
+import { connectToDb } from '../Infrastructure/Database/ConnectToDb';
 import router from './Routes';
 
 dotenv.config();

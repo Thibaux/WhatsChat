@@ -1,12 +1,8 @@
-import { NextFunction, Request, Response } from 'express';
 import { hashPassword } from '../../../Services/Utils/HashPassword';
 import { saveUser } from '../../../Infrastructure/Database/Controllers';
+import { HandlerInterface } from '../interfaces';
 
-export const createUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const CreateUser = async ({ req, res, next }: HandlerInterface) => {
   try {
     if (!req.body.username || !req.body.password) {
       res.send({ error: 'Username or password not provided!' });

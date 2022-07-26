@@ -1,11 +1,11 @@
-import { Request, Response, NextFunction } from 'express';
 import { getAllChatsByUserName } from '../../../Infrastructure/Database/Controllers';
+import { HandlerInterface } from '../interfaces';
 
-export const GetAllChatsOfOneUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const GetAllChatsOfOneUser = async ({
+  req,
+  res,
+  next,
+}: HandlerInterface) => {
   try {
     if (!req.params.username)
       res.status(400).send({ error: 'Username is not provided!' });

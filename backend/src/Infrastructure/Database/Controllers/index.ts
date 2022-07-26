@@ -1,2 +1,2 @@
-export * from './User';
-export * from './Chat';
+export * from './UserControllers';
+export * from './ChatControllers';

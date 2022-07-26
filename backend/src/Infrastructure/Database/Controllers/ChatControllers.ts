@@ -1,7 +1,7 @@
 import { HydratedDocument, Types } from 'mongoose';
 import { ChatSchema, MongoUser } from '../GlobalInterfaces';
-import { chatModel } from '../Models/Chat';
-import { userModel } from '../Models/User';
+import { chatModel } from '../Models/ChatModel';
+import { userModel } from '../Models/UserModel';
 
 export const saveChat = async ({
   chatTitle,

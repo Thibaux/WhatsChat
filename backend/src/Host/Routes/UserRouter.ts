@@ -1,9 +1,13 @@
 import express from 'express';
-import { createUser } from '../Handlers/User/CreateUser';
+import { CreateUser } from '../Handlers/User/CreateUser';
 import { GetAllChatsOfOneUser } from '../Handlers/User/GetAllChatsOfOneUser';
+import { GetAllUsers } from '../Handlers/User/GetAllUsers';
+
 const userRouter = express.Router();
 
-userRouter.post('/', createUser);
+userRouter.get('/', GetAllUsers);
+userRouter.post('/', CreateUser);
+
 userRouter.get('/:username/chats', GetAllChatsOfOneUser);
 
 export default userRouter;
