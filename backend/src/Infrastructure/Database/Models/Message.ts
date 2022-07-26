@@ -6,4 +6,4 @@ import { ChatSchema } from '../GlobalInterfaces';
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
-});
+);
