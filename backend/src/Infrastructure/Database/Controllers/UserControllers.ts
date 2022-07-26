@@ -48,3 +48,19 @@ export const removeUserByUserId = async (userId: string) => {
         return e.message;
     }
 };
+
+export const findOneUser = async (email: string) => {
+    try {
+        return await User.findOne({ email });
+    } catch (e) {
+        return e.message;
+    }
+};
+
+export const checkPasswordUser = async (user, password: string) => {
+    try {
+        return await user.matchPassword(password);
+    } catch (e) {
+        return e.message;
+    }
+};

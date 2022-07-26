@@ -6,7 +6,7 @@ import {
     updateUsersWithChat,
 } from '../../../Infrastructure/Database/Controllers';
 
-export const createChat = async (
+export const CreateChat = async (
     req: Request,
     res: Response,
     next: NextFunction

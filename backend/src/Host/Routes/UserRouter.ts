@@ -1,5 +1,5 @@
 import express from 'express';
-import { CreateUser, DeleteUser, GetAllChatsOfOneUser, GetAllUsers } from '../Handlers/User';
+import { CreateUser, DeleteUser, GetAllChatsOfOneUser, GetAllUsers, LoginUser } from '../Handlers/User';
 
 const userRouter = express.Router();
 
