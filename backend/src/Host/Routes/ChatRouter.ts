@@ -1,7 +1,7 @@
 import express from 'express';
-const chatRouter = express.Router();
-
 import { createChat } from '../Handlers/Chat/CreateChat';
+
+const chatRouter = express.Router();
 
 chatRouter.post('/:userId', createChat);
 

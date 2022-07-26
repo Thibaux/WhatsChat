@@ -1,5 +1,10 @@
 import * as mongoose from 'mongoose';
 
+export type MongoUser = {
+    _id: string;
+    username: string;
+};
+
 export type BasicPropertyType = {
     type: string;
     required: [boolean, string];
@@ -19,7 +24,8 @@ export interface ChatSchema extends Document {
     groupAdmin: BasicPropertyType;
 }
 
-export type MongoUser = {
-    _id: string;
-    username: string;
-};
+export interface MessageSchema extends Document {
+    sender: BasicPropertyType;
+    content: BasicPropertyType;
+    chat: BasicPropertyType;
+}

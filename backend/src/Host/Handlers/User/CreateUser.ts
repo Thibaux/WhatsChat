@@ -1,6 +1,6 @@
+import { NextFunction, Request, Response } from 'express';
 import { hashPassword } from '../../../Services/Utils/HashPassword';
 import { saveUser } from '../../../Infrastructure/Database/Controllers';
-import { NextFunction, Request, Response } from 'express';
 
 export const CreateUser = async (
     req: Request,
