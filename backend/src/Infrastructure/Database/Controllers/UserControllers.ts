@@ -43,7 +43,7 @@ export const getAllUsersOrSearch = async (searchQuery: string) => {
 
 export const removeUserByUserId = async (userId: string) => {
     try {
-        return await userModel.find({ _id: userId }).remove().exec();
+        return await userModel.find({ _id: userId }).deleteOne().exec();
     } catch (e) {
         return e.message;
     }
