@@ -3,29 +3,37 @@ import { userModel } from '../Models/UserModel';
 import { UserSchema } from '../GlobalInterfaces';
 
 export const saveUser = async ({
-  username,
-  password,
-}: {
-  username: string;
-  password: string;
-}): Promise<HydratedDocument<UserSchema> | string> => {
-  const user = new userModel({
     username,
     password,
-  }) as HydratedDocument<UserSchema>;
+}: {
+    username: string;
+    password: string;
+}): Promise<HydratedDocument<UserSchema> | string> => {
+    const user = new userModel({
+        username,
+        password,
+    }) as HydratedDocument<UserSchema>;
 
-  try {
-    await user.save();
-    return user;
-  } catch (e) {
-    return e.message;
-  }
+    try {
+        await user.save();
+        return user;
+    } catch (e) {
+        return e.message;
+    }
 };
 
-export const getAllUsers = async () => {
-  try {
-    return await userModel.find({});
-  } catch (e) {
-    return e.message;
-  }
+export const getAllUsersOrSearch = async (searchQuery: string) => {
+    try {
+        let users;
+
+        if (searchQuery) {
+            users = await userModel.find({ username: searchQuery });
+        } else {
+            users = await userModel.find({});
+        }
+
+        return users;
+    } catch (e) {
+        return e.message;
+    }
 };
