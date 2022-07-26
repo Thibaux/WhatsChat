@@ -15,8 +15,8 @@ export interface UserSchema extends mongoose.Document {
 
 export interface ChatSchema extends Document {
     chatTitle: BasicPropertyType;
-    userOne: MongoUser;
-    userTwo: MongoUser;
+    users: BasicPropertyType[];
+    groupAdmin: BasicPropertyType;
 }
 
 export type MongoUser = {

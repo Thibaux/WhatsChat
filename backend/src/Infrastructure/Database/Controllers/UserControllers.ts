@@ -1,5 +1,5 @@
 import { HydratedDocument } from 'mongoose';
-import { userModel } from '../Models/UserModel';
+import { User } from '../Models/User';
 import { UserSchema } from '../GlobalInterfaces';
 
 export const saveUser = async ({
@@ -11,7 +11,7 @@ export const saveUser = async ({
     email: string;
     password: string;
 }): Promise<HydratedDocument<UserSchema> | string> => {
-    const user = new userModel({
+    const user = new User({
         username,
         email,
         password,
@@ -30,9 +30,9 @@ export const getAllUsersOrSearch = async (searchQuery: string) => {
         let users;
 
         if (searchQuery) {
-            users = await userModel.find({ username: searchQuery });
+            users = await User.find({ username: searchQuery });
         } else {
-            users = await userModel.find({});
+            users = await User.find({});
         }
 
         return users;
@@ -43,7 +43,7 @@ export const getAllUsersOrSearch = async (searchQuery: string) => {
 
 export const removeUserByUserId = async (userId: string) => {
     try {
-        return await userModel.find({ _id: userId }).deleteOne().exec();
+        return await User.find({ _id: userId }).deleteOne().exec();
     } catch (e) {
         return e.message;
     }
