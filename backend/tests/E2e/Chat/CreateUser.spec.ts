@@ -11,7 +11,7 @@ describe('POST /user', function () {
     password: 'securePassword',
   };
 
-  it('should return a 201 status code with the username & user uid  when provided with a valid update body', async function () {
+  it('should return a 201 status code with the username & user uid  when provided with a valid create user body', async function () {
     const response = await request(app).post(`/user`).send(createUserBody);
 
     response.body.should.be.a('object');
