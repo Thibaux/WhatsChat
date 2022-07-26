@@ -1,25 +1,25 @@
 import * as mongoose from 'mongoose';
 
-export type BasicProperyType = {
-  type: string;
-  required: [boolean, string];
-  unique: [boolean, string];
+export type BasicPropertyType = {
+    type: string;
+    required: [boolean, string];
+    unique: [boolean, string];
 };
 
 export interface UserSchema extends mongoose.Document {
-  username: BasicProperyType;
-  email: BasicProperyType;
-  password: BasicProperyType;
-  picture: BasicProperyType;
+    username: BasicPropertyType;
+    email: BasicPropertyType;
+    password: BasicPropertyType;
+    picture: BasicPropertyType;
 }
 
 export interface ChatSchema extends Document {
-  chatTitle: BasicProperyType;
-  userOne: MongoUser;
-  userTwo: MongoUser;
+    chatTitle: BasicPropertyType;
+    userOne: MongoUser;
+    userTwo: MongoUser;
 }
 
 export type MongoUser = {
-  _id: string;
-  username: string;
+    _id: string;
+    username: string;
 };

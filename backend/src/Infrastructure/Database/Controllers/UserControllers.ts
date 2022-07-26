@@ -4,13 +4,16 @@ import { UserSchema } from '../GlobalInterfaces';
 
 export const saveUser = async ({
     username,
+    email,
     password,
 }: {
     username: string;
+    email: string;
     password: string;
 }): Promise<HydratedDocument<UserSchema> | string> => {
     const user = new userModel({
         username,
+        email,
         password,
     }) as HydratedDocument<UserSchema>;
 

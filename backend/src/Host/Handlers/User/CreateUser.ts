@@ -8,7 +8,7 @@ export const CreateUser = async (
     next: NextFunction
 ) => {
     try {
-        if (!req.body.username || !req.body.password) {
+        if (!req.body.username || !req.body.password || !req.body.email) {
             res.send({ error: 'Username or password not provided!' });
         }
 
@@ -16,6 +16,7 @@ export const CreateUser = async (
 
         const result = await saveUser({
             username: req.body.username,
+            email: req.body.email,
             password: hash,
         });
 
