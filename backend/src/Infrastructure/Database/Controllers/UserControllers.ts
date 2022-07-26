@@ -40,3 +40,11 @@ export const getAllUsersOrSearch = async (searchQuery: string) => {
         return e.message;
     }
 };
+
+export const removeUserByUserId = async (userId: string) => {
+    try {
+        return await userModel.find({ _id: userId }).remove().exec();
+    } catch (e) {
+        return e.message;
+    }
+};
