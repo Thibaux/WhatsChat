@@ -1,0 +1,9 @@
+.loginFormWrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1rem 1rem 2rem;
+
+    &__email {
+        padding-bottom: 2rem;
+    }
+}
