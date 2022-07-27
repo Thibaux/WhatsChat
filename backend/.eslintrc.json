@@ -28,6 +28,6 @@
             }
         ],
         "import/prefer-default-export": "off",
-        "max-len": 0
+        "max-len": [1, { "code": 130 }]
     }
 }
