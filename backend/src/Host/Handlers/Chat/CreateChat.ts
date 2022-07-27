@@ -1,12 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import {
-    GetUserByUserId,
-    GetUserByUsername,
-    saveChat,
-    updateUsersWithChat,
-} from '../../../Infrastructure/Database/Controllers';
 import BadRequestError from '../../../Infrastructure/Errors/Errors';
-import { ChatSchema } from '../../../Infrastructure/Database/GlobalInterfaces';
+import { Chat } from '../../../Infrastructure/Database/Models/Chat';
+import { GetUserFromToken } from '../../../Services/Auth/GetUserFromToken';
+import { createChat } from '../../../Infrastructure/Database/Controllers';
 
 export const CreateChat = async (
     req: Request,
@@ -14,30 +10,43 @@ export const CreateChat = async (
     next: NextFunction
 ) => {
     try {
-        if (!req.params.userId)
+        if (!req.body.userId)
             throw new BadRequestError('User ID is not provided!');
-        if (!req.body.username)
-            throw new BadRequestError('Username is not provided!');
 
-        const chatCreator = await GetUserByUserId(req.params.userId);
-        const secondUser = await GetUserByUsername(req.body.username);
-        const chatTitle = `${chatCreator.username} en ${secondUser.username}`;
+        const authUser = GetUserFromToken(req.headers.authorization);
 
-        const result = await saveChat({
-            chatTitle,
-            userOne: chatCreator,
-            userTwo: secondUser,
-        });
+        const isChat = await Chat.find({
+            $and: [
+                { users: { $elemMatch: { $eq: req.body.userId } } },
+                { users: { $elemMatch: { $eq: authUser.userId } } },
+            ],
+        }).populate('users', '-password');
 
-        if (!result.success)
-            throw new BadRequestError('Chat could not be created!');
+        if (isChat.length > 0) {
+            res.status(200).json({
+                message: 'Chat already exists!',
+                chat: isChat[0],
+            });
+        } else {
+            const result = await createChat(
+                req.body.chatTitle,
+                req.body.userId,
+                authUser
+            );
 
-        await updateUsersWithChat(
-            [chatCreator.id, secondUser.id],
-            result.payload as ChatSchema
-        );
+            if (result.success) {
+                res.status(201).json({
+                    message: 'Chat created!',
+                    chat: result.payload,
+                });
+            }
 
-        res.status(201).json({ message: 'Chat created!', chat: result });
+            if (!result.success)
+                throw new BadRequestError(
+                    `Chat could not be created!`,
+                    result.payload
+                );
+        }
     } catch (error) {
         next(error);
     }
