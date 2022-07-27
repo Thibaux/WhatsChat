@@ -41,7 +41,8 @@
         "start": "nodemon -r dotenv/config -L -e js,ts src/Host/Server.ts",
         "build": "npx tsc",
         "test": "mocha --require ts-node/register --exit 'tests/E2e/**/*.spec.ts' --timeout 1000000 --recursive",
-        "lint": "eslint ."
+        "lint": "eslint .",
+        "lint:fix": "-- --fix"
     },
     "author": "",
     "license": "ISC"
