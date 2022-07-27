@@ -1,6 +1,11 @@
 import { HydratedDocument } from 'mongoose';
 import { User } from '../Models/User';
-import { UserSchema } from '../GlobalInterfaces';
+import { ChatSchema, UserSchema } from '../GlobalInterfaces';
+
+interface SaveUserReturnI {
+    success: boolean;
+    payload: HydratedDocument<UserSchema> | string;
+}
 
 export const saveUser = async ({
     username,
@@ -10,7 +15,7 @@ export const saveUser = async ({
     username: string;
     email: string;
     password: string;
-}): Promise<HydratedDocument<UserSchema> | string> => {
+}): Promise<SaveUserReturnI> => {
     const user = new User({
         username,
         email,
@@ -19,13 +24,25 @@ export const saveUser = async ({
 
     try {
         await user.save();
-        return user;
+        return {
+            success: true,
+            payload: user,
+        };
     } catch (e) {
-        return e.message;
+        return {
+            success: false,
+            payload: e.message,
+        };
     }
 };
 
-export const getAllUsersOrSearch = async (searchQuery: string) => {
+interface GetAllUsersOrSearchReturnI {
+    success: boolean;
+    payload: HydratedDocument<UserSchema> | string;
+}
+export const getAllUsersOrSearch = async (
+    searchQuery: string
+): Promise<GetAllUsersOrSearchReturnI> => {
     try {
         let users;
 
@@ -35,31 +52,42 @@ export const getAllUsersOrSearch = async (searchQuery: string) => {
             users = await User.find({});
         }
 
-        return users;
+        return {
+            success: true,
+            payload: users,
+        };
     } catch (e) {
-        return e.message;
+        return {
+            success: false,
+            payload: e.message,
+        };
     }
 };
 
-export const removeUserByUserId = async (userId: string) => {
+interface RemoveUserByUserIdReturnI {
+    success: boolean;
+    payload: HydratedDocument<UserSchema> | string;
+}
+
+export const removeUserByUserId = async (
+    userId: string
+): Promise<RemoveUserByUserIdReturnI> => {
     try {
-        return await User.find({ _id: userId }).deleteOne().exec();
+        return {
+            success: true,
+            payload: await User.find({ _id: userId }).deleteOne().exec(),
+        };
     } catch (e) {
-        return e.message;
+        return {
+            success: false,
+            payload: e.message,
+        };
     }
 };
 
 export const findOneUser = async (email: string) => {
     try {
         return await User.findOne({ email });
-    } catch (e) {
-        return e.message;
-    }
-};
-
-export const checkPasswordUser = async (user, password: string) => {
-    try {
-        return await user.matchPassword(password);
     } catch (e) {
         return e.message;
     }

@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import {
-    checkPasswordUser,
-    findOneUser,
-} from '../../../Infrastructure/Database/Controllers';
-import { generateToken } from '../../../Services/Utils/GenerateToken';
+import { findOneUser } from '../../../Infrastructure/Database/Controllers';
+import { generateToken } from '../../../Services/Auth/GenerateToken';
+import BadRequestError from '../../../Infrastructure/Errors/Errors';
+import { matchPassword } from '../../../Services/Auth/MatchPassword';
 
 export const LoginUser = async (
     req: Request,
@@ -11,12 +10,10 @@ export const LoginUser = async (
     next: NextFunction
 ) => {
     try {
-        let user;
+        let returnObject;
 
         if (!req.body.email || !req.body.password)
-            res.status(400).send({
-                error: 'Email and/or password is not provided!',
-            });
+            throw new BadRequestError('Email and/or password is not provided!');
 
         const result = await findOneUser(req.body.email);
 
@@ -25,21 +22,19 @@ export const LoginUser = async (
                 error: 'User could not be found!',
             });
 
-        if (result && (await checkPasswordUser(user, req.body.password))) {
-            user = {
-                _id: result._id,
+        if (await matchPassword(result.password, req.body.password)) {
+            returnObject = {
+                _id: result.id,
                 username: result.name,
                 email: result.email,
                 picture: result.pic,
                 token: generateToken(result.id),
             };
+        } else {
+            throw new BadRequestError('Wrong password provided for this user!');
         }
 
-        if (typeof result !== 'string') {
-            res.status(200).json(user);
-        } else {
-            res.status(400).json({ error: user });
-        }
+        res.status(200).json(returnObject);
     } catch (error) {
         next(error);
     }

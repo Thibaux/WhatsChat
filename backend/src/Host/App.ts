@@ -1,8 +1,9 @@
 import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
-import { connectToDb } from '../Infrastructure/Database/ConnectToDb';
 import router from './Routes';
+import { connectToDb } from '../Infrastructure/Database/ConnectToDb';
+import { ErrorHandler, RouteNotFound } from './Middleware';
 
 dotenv.config();
 
@@ -23,5 +24,8 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use(router);
+
+app.use(ErrorHandler);
+app.use(RouteNotFound);
 
 export default app;
