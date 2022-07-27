@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import BadRequestError from '../../../Infrastructure/Errors/Errors';
 import { Chat } from '../../../Infrastructure/Database/Models/Chat';
 import { GetUserFromToken } from '../../../Services/Auth/GetUserFromToken';
 import { createChat } from '../../../Infrastructure/Database/Controllers';
+import { BadRequestError } from '../../../Infrastructure/Errors/BadRequestError';
 
 export const CreateChat = async (
     req: Request,

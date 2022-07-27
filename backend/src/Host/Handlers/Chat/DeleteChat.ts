@@ -1,5 +1,5 @@
 import { removeChatByUserId } from '../../../Infrastructure/Database/Controllers';
-import BadRequestError from '../../../Infrastructure/Errors/Errors';
+import { BadRequestError } from '../../../Infrastructure/Errors/BadRequestError';
 
 export const DeleteChat = async (req, res, next) => {
     try {
