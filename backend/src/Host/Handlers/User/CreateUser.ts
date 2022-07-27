@@ -22,8 +22,12 @@ export const CreateUser = async (
             password: hash,
         });
 
-        if (!result.success)
-            throw new BadRequestError('User could not be created!');
+        if (!result.success) {
+            throw new BadRequestError(
+                'User could not be created!',
+                result.payload
+            );
+        }
 
         res.status(201).send({
             message: 'User created!',

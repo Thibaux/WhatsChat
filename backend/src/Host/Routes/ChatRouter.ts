@@ -3,6 +3,6 @@ import { CreateChat } from '../Handlers/Chat/CreateChat';
 
 const chatRouter = express.Router();
 
-chatRouter.post('/:userId', CreateChat);
+chatRouter.post('/', CreateChat);
 
 export default chatRouter;

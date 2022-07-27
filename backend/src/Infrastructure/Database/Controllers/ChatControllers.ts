@@ -2,6 +2,7 @@ import { HydratedDocument, QueryWithHelpers, Types } from 'mongoose';
 import { ChatSchema, MongoUser, UserSchema } from '../GlobalInterfaces';
 import { Chat } from '../Models/Chat';
 import { User } from '../Models/User';
+import { JwtPayload } from 'jsonwebtoken';
 
 interface SaveChatReturnI {
     success: boolean;
@@ -28,6 +29,38 @@ export const saveChat = async ({
         return {
             success: true,
             payload: chat,
+        };
+    } catch (e) {
+        return {
+            success: false,
+            payload: e.message,
+        };
+    }
+};
+
+interface CreateChatReturnI {
+    success: boolean;
+    payload: any | string;
+}
+
+export const createChat = async (
+    userTwoId: string,
+    currentUser: JwtPayload
+): Promise<CreateChatReturnI> => {
+    try {
+        const createdChat = await Chat.create({
+            chatTitle: 'sender',
+            groupAdmin: currentUser.name,
+            users: [userTwoId, currentUser.userId],
+        });
+
+        const fullChat = await Chat.findOne({
+            _id: createdChat.id,
+        }).populate('users', '-password');
+
+        return {
+            success: true,
+            payload: fullChat,
         };
     } catch (e) {
         return {
