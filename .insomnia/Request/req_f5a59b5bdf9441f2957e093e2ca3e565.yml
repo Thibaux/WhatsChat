@@ -1,0 +1,30 @@
+_id: req_f5a59b5bdf9441f2957e093e2ca3e565
+type: Request
+parentId: fld_a905ac85a6be4ffa854af1ead16b7ef2
+modified: 1658923395222
+created: 1658923395222
+url: "{{ _.baseUrlLocal }}/users/login"
+name: Login user
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"email": "piet@mail.com",
+    	"password": "securePassword"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_bc796c94ef0d4ca895be3e8ce5d950a0
+authentication: {}
+metaSortKey: -1658861387069
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
