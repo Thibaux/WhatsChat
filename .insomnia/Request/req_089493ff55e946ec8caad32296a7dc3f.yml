@@ -1,7 +1,7 @@
 _id: req_089493ff55e946ec8caad32296a7dc3f
 type: Request
 parentId: fld_a905ac85a6be4ffa854af1ead16b7ef2
-modified: 1658923395217
+modified: 1658943419097
 created: 1658923395217
 url: "{{baseUrlLocal}}/users?search="
 name: Get all
@@ -10,7 +10,9 @@ method: GET
 body: {}
 parameters: []
 headers: []
-authentication: {}
+authentication:
+  type: bearer
+  token: "{{ _.token }}"
 metaSortKey: -1658861387119
 isPrivate: false
 settingStoreCookies: true
