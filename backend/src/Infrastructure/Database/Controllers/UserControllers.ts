@@ -1,6 +1,11 @@
 import { HydratedDocument } from 'mongoose';
-import { userModel } from '../Models/UserModel';
-import { UserSchema } from '../GlobalInterfaces';
+import { User } from '../Models/User';
+import { ChatSchema, UserSchema } from '../GlobalInterfaces';
+
+interface SaveUserReturnI {
+    success: boolean;
+    payload: HydratedDocument<UserSchema> | string;
+}
 
 export const saveUser = async ({
     username,
@@ -10,8 +15,8 @@ export const saveUser = async ({
     username: string;
     email: string;
     password: string;
-}): Promise<HydratedDocument<UserSchema> | string> => {
-    const user = new userModel({
+}): Promise<SaveUserReturnI> => {
+    const user = new User({
         username,
         email,
         password,
@@ -19,31 +24,70 @@ export const saveUser = async ({
 
     try {
         await user.save();
-        return user;
+        return {
+            success: true,
+            payload: user,
+        };
     } catch (e) {
-        return e.message;
+        return {
+            success: false,
+            payload: e.message,
+        };
     }
 };
 
-export const getAllUsersOrSearch = async (searchQuery: string) => {
+interface GetAllUsersOrSearchReturnI {
+    success: boolean;
+    payload: HydratedDocument<UserSchema> | string;
+}
+export const getAllUsersOrSearch = async (
+    searchQuery: string
+): Promise<GetAllUsersOrSearchReturnI> => {
     try {
         let users;
 
         if (searchQuery) {
-            users = await userModel.find({ username: searchQuery });
+            users = await User.find({ username: searchQuery });
         } else {
-            users = await userModel.find({});
+            users = await User.find({});
         }
 
-        return users;
+        return {
+            success: true,
+            payload: users,
+        };
     } catch (e) {
-        return e.message;
+        return {
+            success: false,
+            payload: e.message,
+        };
     }
 };
 
-export const removeUserByUserId = async (userId: string) => {
+interface RemoveUserByUserIdReturnI {
+    success: boolean;
+    payload: HydratedDocument<UserSchema> | string;
+}
+
+export const removeUserByUserId = async (
+    userId: string
+): Promise<RemoveUserByUserIdReturnI> => {
     try {
-        return await userModel.find({ _id: userId }).deleteOne().exec();
+        return {
+            success: true,
+            payload: await User.find({ _id: userId }).deleteOne().exec(),
+        };
+    } catch (e) {
+        return {
+            success: false,
+            payload: e.message,
+        };
+    }
+};
+
+export const findOneUser = async (email: string) => {
+    try {
+        return await User.findOne({ email });
     } catch (e) {
         return e.message;
     }

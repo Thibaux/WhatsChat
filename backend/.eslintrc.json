@@ -1,0 +1,32 @@
+{
+    "env": {
+        "es2021": true,
+        "node": true
+    },
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint", "prettier", "only-warn"],
+    "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "airbnb",
+        "airbnb/hooks",
+        "airbnb-typescript",
+        "plugin:prettier/recommended"
+    ],
+    "parserOptions": {
+        "project": "./tsconfig.json",
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "rules": {
+        "prettier/prettier": [
+            "warn",
+            {
+                "endOfLine": "auto"
+            }
+        ],
+        "import/prefer-default-export": "off"
+    }
+}

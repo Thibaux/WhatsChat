@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { getAllChatsByUserName } from '../../../Infrastructure/Database/Controllers';
+import BadRequestError from '../../../Infrastructure/Errors/Errors';
 
 export const GetAllChatsOfOneUser = async (
     req: Request,
@@ -8,15 +9,14 @@ export const GetAllChatsOfOneUser = async (
 ) => {
     try {
         if (!req.params.username)
-            res.status(400).send({ error: 'Username is not provided!' });
+            throw new BadRequestError('username not provided!');
 
         const result = await getAllChatsByUserName(req.params.username);
 
-        if (typeof result === 'string') {
-            res.status(400).json({ error: result });
-        } else {
-            res.status(200).json({ chats: result });
-        }
+        if (!result.success)
+            throw new BadRequestError('Chats of user could not be found!');
+
+        res.status(200).json(result.payload);
     } catch (error) {
         next(error);
     }
