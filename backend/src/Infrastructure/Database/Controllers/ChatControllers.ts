@@ -1,7 +1,12 @@
-import { HydratedDocument, Types } from 'mongoose';
-import { ChatSchema, MongoUser } from '../GlobalInterfaces';
+import { HydratedDocument, QueryWithHelpers, Types } from 'mongoose';
+import { ChatSchema, MongoUser, UserSchema } from '../GlobalInterfaces';
 import { Chat } from '../Models/Chat';
 import { User } from '../Models/User';
+
+interface SaveChatReturnI {
+    success: boolean;
+    payload: HydratedDocument<ChatSchema> | string;
+}
 
 export const saveChat = async ({
     chatTitle,
@@ -11,18 +16,24 @@ export const saveChat = async ({
     chatTitle: string;
     userOne: MongoUser;
     userTwo: MongoUser;
-}): Promise<HydratedDocument<ChatSchema> | string> => {
+}): Promise<SaveChatReturnI> => {
     const chat = new Chat({
-        chatTitle: chatTitle,
+        chatTitle,
         userOne,
         userTwo,
     }) as HydratedDocument<ChatSchema>;
 
     try {
         await chat.save();
-        return chat;
+        return {
+            success: true,
+            payload: chat,
+        };
     } catch (e) {
-        return e.message;
+        return {
+            success: false,
+            payload: e.message,
+        };
     }
 };
 
@@ -42,7 +53,7 @@ export const updateUsersWithChat = async (
 export const GetUserByUsername = async (
     username: string
 ): Promise<HydratedDocument<MongoUser>> => {
-    const user = await User.find({ username: username });
+    const user = await User.find({ username });
 
     return user[0] as HydratedDocument<MongoUser>;
 };
@@ -55,10 +66,23 @@ export const GetUserByUserId = async (
     return user as HydratedDocument<MongoUser>;
 };
 
-export const getAllChatsByUserName = async (username: string): Promise<any> => {
+interface GetAllChatsByUserNameReturnI {
+    success: boolean;
+    payload: any | string;
+}
+
+export const getAllChatsByUserName = async (
+    username: string
+): Promise<GetAllChatsByUserNameReturnI> => {
     try {
-        return await User.find({ username: username }).populate('chats');
+        return {
+            success: true,
+            payload: await User.find({ username }).populate('chats'),
+        };
     } catch (e) {
-        return e.message;
+        return {
+            success: false,
+            payload: e.message,
+        };
     }
 };

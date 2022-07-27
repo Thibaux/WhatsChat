@@ -5,6 +5,8 @@ import {
     saveChat,
     updateUsersWithChat,
 } from '../../../Infrastructure/Database/Controllers';
+import BadRequestError from '../../../Infrastructure/Errors/Errors';
+import { ChatSchema } from '../../../Infrastructure/Database/GlobalInterfaces';
 
 export const CreateChat = async (
     req: Request,
@@ -13,13 +15,12 @@ export const CreateChat = async (
 ) => {
     try {
         if (!req.params.userId)
-            res.status(400).send({ error: 'User ID is not provided!' });
+            throw new BadRequestError('User ID is not provided!');
         if (!req.body.username)
-            res.status(400).send({ error: 'Username is not provided!' });
+            throw new BadRequestError('Username is not provided!');
 
         const chatCreator = await GetUserByUserId(req.params.userId);
         const secondUser = await GetUserByUsername(req.body.username);
-
         const chatTitle = `${chatCreator.username} en ${secondUser.username}`;
 
         const result = await saveChat({
@@ -28,16 +29,15 @@ export const CreateChat = async (
             userTwo: secondUser,
         });
 
-        if (typeof result !== 'string') {
-            await updateUsersWithChat(
-                [chatCreator._id, secondUser._id],
-                result
-            );
+        if (!result.success)
+            throw new BadRequestError('Chat could not be created!');
 
-            res.status(201).json({ message: 'Chat created!', chat: result });
-        } else {
-            res.status(400).json({ error: result });
-        }
+        await updateUsersWithChat(
+            [chatCreator.id, secondUser.id],
+            result.payload as ChatSchema
+        );
+
+        res.status(201).json({ message: 'Chat created!', chat: result });
     } catch (error) {
         next(error);
     }
