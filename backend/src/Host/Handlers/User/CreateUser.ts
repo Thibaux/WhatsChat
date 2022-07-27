@@ -1,6 +1,7 @@
-import { hashPassword } from '../../../Services/Utils/HashPassword';
-import { saveUser } from '../../../Infrastructure/Database/Controllers';
 import { NextFunction, Request, Response } from 'express';
+import { hashPassword } from '../../../Services/Auth/HashPassword';
+import { saveUser } from '../../../Infrastructure/Database/Controllers';
+import { BadRequestError } from '../../../Infrastructure/Errors/BadRequestError';
 
 export const CreateUser = async (
     req: Request,
@@ -8,9 +9,10 @@ export const CreateUser = async (
     next: NextFunction
 ) => {
     try {
-        if (!req.body.username || !req.body.password || !req.body.email) {
-            res.send({ error: 'Username or password not provided!' });
-        }
+        if (!req.body.username || !req.body.password || !req.body.email)
+            throw new BadRequestError(
+                'Username, email or password not provided!'
+            );
 
         const hash = await hashPassword(req.body.password);
 
@@ -20,15 +22,18 @@ export const CreateUser = async (
             password: hash,
         });
 
-        if (typeof result === 'string') {
-            res.status(400).json({ error: result });
-        } else {
-            res.status(201).send({
-                message: 'User created!',
-                username: req.body.username,
-                id: result._id,
-            });
+        if (!result.success) {
+            throw new BadRequestError(
+                'User could not be created!',
+                result.payload
+            );
         }
+
+        res.status(201).send({
+            message: 'User created!',
+            username: req.body.username,
+            id: result.payload['id'],
+        });
     } catch (error) {
         next(error);
     }

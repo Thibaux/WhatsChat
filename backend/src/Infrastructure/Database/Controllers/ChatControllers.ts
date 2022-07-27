@@ -1,64 +1,80 @@
-import { HydratedDocument, Types } from 'mongoose';
-import { ChatSchema, MongoUser } from '../GlobalInterfaces';
-import { chatModel } from '../Models/ChatModel';
-import { userModel } from '../Models/UserModel';
+import { HydratedDocument } from 'mongoose';
+import { JwtPayload } from 'jsonwebtoken';
+import { UserSchema } from '../GlobalInterfaces';
+import { Chat } from '../Models/Chat';
+import { findOneUserById } from './UserControllers';
 
-export const saveChat = async ({
-  chatTitle,
-  userOne,
-  userTwo,
-}: {
-  chatTitle: string;
-  userOne: MongoUser;
-  userTwo: MongoUser;
-}): Promise<HydratedDocument<ChatSchema> | string> => {
-  const chat = new chatModel({
-    chatTitle: chatTitle,
-    userOne,
-    userTwo,
-  }) as HydratedDocument<ChatSchema>;
+interface CreateChatReturnI {
+    success: boolean;
+    payload: any | string;
+}
 
-  try {
-    await chat.save();
-    return chat;
-  } catch (e) {
-    return e.message;
-  }
+export const createChat = async (
+    chatTitle: string,
+    userTwoId: string,
+    currentUser: JwtPayload
+): Promise<CreateChatReturnI> => {
+    try {
+        const usernameOfUserTwo = await findOneUserById(userTwoId);
+        const title = chatTitle || `${usernameOfUserTwo.payload['username']} en ${currentUser.username}`;
+
+        const createdChat = await Chat.create({
+            chatTitle: title,
+            groupAdmin: currentUser.name,
+            users: [userTwoId, currentUser.userId],
+        });
+
+        const fullChat = await Chat.findOne({
+            _id: createdChat.id,
+        }).populate('users', '-password');
+
+        return {
+            success: true,
+            payload: fullChat,
+        };
+    } catch (e) {
+        return {
+            success: false,
+            payload: e.message,
+        };
+    }
 };
 
-export const updateUsersWithChat = async (
-  userIds: Types.ObjectId[],
-  chat: ChatSchema
-) => {
-  for (const id of userIds) {
-    await userModel.updateOne(
-      { _id: id },
-      // @ts-ignore
-      { $push: { chats: chat } }
-    );
-  }
+interface GetAllChatsByUserNameReturnI {
+    success: boolean;
+    payload: any | string;
+}
+
+export const getChatsByUserId = async (userId: string): Promise<GetAllChatsByUserNameReturnI> => {
+    try {
+        return {
+            success: true,
+            payload: await Chat.find({
+                users: { $elemMatch: { $eq: userId } },
+            }),
+        };
+    } catch (e) {
+        return {
+            success: false,
+            payload: e.message,
+        };
+    }
 };
+interface RemoveChatByUserIdReturnI {
+    success: boolean;
+    payload: HydratedDocument<UserSchema> | string;
+}
 
-export const GetUserByUsername = async (
-  username: string
-): Promise<HydratedDocument<MongoUser>> => {
-  const user = await userModel.find({ username: username });
-
-  return user[0] as HydratedDocument<MongoUser>;
-};
-
-export const GetUserByUserId = async (
-  userId: string
-): Promise<HydratedDocument<MongoUser>> => {
-  const user = await userModel.findById(userId);
-
-  return user as HydratedDocument<MongoUser>;
-};
-
-export const getAllChatsByUserName = async (username: string): Promise<any> => {
-  try {
-    return await userModel.find({ username: username }).populate('chats');
-  } catch (e) {
-    return e.message;
-  }
+export const removeChatByUserId = async (chatId: string): Promise<RemoveChatByUserIdReturnI> => {
+    try {
+        return {
+            success: true,
+            payload: await Chat.find({ _id: chatId }).deleteOne().exec(),
+        };
+    } catch (e) {
+        return {
+            success: false,
+            payload: e.message,
+        };
+    }
 };
