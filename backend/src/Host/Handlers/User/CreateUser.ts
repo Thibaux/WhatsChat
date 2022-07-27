@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { hashPassword } from '../../../Services/Auth/HashPassword';
 import { saveUser } from '../../../Infrastructure/Database/Controllers';
-import BadRequestError from '../../../Infrastructure/Errors/Errors';
+import { BadRequestError } from '../../../Infrastructure/Errors/BadRequestError';
 
 export const CreateUser = async (
     req: Request,

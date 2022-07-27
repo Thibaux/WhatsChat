@@ -1,6 +1,6 @@
 import { HydratedDocument } from 'mongoose';
 import { User } from '../Models/User';
-import { ChatSchema, UserSchema } from '../GlobalInterfaces';
+import { UserSchema } from '../GlobalInterfaces';
 
 interface SaveUserReturnI {
     success: boolean;
@@ -93,10 +93,23 @@ export const findOneUserByEmail = async (email: string) => {
     }
 };
 
-export const findOneUserById = async (id: string) => {
+interface FindOneUserByIdReturnI {
+    success: boolean;
+    payload: HydratedDocument<UserSchema> | string;
+}
+
+export const findOneUserById = async (
+    id: string
+): Promise<FindOneUserByIdReturnI> => {
     try {
-        return await User.findOne({ id });
+        return {
+            success: true,
+            payload: await User.findOne({ id }),
+        };
     } catch (e) {
-        return e.message;
+        return {
+            success: false,
+            payload: e.message,
+        };
     }
 };

@@ -1,8 +1,14 @@
-import BadRequestError from '../../Infrastructure/Errors/Errors';
+import { UnauthorizedError } from '../../Infrastructure/Errors/UnauthorizedError';
+import { BadRequestError } from '../../Infrastructure/Errors/BadRequestError';
 
 export const ErrorHandler = (err, req, res, next) => {
     if (err instanceof BadRequestError) {
         res.status(400).json({
+            message: err.message,
+            stack: process.env.NODE_ENV === 'production' ? null : err.stack,
+        });
+    } else if (err instanceof UnauthorizedError) {
+        res.status(401).json({
             message: err.message,
             stack: process.env.NODE_ENV === 'production' ? null : err.stack,
         });

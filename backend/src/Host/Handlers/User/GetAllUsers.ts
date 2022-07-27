@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { getAllUsersOrSearch } from '../../../Infrastructure/Database/Controllers';
-import BadRequestError from '../../../Infrastructure/Errors/Errors';
+import { BadRequestError } from '../../../Infrastructure/Errors/BadRequestError';
 
 export const GetAllUsers = async (
     req: Request,

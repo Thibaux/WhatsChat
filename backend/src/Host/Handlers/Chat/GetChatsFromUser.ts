@@ -1,6 +1,6 @@
 import { GetUserFromToken } from '../../../Services/Auth/GetUserFromToken';
 import { getChatsByUserId } from '../../../Infrastructure/Database/Controllers';
-import BadRequestError from '../../../Infrastructure/Errors/Errors';
+import { BadRequestError } from '../../../Infrastructure/Errors/BadRequestError';
 
 export const GetChatsFromUser = async (req, res, next) => {
     try {

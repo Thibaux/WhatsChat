@@ -15,9 +15,8 @@ export const createChat = async (
     currentUser: JwtPayload
 ): Promise<CreateChatReturnI> => {
     try {
-        const usernameOfUserTwo = findOneUserById(userTwoId);
-        const title =
-            chatTitle && `${usernameOfUserTwo} en ${currentUser.name}`;
+        const usernameOfUserTwo = await findOneUserById(userTwoId);
+        const title = chatTitle || `${usernameOfUserTwo.payload['username']} en ${currentUser.username}`;
 
         const createdChat = await Chat.create({
             chatTitle: title,
@@ -46,9 +45,7 @@ interface GetAllChatsByUserNameReturnI {
     payload: any | string;
 }
 
-export const getChatsByUserId = async (
-    userId: string
-): Promise<GetAllChatsByUserNameReturnI> => {
+export const getChatsByUserId = async (userId: string): Promise<GetAllChatsByUserNameReturnI> => {
     try {
         return {
             success: true,
@@ -68,9 +65,7 @@ interface RemoveChatByUserIdReturnI {
     payload: HydratedDocument<UserSchema> | string;
 }
 
-export const removeChatByUserId = async (
-    chatId: string
-): Promise<RemoveChatByUserIdReturnI> => {
+export const removeChatByUserId = async (chatId: string): Promise<RemoveChatByUserIdReturnI> => {
     try {
         return {
             success: true,

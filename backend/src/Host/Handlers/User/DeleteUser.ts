@@ -1,5 +1,5 @@
 import { removeUserByUserId } from '../../../Infrastructure/Database/Controllers';
-import BadRequestError from '../../../Infrastructure/Errors/Errors';
+import { BadRequestError } from '../../../Infrastructure/Errors/BadRequestError';
 
 export const DeleteUser = async (req, res, next) => {
     try {
