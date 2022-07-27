@@ -1,0 +1,21 @@
+_id: req_10c92d36827048be9a604310864cda76
+type: Request
+parentId: fld_3e41cd1050324eee91e0aa39fa9ea242
+modified: 1658923395230
+created: 1658923395230
+url: "{{ _.baseUrlLocal }}/chat"
+name: Create chat
+description: ""
+method: POST
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1658861574057
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
