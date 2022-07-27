@@ -4,16 +4,11 @@ import { generateToken } from '../../../Services/Auth/GenerateToken';
 import { matchPassword } from '../../../Services/Auth/MatchPassword';
 import { BadRequestError } from '../../../Infrastructure/Errors/BadRequestError';
 
-export const LoginUser = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
+export const LoginUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
         let returnObject;
 
-        if (!req.body.email || !req.body.password)
-            throw new BadRequestError('Email and/or password is not provided!');
+        if (!req.body.email || !req.body.password) throw new BadRequestError('Email and/or password is not provided!');
 
         const result = await findOneUserByEmail(req.body.email);
 
@@ -25,10 +20,10 @@ export const LoginUser = async (
         if (await matchPassword(result.password, req.body.password)) {
             returnObject = {
                 _id: result.id,
-                username: result.name,
+                username: result.username,
                 email: result.email,
-                picture: result.pic,
-                token: generateToken(result.id),
+                picture: result.picture,
+                token: generateToken(result.id, result.username),
             };
         } else {
             throw new BadRequestError('Wrong password provided for this user!');
