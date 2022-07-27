@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { findOneUser } from '../../../Infrastructure/Database/Controllers';
+import { findOneUserByEmail } from '../../../Infrastructure/Database/Controllers';
 import { generateToken } from '../../../Services/Auth/GenerateToken';
 import BadRequestError from '../../../Infrastructure/Errors/Errors';
 import { matchPassword } from '../../../Services/Auth/MatchPassword';
@@ -15,7 +15,7 @@ export const LoginUser = async (
         if (!req.body.email || !req.body.password)
             throw new BadRequestError('Email and/or password is not provided!');
 
-        const result = await findOneUser(req.body.email);
+        const result = await findOneUserByEmail(req.body.email);
 
         if (!result)
             res.status(400).send({

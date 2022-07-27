@@ -1,8 +1,9 @@
 import { HydratedDocument, QueryWithHelpers, Types } from 'mongoose';
+import { JwtPayload } from 'jsonwebtoken';
 import { ChatSchema, MongoUser, UserSchema } from '../GlobalInterfaces';
 import { Chat } from '../Models/Chat';
 import { User } from '../Models/User';
-import { JwtPayload } from 'jsonwebtoken';
+import { findOneUserById } from './UserControllers';
 
 interface SaveChatReturnI {
     success: boolean;
@@ -44,12 +45,17 @@ interface CreateChatReturnI {
 }
 
 export const createChat = async (
+    chatTitle: string,
     userTwoId: string,
     currentUser: JwtPayload
 ): Promise<CreateChatReturnI> => {
     try {
+        const usernameOfUserTwo = findOneUserById(userTwoId);
+        const title =
+            chatTitle && `${usernameOfUserTwo} en ${currentUser.name}`;
+
         const createdChat = await Chat.create({
-            chatTitle: 'sender',
+            chatTitle: title,
             groupAdmin: currentUser.name,
             users: [userTwoId, currentUser.userId],
         });
@@ -111,6 +117,26 @@ export const getAllChatsByUserName = async (
         return {
             success: true,
             payload: await User.find({ username }).populate('chats'),
+        };
+    } catch (e) {
+        return {
+            success: false,
+            payload: e.message,
+        };
+    }
+};
+interface RemoveChatByUserIdReturnI {
+    success: boolean;
+    payload: HydratedDocument<UserSchema> | string;
+}
+
+export const removeChatByUserId = async (
+    chatId: string
+): Promise<RemoveChatByUserIdReturnI> => {
+    try {
+        return {
+            success: true,
+            payload: await Chat.find({ _id: chatId }).deleteOne().exec(),
         };
     } catch (e) {
         return {

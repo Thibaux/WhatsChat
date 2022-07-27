@@ -85,9 +85,17 @@ export const removeUserByUserId = async (
     }
 };
 
-export const findOneUser = async (email: string) => {
+export const findOneUserByEmail = async (email: string) => {
     try {
         return await User.findOne({ email });
+    } catch (e) {
+        return e.message;
+    }
+};
+
+export const findOneUserById = async (id: string) => {
+    try {
+        return await User.findOne({ id });
     } catch (e) {
         return e.message;
     }

@@ -28,7 +28,11 @@ export const CreateChat = async (
                 chat: isChat[0],
             });
         } else {
-            const result = await createChat(req.body.userId, authUser);
+            const result = await createChat(
+                req.body.chatTitle,
+                req.body.userId,
+                authUser
+            );
 
             if (result.success) {
                 res.status(201).json({
