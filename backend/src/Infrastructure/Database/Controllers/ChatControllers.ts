@@ -1,8 +1,7 @@
-import { HydratedDocument, Types } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 import { JwtPayload } from 'jsonwebtoken';
-import { ChatSchema, MongoUser, UserSchema } from '../GlobalInterfaces';
+import { UserSchema } from '../GlobalInterfaces';
 import { Chat } from '../Models/Chat';
-import { User } from '../Models/User';
 import { findOneUserById } from './UserControllers';
 
 interface CreateChatReturnI {
@@ -47,13 +46,15 @@ interface GetAllChatsByUserNameReturnI {
     payload: any | string;
 }
 
-export const getAllChatsByUserName = async (
-    username: string
+export const getChatsByUserId = async (
+    userId: string
 ): Promise<GetAllChatsByUserNameReturnI> => {
     try {
         return {
             success: true,
-            payload: await User.find({ username }).populate('chats'),
+            payload: await Chat.find({
+                users: { $elemMatch: { $eq: userId } },
+            }),
         };
     } catch (e) {
         return {
