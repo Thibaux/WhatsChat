@@ -26,7 +26,7 @@ export const CreateUser = async (
             res.status(201).send({
                 message: 'User created!',
                 username: req.body.username,
-                id: result._id,
+                id: result.id,
             });
         }
     } catch (error) {
