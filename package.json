@@ -15,5 +15,6 @@
   "bugs": {
     "url": "https://github.com/Thibaux/chat-app/issues"
   },
-  "homepage": "https://github.com/Thibaux/chat-app#readme"
+  "homepage": "https://github.com/Thibaux/chat-app#readme",
+  "dependencies": {}
 }

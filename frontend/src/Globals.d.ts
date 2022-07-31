@@ -7,7 +7,16 @@ type ChatMessage = {
     message: string;
 };
 
-type loginValues = {
+type UserValues = {
     emailValue: string;
     passwordValue: string;
+    usernameValue: string;
+};
+
+type LoginValues = Pick<UserValues, 'emailValue', 'passwordValue'>;
+
+type LoginValuesErrors = {
+    emailValueError: boolean;
+    passwordValueError: boolean;
+    usernameValuesError?: boolean;
 };
