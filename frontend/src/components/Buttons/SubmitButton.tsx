@@ -4,16 +4,19 @@ import { ArrowForwardIcon } from '@chakra-ui/icons';
 
 interface SubmitButtonProps {
     buttonText: string;
-    onSubmit?: (e: any) => void;
+    handleSubmit: () => void;
 }
 
-export const SubmitButton = ({ buttonText, onSubmit }: SubmitButtonProps) => (
+export const SubmitButton = ({
+    buttonText,
+    handleSubmit,
+}: SubmitButtonProps) => (
     <Button
         variant='outline'
         bg='blue.500'
         size='lg'
         rightIcon={<ArrowForwardIcon />}
-        onClick={onSubmit}
+        onClick={handleSubmit}
     >
         {buttonText}
     </Button>
