@@ -1,42 +1,70 @@
-import React, { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useLoginStore } from '../../../../store/LoginStore';
+import { objectHasSomeTrueValues } from '../../../../utils/Validation';
 
 export const useLoginForm = () => {
-    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-    const [emailValue, setEmailValue] = useState('');
-    const [passwordValue, setPasswordValue] = useState('');
+    const {
+        loginFormValues,
+        loginFormErrors,
+        updateLoginFormValue,
+        clearLoginErrors,
+        postLogin,
+    } = useLoginStore();
+    const [submittedLogin, setSubmittedLogin] = useState(false);
 
     const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setEmailValue(e.target.value);
+        updateLoginFormValue({
+            value: e.target.value,
+            objectName: 'loginFormValues',
+            keyName: 'emailValue',
+        });
     };
-
     const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setPasswordValue(e.target.value);
+        updateLoginFormValue({
+            value: e.target.value,
+            objectName: 'loginFormValues',
+            keyName: 'passwordValue',
+        });
     };
 
-    const validateLogin = (formValues: loginValues) => {
-        const errors = {} as loginValues;
-        if (!emailRegex.test(emailValue)) errors.emailValue = 'Required';
-        if (!formValues.passwordValue) errors.passwordValue = 'Required';
+    const validateLoginValues = (): boolean => {
+        if (loginFormValues.emailValue === '') {
+            updateLoginFormValue({
+                value: true,
+                objectName: 'loginFormErrors',
+                keyName: 'emailValueError',
+            });
+        }
+        if (loginFormValues.passwordValue === '') {
+            updateLoginFormValue({
+                value: true,
+                objectName: 'loginFormErrors',
+                keyName: 'passwordValueError',
+            });
+        }
 
-        return errors;
+        return !objectHasSomeTrueValues(loginFormErrors);
     };
 
-    // const submitLogin = (formValues: loginValues) => {
-    //     console.log('formValues');
-    //     console.log('formValues');
-    //     console.log(formValues);
-    // };
-
-    const submitLogin = (e: any) => {
-        console.log(e);
-        console.log('formValues');
-        console.log('formValues');
+    const submitLogin = () => {
+        setSubmittedLogin(true);
+        clearLoginErrors();
+        if (validateLoginValues()) {
+            postLogin(loginFormValues);
+        }
     };
+
+    useEffect(() => {
+        if (submittedLogin) {
+            validateLoginValues();
+        }
+    }, [submittedLogin]);
 
     return {
+        loginFormValues,
         handleEmailChange,
         handlePasswordChange,
         submitLogin,
-        validateLogin,
+        loginFormErrors,
     };
 };

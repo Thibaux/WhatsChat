@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
-import styles from '.././RegisterForm/registerForm.module.scss';
-import { TextInput } from '../../../Input/TextInput';
+import styles from './registerForm.module.scss';
+import { TextInput } from '../../../Input/TextInput/TextInput';
 import { PasswordInput } from '../../../Input/PasswordInput';
 import { SubmitButton } from '../../../Buttons/SubmitButton';
 
@@ -14,18 +14,18 @@ export const RegisterForm = () => {
         <div className={styles.registerFormWrapper}>
             <div className={styles.registerFormWrapper__email}>
                 <TextInput
-                    label={'Username'}
-                    placeholder={'John'}
-                    value={''}
+                    label='Username'
+                    placeholder='John'
+                    value=''
                     handleChange={() => {}}
                     hasError={false}
                 />
             </div>
             <div className={styles.registerFormWrapper__username}>
                 <TextInput
-                    label={'E-mail address'}
-                    placeholder={'john.doe@email.com'}
-                    value={''}
+                    label='E-mail address'
+                    placeholder='john.doe@email.com'
+                    value=''
                     handleChange={() => {}}
                     hasError={false}
                 />
@@ -34,11 +34,12 @@ export const RegisterForm = () => {
                 <PasswordInput
                     value={value}
                     handleChange={handlePasswordChange}
+                    hasError={false}
                 />
             </div>
 
             <div className={styles.registerBtnWrapper}>
-                <SubmitButton buttonText='Sign up' onSubmit={() => {}} />
+                <SubmitButton buttonText='Sign up' handleSubmit={() => {}} />
             </div>
         </div>
     );
