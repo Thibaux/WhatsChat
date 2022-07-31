@@ -1,54 +1,55 @@
-import React, { useState } from 'react';
-import {
-    Text,
-    Input,
-    InputGroup,
-    InputRightElement,
-    Button,
-} from '@chakra-ui/react';
-import { ArrowForwardIcon } from '@chakra-ui/icons';
+import React, { ChangeEvent, useState } from 'react';
 import styles from './loginForm.module.scss';
+import { SubmitButton } from '../../../Buttons/SubmitButton';
+import { TextInput } from '../../../Input/TextInput';
+import { PasswordInput } from '../../../Input/PasswordInput';
+import { useLoginForm } from './useLoginFrom';
+import { Form, Field, useField, useForm } from 'react-final-form';
 
 export const LoginForm = () => {
-    const [show, setShow] = useState(false);
-    const handleClick = () => setShow(!show);
+    const {
+        handleEmailChange,
+        handlePasswordChange,
+        submitLogin,
+        validateLogin,
+    } = useLoginForm();
 
+    // gwn met state doen
+
+    let submit;
     return (
         <div className={styles.loginFormWrapper}>
-            <div className={styles.loginFormWrapper__email}>
-                <Text pb='2' fontWeight='semibold'>
-                    E-mail address
-                </Text>
-                <Input variant='flushed' placeholder='john.doe@hotmail.com' />
-            </div>
+            <Form
+                onSubmit={submitLogin}
+                validate={validateLogin}
+                render={({ values, handleSubmit }) => {
+                    submit = handleSubmit;
+                    return (
+                        <>
+                            <div className={styles.loginFormWrapper__email}>
+                                <TextInput
+                                    value={values.emailValue}
+                                    handleChange={handleEmailChange}
+                                    label={'E-mail address'}
+                                    placeholder={'john.doe@email.com'}
+                                    hasError={false}
+                                />
+                            </div>
+                            <PasswordInput
+                                value={values.passwordValue}
+                                handleChange={handlePasswordChange}
+                            />
 
-            <div>
-                <Text pb='2' fontWeight='semibold'>
-                    Password
-                </Text>
-                <InputGroup size='md'>
-                    <Input
-                        variant='flushed'
-                        pr='4.5rem'
-                        type={show ? 'text' : 'password'}
-                        placeholder='Enter password'
-                    />
-                    <InputRightElement width='4.5rem'>
-                        <Button h='1.75rem' size='sm' onClick={handleClick}>
-                            {show ? 'Hide' : 'Show'}
-                        </Button>
-                    </InputRightElement>
-                </InputGroup>
-            </div>
-
-            <Button
-                variant='outline'
-                bg='blue.600'
-                size='lg'
-                rightIcon={<ArrowForwardIcon />}
-            >
-                Button
-            </Button>
+                            <div className={styles.loginBtnWrapper}>
+                                <SubmitButton
+                                    buttonText='Login'
+                                    onSubmit={submitLogin}
+                                />
+                            </div>
+                        </>
+                    );
+                }}
+            />
         </div>
     );
 };
