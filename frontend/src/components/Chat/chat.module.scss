@@ -1,0 +1,30 @@
+.chatWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  width: 60vw;
+  background-color: whitesmoke;
+  border-radius: 10px;
+
+  @media (max-width: 800px) {
+    width: 90vw;
+  }
+
+  &__headerWapper {
+    height: 5rem;
+    background-color: #0066b2;
+    border-radius: 10px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  &__contentWapper {
+    min-height: calc(100% - 10rem);
+    overflow-y: auto;
+  }
+
+  &__intputWapper {
+    height: 5rem;
+    background-color: #1975b9;
+  }
+}

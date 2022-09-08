@@ -1,0 +1,31 @@
+_id: req_10c92d36827048be9a604310864cda76
+type: Request
+parentId: fld_3e41cd1050324eee91e0aa39fa9ea242
+modified: 1658943431920
+created: 1658923395230
+url: "{{ _.baseUrlLocal }}/chat"
+name: Create chat
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"userId": "62e1509c55a90731ba71c113"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_7331fd0c5f464c7181544df2c2ee2857
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmUxNTA3ZjU1YTkwNzMxYmE3MWMxMGYiLCJ1c2VybmFtZSI6InBpZXQiLCJpYXQiOjE2NTg5NDM0MDksImV4cCI6MTY2MTUzNTQwOX0.IsDWgBhiXgwtowcI2Lj5QAU6529qSHhjw7t54O6RqK4
+metaSortKey: -1658861574057
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

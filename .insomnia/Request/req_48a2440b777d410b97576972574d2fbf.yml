@@ -1,0 +1,31 @@
+_id: req_48a2440b777d410b97576972574d2fbf
+type: Request
+parentId: fld_a905ac85a6be4ffa854af1ead16b7ef2
+modified: 1658938120620
+created: 1658923395219
+url: "{{ _.baseUrlLocal }}/users/create"
+name: Create user
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"username": "klaas",
+    	"email": "klaas@mail.com",
+    	"password": "securePassword"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_9a3f88b1bef940849852a83a831674e3
+authentication: {}
+metaSortKey: -1658861387019
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
