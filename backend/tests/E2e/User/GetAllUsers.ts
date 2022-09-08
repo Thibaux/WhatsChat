@@ -6,8 +6,8 @@ const { expect } = chai;
 
 chai.should();
 
-describe('GET /users', function () {
-    it('should return a 200 status code', async function () {
+describe('GET /users', () => {
+    it('should return a 200 status code', async () => {
         const username = 'piet';
 
         const response = await request(app).get(`/users?search=${username}`);
