@@ -4,7 +4,10 @@
     "description": "This is a simple chat app. Two users can chat with each other via a Websocket.",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node backend/src/Host/Server.ts"
+        "serve-backend": "nodemon -r dotenv/config -L -e js,ts backend/src/Host/Server.ts",
+        "ci-backend": "cd backend && npm ci",
+        "build-backend": "cd backend && npx tsc",
+        "start": "npm-run-all ci-backend build-backend serve-backend"
     },
     "repository": {
         "type": "git",
@@ -19,6 +22,7 @@
     "dependencies": {
         "dotenv": "^16.0.2",
         "nodemon": "^2.0.19",
+        "npm-run-all": "^4.1.5",
         "ts-node": "^10.9.1",
         "typescript": "^4.8.3"
     }
