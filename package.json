@@ -2,7 +2,7 @@
     "name": "chat-app",
     "version": "1.0.0",
     "description": "This is a simple chat app. Two users can chat with each other via a Websocket.",
-    "main": "backend/dist/Host/server.js",
+    "main": "./backend/dist/Host/server.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
