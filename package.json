@@ -5,7 +5,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "serve-backend": "nodemon -r dotenv/config -L -e js,ts backend/src/Host/Server.ts",
-        "ci-backend": "cd backend && npm ci",
+        "ci-backend": "cd backend && npm i",
         "build-backend": "cd backend && npx tsc",
         "start": "npm-run-all ci-backend build-backend serve-backend"
     },
