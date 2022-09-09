@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import bodyParser from 'body-parser';
 import router from './Routes';
 import { connectToDb } from '../Infrastructure/Database/ConnectToDb';
@@ -13,6 +14,12 @@ connectToDb();
 app.set('port', process.env.PORT);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(
+    cors({
+        origin: '*',
+    })
+);
 
 app.use((req, res, next) => {
     res.header('Content-Type', 'application/json');
