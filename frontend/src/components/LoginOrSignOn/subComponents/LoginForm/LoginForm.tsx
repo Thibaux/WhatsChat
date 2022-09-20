@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styles from './loginForm.module.scss';
 import { SubmitButton } from '../../../Buttons/SubmitButton';
 import { TextInput } from '../../../Input/TextInput/TextInput';
@@ -13,6 +13,11 @@ export const LoginForm = () => {
         handlePasswordChange,
         submitLogin,
     } = useLoginForm();
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (inputRef.current) inputRef.current.focus();
+    }, []);
 
     return (
         <div className={styles.loginFormWrapper}>
@@ -23,6 +28,7 @@ export const LoginForm = () => {
                     label='E-mail address'
                     placeholder='john.doe@email.com'
                     hasError={loginFormErrors.emailValueError}
+                    innerRef={inputRef}
                 />
             </div>
             <PasswordInput
