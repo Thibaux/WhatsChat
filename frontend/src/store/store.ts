@@ -1,20 +1,20 @@
 import create from 'zustand';
 import produce from 'immer';
-import { getChats } from '../services/ChatService/GetChats';
+import { getMessagesOfChat } from '../services/ChatService/GetMessagesOfChat';
 
 export type ChatStoreInterface = {
     chatTitle: string;
-    chatMessages: ChatMessage[];
-    getChatMessages: () => void;
+    chatMessages: Message[];
+    getChatMessages: (chatId: string) => void;
     clearMessages: () => void;
-    sendMessage: (payload: ChatMessage) => void;
+    sendMessage: (payload: Message) => void;
 };
 
 export const useChatStore = create<ChatStoreInterface>((set) => ({
     chatTitle: 'default name',
-    chatMessages: [] as ChatMessage[],
-    getChatMessages: async () => {
-        const result = await getChats();
+    chatMessages: [] as Message[],
+    getChatMessages: async (chatId: string) => {
+        const result = await getMessagesOfChat(chatId);
         set(
             produce((draft) => {
                 draft.chatMessages = result;
@@ -33,7 +33,7 @@ export const useChatStore = create<ChatStoreInterface>((set) => ({
     //       draft.chatMessages.push(payload);
     //     })
     //   ),
-    sendMessage: (payload: ChatMessage) => {
+    sendMessage: (payload: Message) => {
         set(
             produce((draft) => {
                 draft.chatMessages.push(payload);
