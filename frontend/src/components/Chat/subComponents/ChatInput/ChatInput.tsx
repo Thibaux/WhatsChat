@@ -4,7 +4,7 @@ import styles from './chatInput.module.scss';
 import { useSendInput } from './useSendInput';
 
 export const ChatInput = () => {
-    const { messageValue, handleSend, handleTextChange } = useSendInput();
+    const { messageValue, handleTextChange } = useSendInput();
 
     return (
         <div className={styles.inputWrapper}>
@@ -19,8 +19,8 @@ export const ChatInput = () => {
             </div>
             <div
                 className={styles.inputWrapper__sendButton}
-                onClick={handleSend}
-                onKeyDown={handleSend}
+                // onClick={handleSend}
+                // onKeyDown={handleSend}
                 role='button'
                 tabIndex={-1}
             >
