@@ -28,7 +28,7 @@ export const useLoginForm = () => {
     };
 
     const validateLoginValues = (): boolean => {
-        if (loginFormValues.emailValue === '') {
+        if (loginFormValues.email === '') {
             updateLoginFormValue({
                 value: true,
                 objectName: 'loginFormErrors',
