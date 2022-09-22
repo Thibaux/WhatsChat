@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, RefObject } from 'react';
 import {
     FormControl,
     FormErrorMessage,
@@ -12,6 +12,7 @@ interface TextInputProps {
     value: string;
     handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
     hasError: boolean;
+    innerRef?: RefObject<HTMLInputElement>;
 }
 
 export const TextInput = ({
@@ -20,6 +21,7 @@ export const TextInput = ({
     value,
     handleChange,
     hasError,
+    innerRef,
 }: TextInputProps) => (
     <FormControl isInvalid={hasError}>
         <FormLabel pb='2' fontWeight='semibold'>
@@ -31,6 +33,7 @@ export const TextInput = ({
             placeholder={placeholder}
             value={value}
             onChange={handleChange}
+            ref={innerRef}
         />
         {hasError && <FormErrorMessage>{label} is required.</FormErrorMessage>}
     </FormControl>
