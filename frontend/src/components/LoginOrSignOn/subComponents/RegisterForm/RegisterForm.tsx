@@ -1,7 +1,7 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import styles from './registerForm.module.scss';
-import { TextInput } from '../../../Input/TextInput/TextInput';
-import { PasswordInput } from '../../../Input/PasswordInput';
+import { TextInput } from '../../../Forms/Input/TextInput/TextInput';
+import { PasswordInput } from '../../../Forms/Input/PasswordInput';
 import { SubmitButton } from '../../../Buttons/SubmitButton';
 
 export const RegisterForm = () => {
@@ -10,16 +10,6 @@ export const RegisterForm = () => {
     const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value);
     };
-
-    useEffect(() => {
-        if (inputRef.current) {
-            if (document.activeElement === inputRef.current) {
-                inputRef.current.blur();
-            } else {
-                inputRef.current.select();
-            }
-        }
-    }, []);
 
     return (
         <div className={styles.registerFormWrapper}>

@@ -1,8 +1,9 @@
 import create from 'zustand';
 import produce from 'immer';
+import { getChats } from '../services/ChatService/GetChats';
 
 export type ChatStoreInterface = {
-    chatName: string;
+    chatTitle: string;
     chatMessages: ChatMessage[];
     getChatMessages: () => void;
     clearMessages: () => void;
@@ -10,9 +11,16 @@ export type ChatStoreInterface = {
 };
 
 export const useChatStore = create<ChatStoreInterface>((set) => ({
-    chatName: 'default name',
+    chatTitle: 'default name',
     chatMessages: [] as ChatMessage[],
-    getChatMessages: () => {},
+    getChatMessages: async () => {
+        const result = await getChats();
+        set(
+            produce((draft) => {
+                draft.chatMessages = result;
+            })
+        );
+    },
     clearMessages: () =>
         set(
             produce((draft) => {

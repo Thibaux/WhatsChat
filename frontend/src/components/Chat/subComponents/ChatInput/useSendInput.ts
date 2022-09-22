@@ -24,20 +24,19 @@ export const useSendInput = () => {
         setMessageValue(text);
     };
 
-    const getIdOfLastMessage = (): number => {
-        if (!chatMessages) return 0;
-        return chatMessages[chatMessages.length].id;
-    };
+    // const getIdOfLastMessage = (): number => {
+    //     if (!chatMessages) return 0;
+    //     return chatMessages[chatMessages.length].id;
+    // };
 
     useEffect(() => {
-        socket.on('message', (message) => {
-            console.log(message.message);
-            sendMessage({
-                id: getIdOfLastMessage(),
-                sender: 'jan',
-                message: message.message,
-            });
-        });
+        // socket.on('message', (message) => {
+        //     sendMessage({
+        //         id: getIdOfLastMessage(),
+        //         sender: 'jan',
+        //         message: message.message,
+        //     });
+        // });
     });
 
     return {

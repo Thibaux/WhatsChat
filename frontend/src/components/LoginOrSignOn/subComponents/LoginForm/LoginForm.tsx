@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import styles from './loginForm.module.scss';
 import { SubmitButton } from '../../../Buttons/SubmitButton';
-import { TextInput } from '../../../Input/TextInput/TextInput';
-import { PasswordInput } from '../../../Input/PasswordInput';
+import { TextInput } from '../../../Forms/Input/TextInput/TextInput';
+import { PasswordInput } from '../../../Forms/Input/PasswordInput';
 import { useLoginForm } from './useLoginFrom';
 
 export const LoginForm = () => {

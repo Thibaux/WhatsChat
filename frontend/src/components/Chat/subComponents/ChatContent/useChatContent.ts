@@ -1,14 +1,9 @@
 import React, { useEffect } from 'react';
-import { ChatStoreInterface, useChatStore } from '../../../../store/store';
+import { useChatStore } from '../../../../store/store';
 
 export const useChatContent = () => {
     const { chatMessages, getChatMessages } = useChatStore();
-    const senderOfFirstMessage = useChatStore(
-        React.useCallback(
-            (state: ChatStoreInterface) => state.chatMessages[0].sender,
-            []
-        )
-    );
+    const senderOfFirstMessage = 'piet';
 
     const myRef = React.useRef(null as any);
     const executeScroll = () => myRef.current.scrollIntoView();
@@ -18,6 +13,7 @@ export const useChatContent = () => {
     });
 
     useEffect(() => {
+        console.log('asdfklj');
         getChatMessages();
     });
 

@@ -1,7 +1,8 @@
 import create from 'zustand';
 import { devtools } from 'zustand/middleware';
 import produce from 'immer';
-import { postLoginDetails } from '../services/LoginServices';
+import { postLoginDetails } from '../services/UserService/LoginServices';
+import { useUserStore } from './UserStore';
 
 type LoginStore = {
     loginFormValues: LoginValues;
@@ -17,12 +18,14 @@ type LoginStore = {
     }) => void;
     clearLoginErrors: () => void;
     postLogin: (payload: LoginValues) => void;
+    successfulLogin: boolean;
 };
 
 export const useLoginStore = create<LoginStore>()(
     devtools((set) => ({
+        successfulLogin: false,
         loginFormValues: {
-            emailValue: '',
+            email: '',
             passwordValue: '',
         },
         loginFormErrors: {
@@ -48,7 +51,18 @@ export const useLoginStore = create<LoginStore>()(
             );
         },
         postLogin: async (payload: LoginValues) => {
-            await postLoginDetails(payload);
+            const result = await postLoginDetails({
+                email: payload.emailValue,
+                password: payload.passwordValue,
+            });
+
+            useUserStore.getState().setUserObject(result as UserObject);
+
+            set(
+                produce((draft) => {
+                    draft.successfulLogin = true;
+                })
+            );
         },
     }))
 );
