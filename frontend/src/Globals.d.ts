@@ -2,9 +2,12 @@ declare module '*.module.css';
 declare module '*.module.scss';
 
 type ChatMessage = {
-    id: number;
-    sender: string;
-    message: string;
+    _id: number;
+    chatTile: string;
+    users: string[];
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
 };
 
 type UserValues = {
@@ -19,4 +22,12 @@ type LoginValuesErrors = {
     emailValueError: boolean;
     passwordValueError: boolean;
     usernameValuesError?: boolean;
+};
+
+type UserObject = {
+    _id: string;
+    username: string;
+    email: string;
+    picture: string;
+    token: string;
 };
