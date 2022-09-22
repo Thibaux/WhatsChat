@@ -1,14 +1,22 @@
 declare module '*.module.css';
 declare module '*.module.scss';
 
-type ChatMessage = {
-    _id: number;
-    chatTile: string;
+type Chat = {
+    _id: string;
+    chatTitle: string;
     users: string[];
     createdAt: string;
     updatedAt: string;
     __v: number;
 };
+
+type Message = {
+    _id: number;
+    sender: Sender;
+    content: string;
+};
+
+type Sender = Pick<UserObject, '_id', 'username', 'email', 'picture'>;
 
 type UserValues = {
     emailValue: string;
