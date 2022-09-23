@@ -3,8 +3,12 @@ import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import styles from './loginRegister.module.scss';
 import { LoginForm, RegisterForm } from './subComponents';
 import { Header } from '../Header/Header';
+import { LoginError } from '../Errors/LoginError';
+import { useLoginStore } from '../../store/LoginStore';
 
 export const LoginRegister = () => {
+    const { showFailedLoginError } = useLoginStore();
+
     return (
         <Box borderRadius='lg' className={styles.loginRegisterWrapper}>
             <Header />
@@ -35,6 +39,8 @@ export const LoginRegister = () => {
                     </TabPanel>
                 </TabPanels>
             </Tabs>
+
+            {showFailedLoginError && <LoginError />}
         </Box>
     );
 };
