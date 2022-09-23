@@ -5,7 +5,7 @@ import { useSendInput } from './useSendInput';
 import { SendButton } from '../../../Buttons/SendButton';
 
 export const ChatInput = () => {
-    const { messageValue, handleTextChange } = useSendInput();
+    const { messageValue, handleTextChange, handleSend } = useSendInput();
 
     return (
         <div className={styles.inputWrapper}>
@@ -18,7 +18,7 @@ export const ChatInput = () => {
                     resize='none'
                 />
             </div>
-            <SendButton />
+            <SendButton handleSend={handleSend} />
         </div>
     );
 };

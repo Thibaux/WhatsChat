@@ -2,10 +2,13 @@ import create from 'zustand';
 import { devtools } from 'zustand/middleware';
 import produce from 'immer';
 import { getMessagesOfChat } from '../services/MessagesService/GetMessagesOfChat';
+import { sendMessageToApi } from '../services/MessagesService/SendMessageToApi';
+import { useChatsStore } from './ChatsStore';
 
 type MessagesStore = {
     messages: Message[];
     getMessages: (chatId: string) => void;
+    sendMessage: (message: string) => void;
 };
 
 export const useMessagesStore = create<MessagesStore>()(
@@ -37,6 +40,12 @@ export const useMessagesStore = create<MessagesStore>()(
                 produce((draft) => {
                     draft.messages = result;
                 })
+            );
+        },
+        sendMessage: async (message: string) => {
+            await sendMessageToApi(
+                message,
+                useChatsStore.getState().currentChatId
             );
         },
     }))

@@ -1,12 +1,12 @@
 import React from 'react';
 import styles from './sendButton.module.scss';
 
-export const SendButton = () => {
+export const SendButton = ({ handleSend }: { handleSend: () => void }) => {
     return (
         <div
             className={styles.sendButton}
-            // onClick={handleSend}
-            // onKeyDown={handleSend}
+            onClick={handleSend}
+            onKeyDown={handleSend}
             role='button'
             tabIndex={-1}
         >

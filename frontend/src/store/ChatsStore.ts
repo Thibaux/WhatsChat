@@ -6,6 +6,7 @@ import { useMessagesStore } from './MessagesStore';
 
 type ChatsStore = {
     renderChat: boolean;
+    currentChatId: string;
     chats: Chat[];
     setRenderChat: ({
         showChat,
@@ -20,6 +21,7 @@ type ChatsStore = {
 export const useChatsStore = create<ChatsStore>()(
     devtools((set) => ({
         renderChat: false,
+        currentChatId: '',
         chats: [
             {
                 _id: '',
@@ -33,6 +35,11 @@ export const useChatsStore = create<ChatsStore>()(
         setRenderChat: async ({ showChat, chatId }) => {
             useMessagesStore.getState().getMessages(chatId);
 
+            await set(
+                produce((draft) => {
+                    draft.currentChatId = chatId;
+                })
+            );
             await set(
                 produce((draft) => {
                     draft.renderChat = showChat;
