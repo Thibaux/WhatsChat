@@ -11,9 +11,10 @@ type Chat = {
 };
 
 type Message = {
-    _id: number;
+    _id: string;
     sender: Sender;
     content: string;
+    chat: Chat;
 };
 
 type Sender = Pick<UserObject, '_id', 'username', 'email', 'picture'>;
