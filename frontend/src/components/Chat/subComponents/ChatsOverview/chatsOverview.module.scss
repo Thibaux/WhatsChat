@@ -3,6 +3,7 @@
     flex-direction: column;
 
     &__chatCard {
+        height: 100%;
         padding-top: 0.5rem;
         padding-bottom: 0.5rem;
         padding-left: 1rem;
@@ -11,9 +12,18 @@
             font-weight: bold;
         }
 
+        p {
+            padding-bottom: 1rem;
+        }
+
         hr {
-            margin-top: 1rem;
             border-top: 2px solid black;
         }
+    }
+
+    &__chatCard:hover {
+        background-color: #dcdcdc;
+        cursor: pointer;
+        width: 110%;
     }
 }

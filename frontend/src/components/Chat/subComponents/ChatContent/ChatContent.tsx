@@ -1,21 +1,24 @@
 import React from 'react';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
-import { useChatContent } from './useChatContent';
 import styles from './chatContent.module.scss';
+import { useMessagesStore } from '../../../../store/MessagesStore';
 
 export const ChatContent = () => {
-    const { chatMessages } = useChatContent();
+    const { messages } = useMessagesStore();
 
     return (
         <div className={styles.contentWrapper}>
-            {chatMessages.map(({ _id, sender, content }) => {
+            {messages.map(({ _id, sender, content }) => {
                 return (
                     <div
                         id={String(_id)}
                         key={_id}
                         className={styles.contentWrapper__leftMss}
                     >
-                        <ChatMessage sender={sender} message={content} />
+                        <ChatMessage
+                            sender={sender.username}
+                            message={content}
+                        />
                     </div>
                 );
             })}

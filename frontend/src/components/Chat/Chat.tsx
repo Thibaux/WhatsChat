@@ -6,11 +6,14 @@ import {
     ChatInput,
     ChatsOverview,
 } from './subComponents';
+import { useChatsStore } from '../../store/ChatsStore';
 
 export const Chat = () => {
+    const { renderChat } = useChatsStore();
+
     return (
         <div className={styles.chatAppWrapper}>
-            <section className={styles.chatsWrapper}>
+            <section className={styles.chatAppWrapper__chatsWrapper}>
                 <ChatsOverview />
             </section>
             <div className={styles.chatAppWrapper__middleSection}>
@@ -18,7 +21,7 @@ export const Chat = () => {
                     <ChatHeader />
                 </section>
                 <section className={styles.chatAppWrapper__contentWrapper}>
-                    <ChatContent />
+                    {renderChat && <ChatContent />}
                 </section>
                 <section className={styles.chatAppWrapper__inputWrapper}>
                     <ChatInput />
