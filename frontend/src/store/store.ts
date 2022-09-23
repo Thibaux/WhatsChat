@@ -5,7 +5,6 @@ export type ChatStoreInterface = {
     chatTitle: string;
     chatMessages: Message[];
     clearMessages: () => void;
-    sendMessage: (payload: Message) => void;
 };
 
 export const useChatStore = create<ChatStoreInterface>((set) => ({
@@ -17,17 +16,4 @@ export const useChatStore = create<ChatStoreInterface>((set) => ({
                 draft.chatName = 'diff';
             })
         ),
-    // sendMessage: (payload: ChatMessage) =>
-    //   set(
-    //     produce((draft) => {
-    //       draft.chatMessages.push(payload);
-    //     })
-    //   ),
-    sendMessage: (payload: Message) => {
-        set(
-            produce((draft) => {
-                draft.chatMessages.push(payload);
-            })
-        );
-    },
 }));
