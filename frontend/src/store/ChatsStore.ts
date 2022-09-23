@@ -5,7 +5,7 @@ import { getChats } from '../services/ChatService/GetChats';
 
 type ChatsStore = {
     chats: Chat[];
-    setChats: () => void;
+    getChats: () => void;
 };
 
 export const useChatsStore = create<ChatsStore>()(
@@ -21,7 +21,7 @@ export const useChatsStore = create<ChatsStore>()(
                     __v: 0,
                 },
             ],
-            setChats: async () => {
+            getChats: async () => {
                 const chats = await getChats();
 
                 await set(
