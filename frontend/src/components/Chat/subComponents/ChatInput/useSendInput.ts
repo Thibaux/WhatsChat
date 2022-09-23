@@ -1,15 +1,19 @@
 import { ChangeEventHandler, useEffect, useState } from 'react';
-import { useChatStore } from '../../../../store/store';
+import { useMessagesStore } from '../../../../store/MessagesStore';
 
-const serverPort = 'http://localhost:8080';
-
+// const serverPort = 'http://localhost:8080';
 // const socket = io(serverPort, {
 //     withCredentials: false,
 // });
 
 export const useSendInput = () => {
-    const { chatMessages, sendMessage } = useChatStore();
     const [messageValue, setMessageValue] = useState('');
+    const { sendMessage } = useMessagesStore();
+
+    const handleSend = () => {
+        sendMessage(messageValue);
+        setMessageValue('');
+    };
 
     // const handleSend = () => {
     //     socket.emit('sendMessage', messageValue, () => setMessageValue(''));
@@ -41,5 +45,6 @@ export const useSendInput = () => {
     return {
         messageValue,
         handleTextChange,
+        handleSend,
     };
 };
