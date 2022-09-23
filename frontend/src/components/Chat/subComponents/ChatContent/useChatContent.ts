@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useChatStore } from '../../../../store/store';
 
 export const useChatContent = () => {
@@ -12,11 +11,11 @@ export const useChatContent = () => {
     //     executeScroll();
     // });
 
-    useEffect(() => {
-        console.log('asdfklj');
-        const chatId = '62e1510a58cdd7e71198028f';
-        getChatMessages(chatId);
-    }, []);
+    // useEffect(() => {
+    //     console.log('asdfklj');
+    //     const chatId = '62e1510a58cdd7e71198028f';
+    //     getChatMessages(chatId);
+    // }, []);
 
     return { chatMessages, senderOfFirstMessage };
 };
