@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './sendButton.module.scss';
 
 export const SendButton = ({ handleSend }: { handleSend: () => void }) => {
+    useEffect(() => {
+        const keyDownHandler = (event: any) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                handleSend();
+            }
+        };
+
+        document.addEventListener('keydown', keyDownHandler);
+
+        return () => {
+            document.removeEventListener('keydown', keyDownHandler);
+        };
+    });
+
     return (
         <div
             className={styles.sendButton}
             onClick={handleSend}
-            onKeyDown={handleSend}
             role='button'
             tabIndex={-1}
         >
