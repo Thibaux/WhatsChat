@@ -1,12 +1,10 @@
 export const getAccessToken = (): string => {
-    let token = '';
-
     const state = localStorage.getItem('userObject');
 
-    if (state) {
-        const retrievedObject = JSON.parse(state);
-        token = retrievedObject.state.userObject.token;
+    if (!state) {
+        return '';
     }
 
-    return token;
+    const retrievedObject = JSON.parse(state);
+    return retrievedObject.state.userObject.token;
 };
