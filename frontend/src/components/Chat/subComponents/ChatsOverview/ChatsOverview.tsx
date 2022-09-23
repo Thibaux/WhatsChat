@@ -15,7 +15,7 @@ export const ChatsOverview = () => {
                     id={String(_id)}
                     key={_id}
                     className={styles.chatsOverviewWrapper__chatCard}
-                    onClick={() => handleClickToChat(_id)}
+                    onClick={() => handleClickToChat(_id, chatTitle)}
                 >
                     <h3>{chatTitle}</h3>
                     <p>{convertDateTime(updatedAt)}</p>

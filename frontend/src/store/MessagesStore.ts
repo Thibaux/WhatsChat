@@ -45,7 +45,7 @@ export const useMessagesStore = create<MessagesStore>()(
         sendMessage: async (message: string) => {
             await sendMessageToApi(
                 message,
-                useChatsStore.getState().currentChatId
+                useChatsStore.getState().currentChat.chatId
             );
         },
     }))

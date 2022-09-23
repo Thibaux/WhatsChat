@@ -6,14 +6,19 @@ import { useMessagesStore } from './MessagesStore';
 
 type ChatsStore = {
     renderChat: boolean;
-    currentChatId: string;
+    currentChat: {
+        chatId: string;
+        chatTitle: string;
+    };
     chats: Chat[];
     setRenderChat: ({
         showChat,
         chatId,
+        chatTitle,
     }: {
         showChat: boolean;
         chatId: string;
+        chatTitle: string;
     }) => void;
     getChats: () => void;
 };
@@ -21,7 +26,7 @@ type ChatsStore = {
 export const useChatsStore = create<ChatsStore>()(
     devtools((set) => ({
         renderChat: false,
-        currentChatId: '',
+        currentChat: { chatId: '', chatTitle: '' },
         chats: [
             {
                 _id: '',
@@ -32,12 +37,12 @@ export const useChatsStore = create<ChatsStore>()(
                 __v: 0,
             },
         ],
-        setRenderChat: async ({ showChat, chatId }) => {
+        setRenderChat: async ({ showChat, chatId, chatTitle }) => {
             useMessagesStore.getState().getMessages(chatId);
 
             await set(
                 produce((draft) => {
-                    draft.currentChatId = chatId;
+                    draft.currentChat = { chatId, chatTitle };
                 })
             );
             await set(
