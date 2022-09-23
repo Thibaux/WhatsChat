@@ -6,9 +6,21 @@ export const postLoginDetails = async (loginValues: LoginValues) => {
             '/users/login',
             loginValues
         );
-        return result.data;
+
+        if (result.status === 200) {
+            return {
+                status: 'SUCCESS',
+                data: result.data,
+            };
+        }
+        return {
+            status: 'FAILED',
+            data: result.data,
+        };
     } catch (e) {
-        console.log(e);
-        return e;
+        return {
+            status: 'FAILED',
+            data: e,
+        };
     }
 };

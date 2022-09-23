@@ -5,6 +5,8 @@ import { postLoginDetails } from '../services/UserService/LoginServices';
 import { useUserStore } from './UserStore';
 
 type LoginStore = {
+    successfulLogin: boolean;
+    showFailedLoginError: boolean;
     loginFormValues: LoginValues;
     loginFormErrors: LoginValuesErrors;
     updateLoginFormValue: ({
@@ -18,12 +20,12 @@ type LoginStore = {
     }) => void;
     clearLoginErrors: () => void;
     postLogin: (payload: LoginValues) => void;
-    successfulLogin: boolean;
 };
 
 export const useLoginStore = create<LoginStore>()(
     devtools((set) => ({
         successfulLogin: false,
+        showFailedLoginError: false,
         loginFormValues: {
             email: '',
             passwordValue: '',
@@ -56,13 +58,25 @@ export const useLoginStore = create<LoginStore>()(
                 password: payload.passwordValue,
             });
 
-            useUserStore.getState().setUserObject(result as UserObject);
+            if (result.status === 'SUCCESS') {
+                set(
+                    produce((draft) => {
+                        draft.successfulLogin = true;
+                    })
+                );
 
-            set(
-                produce((draft) => {
-                    draft.successfulLogin = true;
-                })
-            );
+                // set the userObject in the localstorage
+                useUserStore
+                    .getState()
+                    .setUserObject(result.data as UserObject);
+            } else {
+                console.log(result.data?.response?.data);
+                set(
+                    produce((draft) => {
+                        draft.showFailedLoginError = true;
+                    })
+                );
+            }
         },
     }))
 );

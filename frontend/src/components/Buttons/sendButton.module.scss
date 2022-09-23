@@ -1,0 +1,16 @@
+.sendButton {
+    height: 100%;
+    width: 30%;
+    font-size: 1.4rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .sendIcon {
+        height: 25%;
+        margin-top: 0;
+        padding-left: 1rem;
+    }
+}

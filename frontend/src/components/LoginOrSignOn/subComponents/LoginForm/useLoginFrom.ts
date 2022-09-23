@@ -28,7 +28,7 @@ export const useLoginForm = () => {
     };
 
     const validateLoginValues = (): boolean => {
-        if (loginFormValues.email === '') {
+        if (loginFormValues.emailValue === '') {
             updateLoginFormValue({
                 value: true,
                 objectName: 'loginFormErrors',
@@ -49,6 +49,7 @@ export const useLoginForm = () => {
     const submitLogin = () => {
         setSubmittedLogin(true);
         clearLoginErrors();
+
         if (validateLoginValues()) {
             postLogin(loginFormValues);
         }

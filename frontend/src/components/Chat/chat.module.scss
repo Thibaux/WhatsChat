@@ -1,6 +1,7 @@
 .chatAppWrapper {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     height: 80vh;
     width: 60vw;
     background-color: whitesmoke;
@@ -11,27 +12,28 @@
     }
 
     &__chatsWrapper {
-        display: flex;
+        width: auto;
     }
 
     &__middleSection {
         display: flex;
         flex-direction: column;
+        width: 75%;
     }
 
     &__headerWrapper {
         height: 5rem;
         background-color: #0066b2;
-        border-radius: 10px 10px 0 0;
     }
 
     &__contentWrapper {
         min-height: calc(100% - 10rem);
         overflow-y: auto;
+        background-color: #c4c4c4;
     }
 
-    &__intputWrapper {
+    &__inputWrapper {
         height: 5rem;
-        background-color: #1975b9;
+        background-color: whitesmoke;
     }
 }
