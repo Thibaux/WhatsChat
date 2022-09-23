@@ -1,16 +1,14 @@
 .titleWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-left: 3rem;
-  height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-left: 3rem;
+    height: 100%;
 
-  h2 {
-    font-weight: 700;
-  }
-
-  .userName {
-    margin-right: 2rem;
-    font-weight: 500;
-  }
+    .userName {
+        font-size: large;
+        margin-right: 2rem;
+        font-weight: 500;
+        color: whitesmoke;
+    }
 }

@@ -1,21 +1,32 @@
 import * as React from 'react';
 import styles from './chat.module.scss';
-import { ChatContent } from './subComponents/ChatContent/ChatContent';
-import { ChatHeader } from './subComponents/ChatHeader/ChatHeader';
-import { ChatInput } from './subComponents/ChatInput/ChatInput';
+import {
+    ChatContent,
+    ChatHeader,
+    ChatInput,
+    ChatsOverview,
+} from './subComponents';
+import { useChatsStore } from '../../store/ChatsStore';
 
 export const Chat = () => {
+    const { renderChat } = useChatsStore();
+
     return (
-        <div className={styles.chatWrapper}>
-            <section className={styles.chatWrapper__headerWapper}>
-                <ChatHeader />
+        <div className={styles.chatAppWrapper}>
+            <section className={styles.chatAppWrapper__chatsWrapper}>
+                <ChatsOverview />
             </section>
-            <section className={styles.chatWrapper__contentWapper}>
-                <ChatContent />
-            </section>
-            <section className={styles.chatWrapper__intputWapper}>
-                <ChatInput />
-            </section>
+            <div className={styles.chatAppWrapper__middleSection}>
+                <section className={styles.chatAppWrapper__headerWrapper}>
+                    <ChatHeader />
+                </section>
+                <section className={styles.chatAppWrapper__contentWrapper}>
+                    {renderChat && <ChatContent />}
+                </section>
+                <section className={styles.chatAppWrapper__inputWrapper}>
+                    <ChatInput />
+                </section>
+            </div>
         </div>
     );
 };

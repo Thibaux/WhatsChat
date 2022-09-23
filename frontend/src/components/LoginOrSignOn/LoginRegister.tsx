@@ -1,22 +1,17 @@
 import React from 'react';
-import {
-    Box,
-    Heading,
-    Tab,
-    TabList,
-    TabPanel,
-    TabPanels,
-    Tabs,
-} from '@chakra-ui/react';
+import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import styles from './loginRegister.module.scss';
 import { LoginForm, RegisterForm } from './subComponents';
+import { Header } from '../Header/Header';
+import { LoginError } from '../Errors/LoginError';
+import { useLoginStore } from '../../store/LoginStore';
 
 export const LoginRegister = () => {
+    const { showFailedLoginError } = useLoginStore();
+
     return (
         <Box borderRadius='lg' className={styles.loginRegisterWrapper}>
-            <div className={styles.headingWrapper}>
-                <Heading>Chat App</Heading>
-            </div>
+            <Header />
             <Tabs isFitted variant='enclosed' bg='#f5f5f5'>
                 <TabList>
                     <Tab
@@ -44,6 +39,8 @@ export const LoginRegister = () => {
                     </TabPanel>
                 </TabPanels>
             </Tabs>
+
+            {showFailedLoginError && <LoginError />}
         </Box>
     );
 };

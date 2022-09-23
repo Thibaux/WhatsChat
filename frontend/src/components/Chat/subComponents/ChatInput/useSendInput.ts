@@ -1,20 +1,19 @@
 import { ChangeEventHandler, useEffect, useState } from 'react';
-import io from 'socket.io-client';
 import { useChatStore } from '../../../../store/store';
 
 const serverPort = 'http://localhost:8080';
 
-const socket = io(serverPort, {
-    withCredentials: false,
-});
+// const socket = io(serverPort, {
+//     withCredentials: false,
+// });
 
 export const useSendInput = () => {
     const { chatMessages, sendMessage } = useChatStore();
     const [messageValue, setMessageValue] = useState('');
 
-    const handleSend = () => {
-        socket.emit('sendMessage', messageValue, () => setMessageValue(''));
-    };
+    // const handleSend = () => {
+    //     socket.emit('sendMessage', messageValue, () => setMessageValue(''));
+    // };
 
     const handleTextChange: ChangeEventHandler = (
         event: React.ChangeEvent<HTMLInputElement>
@@ -41,7 +40,6 @@ export const useSendInput = () => {
 
     return {
         messageValue,
-        handleSend,
         handleTextChange,
     };
 };
