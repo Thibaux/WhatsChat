@@ -20,6 +20,7 @@ type LoginStore = {
     }) => void;
     clearLoginErrors: () => void;
     postLogin: (payload: LoginValues) => void;
+    checkIfUserIsLoggedIn: () => void;
 };
 
 export const useLoginStore = create<LoginStore>()(
@@ -74,6 +75,15 @@ export const useLoginStore = create<LoginStore>()(
                 set(
                     produce((draft) => {
                         draft.showFailedLoginError = true;
+                    })
+                );
+            }
+        },
+        checkIfUserIsLoggedIn: async () => {
+            if (useUserStore.getState().userObject._id) {
+                set(
+                    produce((draft) => {
+                        draft.successfulLogin = true;
                     })
                 );
             }
