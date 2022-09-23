@@ -1,0 +1,19 @@
+.chatsOverviewWrapper {
+    display: flex;
+    flex-direction: column;
+
+    &__chatCard {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-left: 1rem;
+
+        h3 {
+            font-weight: bold;
+        }
+
+        hr {
+            margin-top: 1rem;
+            border-top: 2px solid black;
+        }
+    }
+}
