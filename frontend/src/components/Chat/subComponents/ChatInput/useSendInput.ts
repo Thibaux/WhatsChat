@@ -1,20 +1,25 @@
 import { ChangeEventHandler, useEffect, useState } from 'react';
-import { io } from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 import { useMessagesStore } from '../../../../store/MessagesStore';
 import { useUserStore } from '../../../../store/UserStore';
 import { useChatsStore } from '../../../../store/ChatsStore';
+import { DefaultEventsMap } from '@socket.io/component-emitter';
 
 const apiUrl = 'http://localhost:8080';
 // const socket = io(serverPort, {
 //     withCredentials: false,
 // });
-let socket;
+let socket: Socket<DefaultEventsMap, DefaultEventsMap>;
 
 export const useSendInput = () => {
     const [messageValue, setMessageValue] = useState('');
-    const { sendMessage } = useMessagesStore();
+    const { sendMessage, updateLocalMessages } = useMessagesStore();
     const { currentChat } = useChatsStore();
     const { userObject } = useUserStore();
+
+    const u = userObject.username;
+    const c = currentChat.chatId;
+
     const handleTextChange: ChangeEventHandler = (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
@@ -22,6 +27,12 @@ export const useSendInput = () => {
         setMessageValue(text);
     };
     const handleSend = () => {
+        socket.emit('sendMessage', {
+            userName: u,
+            chatId: c,
+            message: messageValue,
+        });
+        updateLocalMessages(messageValue);
         sendMessage(messageValue);
         setMessageValue('');
     };
@@ -44,19 +55,34 @@ export const useSendInput = () => {
     // });
 
     useEffect(() => {
-        const u = userObject.username;
-        const t = currentChat.chatTitle;
-
-        socket = io(apiUrl, {
-            withCredentials: false,
+        socket = io(apiUrl);
+        socket.on('connect', () => {
+            console.log(' aslkdjf;lsakjdf');
         });
+    }, []);
 
-        socket.emit('join', { u, t }, (e: any) => {
-            if (e) {
-                console.log(e);
-            }
-        });
-    }, [currentChat.chatTitle, userObject.username]);
+    // useEffect(() => {
+    //
+    //     socket = io(apiUrl, {
+    //         withCredentials: false,
+    //     });
+    //
+    //     socket.emit('join', { u, c }, (e: any) => {
+    //         if (e) {
+    //             console.log(e);
+    //         }
+    //     });
+    // }, []);
+    //
+    // useEffect(() => {
+    //     socket.on(
+    //         'message',
+    //         ({ userName: u, chatId: c, message: socketMessage }) => {
+    //             console.log(u + c);
+    //             updateLocalMessages(socketMessage);
+    //         }
+    //     );
+    // }, []);
 
     return {
         messageValue,

@@ -8,6 +8,7 @@ import { useChatsStore } from './ChatsStore';
 type MessagesStore = {
     messages: Message[];
     getMessages: (chatId: string) => void;
+    updateLocalMessages: (message: string) => void;
     sendMessage: (message: string) => void;
 };
 
@@ -33,12 +34,26 @@ export const useMessagesStore = create<MessagesStore>()(
                 },
             },
         ],
+        // OF DIT:
+        // messages: [
+        //     {
+        //         username: '',
+        //         content: '',
+        //     },
+        // ],
         getMessages: async (chatId: string) => {
             const result = await getMessagesOfChat(chatId);
 
             await set(
                 produce((draft) => {
                     draft.messages = result;
+                })
+            );
+        },
+        updateLocalMessages: async (message: string) => {
+            await set(
+                produce((draft) => {
+                    draft.messages.push(message);
                 })
             );
         },
