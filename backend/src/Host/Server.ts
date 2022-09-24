@@ -1,11 +1,11 @@
-import app from './App';
+import completeServer from './App';
 
 /**
  * Start Express server.
  */
 
-const server = app.listen(app.get('port'), () => {
-    console.log('  App is running at http://localhost:%d in %s mode', app.get('port'), app.get('env'));
+const server = completeServer.listen(process.env.PORT, () => {
+    console.log('  App is running at http://localhost:%d in %s mode', process.env.PORT, process.env.NODE_ENV);
 });
 
 export default server;
