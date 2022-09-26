@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import styles from './App.module.scss';
 import { LoginRegisterPage } from './pages/LoginRegisterPage/LoginRegisterPage';
-import { useLoginStore } from './store/LoginStore';
+import { useLoginRegisterStore } from './store/LoginStore';
 import { ChatPage } from './pages/ChatPage/ChatPage';
 
 export const App = () => {
-    const { successfulLogin, checkIfUserIsLoggedIn } = useLoginStore();
+    const { successfulLogin, checkIfUserIsLoggedIn } = useLoginRegisterStore();
 
     useEffect(() => {
         checkIfUserIsLoggedIn();

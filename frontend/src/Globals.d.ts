@@ -30,7 +30,7 @@ type LoginValues = Pick<UserValues, 'emailValue', 'passwordValue'>;
 type LoginValuesErrors = {
     emailValueError: boolean;
     passwordValueError: boolean;
-    usernameValuesError?: boolean;
+    usernameValueError?: boolean;
 };
 
 type UserObject = {
