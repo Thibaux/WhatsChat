@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import styles from './loginForm.module.scss';
-import { SubmitButton } from '../../../Buttons/SubmitButton';
+import { SubmitButton } from '../../../UI/Buttons';
 import { TextInput } from '../../../Forms/Input/TextInput/TextInput';
 import { PasswordInput } from '../../../Forms/Input/PasswordInput';
 import { useLoginForm } from './useLoginFrom';

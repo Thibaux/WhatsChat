@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const useLoginOrSignOn = () => {
+export const useLoginRegister = () => {
     const [isLoginSelected, setIsLoginSelected] = useState(true);
 
     const handleSwitch = () => {
