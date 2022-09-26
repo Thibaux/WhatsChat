@@ -1,47 +1,53 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React from 'react';
 import styles from './registerForm.module.scss';
 import { TextInput } from '../../../Forms/Input/TextInput/TextInput';
 import { PasswordInput } from '../../../Forms/Input/PasswordInput';
 import { SubmitButton } from '../../../Buttons/SubmitButton';
+import { useRegisterForm } from './useRegisterForm';
 
 export const RegisterForm = () => {
-    const inputRef = useRef<HTMLInputElement>(null);
-    const [value, setValue] = useState('');
-    const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setValue(e.target.value);
-    };
+    const {
+        registerFormValues,
+        registerFormErrors,
+        handleUsernameChange,
+        handleEmailChange,
+        handlePasswordChange,
+        submitRegister,
+    } = useRegisterForm();
 
     return (
         <div className={styles.registerFormWrapper}>
             <div className={styles.registerFormWrapper__email}>
                 <TextInput
+                    value={registerFormValues.usernameValue}
+                    handleChange={handleUsernameChange}
+                    hasError={registerFormErrors.usernameValueError}
                     label='Username'
                     placeholder='John'
-                    value=''
-                    handleChange={() => {}}
-                    hasError={false}
-                    innerRef={inputRef}
                 />
             </div>
             <div className={styles.registerFormWrapper__username}>
                 <TextInput
+                    value={registerFormValues.emailValue}
+                    handleChange={handleEmailChange}
+                    hasError={registerFormErrors.emailValueError}
                     label='E-mail address'
                     placeholder='john.doe@email.com'
-                    value=''
-                    handleChange={() => {}}
-                    hasError={false}
                 />
             </div>
             <div>
                 <PasswordInput
-                    value={value}
+                    value={registerFormValues.passwordValue}
                     handleChange={handlePasswordChange}
-                    hasError={false}
+                    hasError={registerFormErrors.passwordValueError}
                 />
             </div>
 
             <div className={styles.registerBtnWrapper}>
-                <SubmitButton buttonText='Sign up' handleSubmit={() => {}} />
+                <SubmitButton
+                    buttonText='Sign up'
+                    handleSubmit={submitRegister}
+                />
             </div>
         </div>
     );

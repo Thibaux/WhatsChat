@@ -25,9 +25,9 @@ export const LoginForm = () => {
                 <TextInput
                     value={loginFormValues.emailValue}
                     handleChange={handleEmailChange}
+                    hasError={loginFormErrors.emailValueError}
                     label='E-mail address'
                     placeholder='john.doe@email.com'
-                    hasError={loginFormErrors.emailValueError}
                     innerRef={inputRef}
                 />
             </div>

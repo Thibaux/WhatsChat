@@ -3,11 +3,16 @@ import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import styles from './loginRegister.module.scss';
 import { LoginForm, RegisterForm } from './subComponents';
 import { Header } from '../Header/Header';
-import { LoginError } from '../Errors/LoginError';
-import { useLoginStore } from '../../store/LoginStore';
+import { GenericError } from '../Errors/GenericError';
+import { useLoginRegisterStore } from '../../store/LoginStore';
+import { SuccessfulRegisterAlert } from '../Alerts/SuccessfulRegisterAlert';
 
 export const LoginRegister = () => {
-    const { showFailedLoginError } = useLoginStore();
+    const {
+        showFailedLoginError,
+        showFailedRegisterError,
+        successfulRegister,
+    } = useLoginRegisterStore();
 
     return (
         <Box borderRadius='lg' className={styles.loginRegisterWrapper}>
@@ -40,7 +45,19 @@ export const LoginRegister = () => {
                 </TabPanels>
             </Tabs>
 
-            {showFailedLoginError && <LoginError />}
+            {showFailedLoginError && (
+                <GenericError
+                    title='Username/password are incorrect!'
+                    description='Please try again.'
+                />
+            )}
+            {showFailedRegisterError && (
+                <GenericError
+                    title='Email is already taken!'
+                    description='Please try another'
+                />
+            )}
+            {successfulRegister && <SuccessfulRegisterAlert />}
         </Box>
     );
 };
