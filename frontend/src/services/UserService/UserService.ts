@@ -50,3 +50,25 @@ export const postCreateUser = async (userValues: UserValues) => {
         };
     }
 };
+
+export const getUsers = async (searchValue?: string) => {
+    try {
+        const result = await backendApiInstance().get(`/users?search=`);
+
+        if (result.status === 200) {
+            return {
+                status: 'SUCCESS',
+                data: result.data,
+            };
+        }
+        return {
+            status: 'FAILED',
+            data: result.data,
+        };
+    } catch (e) {
+        return {
+            status: 'FAILED',
+            data: e,
+        };
+    }
+};
