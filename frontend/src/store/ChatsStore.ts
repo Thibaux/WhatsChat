@@ -21,6 +21,7 @@ type ChatsStore = {
         chatTitle: string;
     }) => void;
     getChats: () => void;
+    handleCreateChat: () => void;
 };
 
 export const useChatsStore = create<ChatsStore>()(
@@ -59,6 +60,9 @@ export const useChatsStore = create<ChatsStore>()(
                     draft.chats = chats;
                 })
             );
+        },
+        handleCreateChat: async () => {
+            console.log('s;aldjkf');
         },
     }))
 );

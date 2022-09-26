@@ -1,11 +1,11 @@
 import create from 'zustand';
 import { devtools } from 'zustand/middleware';
 import produce from 'immer';
+import { useUserStore } from './UserStore';
 import {
     postCreateUser,
     postLoginDetails,
-} from '../services/UserService/LoginServices';
-import { useUserStore } from './UserStore';
+} from '../services/UserService/UserService';
 
 type LoginStore = {
     successfulLogin: boolean;
@@ -18,6 +18,7 @@ type LoginStore = {
     registerFormErrors: LoginValuesErrors;
     updateFormValue: ({
         value,
+
         objectName,
         keyName,
     }: {
@@ -63,7 +64,6 @@ export const useLoginRegisterStore = create<LoginStore>()(
                 })
             );
         },
-
         clearLoginErrors: () => {
             set(
                 produce((draft) => {
