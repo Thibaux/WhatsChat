@@ -13,6 +13,7 @@ import { SearchUser } from '../../SelectList/SearchUser';
 import { TextInput } from '../../../Forms/Input/TextInput/TextInput';
 import { useCreateChatModal } from './useCreateChatModal';
 import styles from './createChatModal.module.scss';
+import { GenericError } from '../../Errors';
 
 interface CreateChatModalInterface {
     isOpen: boolean;
@@ -29,7 +30,9 @@ export const CreateChatModal = ({
         chatTitleValue,
         handleChatTitleChange,
         handleCreate,
-    } = useCreateChatModal(isOpen);
+        showErrorMss,
+        errorMss,
+    } = useCreateChatModal({ isOpen, onClose });
 
     return (
         <Modal onClose={onClose} isOpen={isOpen} isCentered>
@@ -56,6 +59,12 @@ export const CreateChatModal = ({
                         Create
                     </Button>
                 </ModalFooter>
+                {showErrorMss && (
+                    <GenericError
+                        title={errorMss}
+                        description='Please try another title'
+                    />
+                )}
             </ModalContent>
         </Modal>
     );

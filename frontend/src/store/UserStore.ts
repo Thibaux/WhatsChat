@@ -1,13 +1,16 @@
 import create from 'zustand';
 import produce from 'immer';
 import { persist } from 'zustand/middleware';
-import { getUsers } from '../services/UserService/UserService';
+import { getUsers } from '../services/UserService';
+import { SingleValue } from 'react-select';
 
 type UserStore = {
     userObject: UserObject;
     users: UserObject[];
+    selectedUser: SingleValue<SearchListInput>;
     setUserObject: (userObject: UserObject) => void;
     getAllUsers: (searchQuery?: string) => void;
+    setSelectedUser: (user: SingleValue<SearchListInput>) => void;
 };
 
 export const useUserStore = create<UserStore>()(
@@ -29,6 +32,10 @@ export const useUserStore = create<UserStore>()(
                     token: '',
                 },
             ],
+            selectedUser: {
+                value: '',
+                label: '',
+            },
             setUserObject: async (userObject: UserObject) => {
                 set(
                     produce((draft) => {
@@ -45,9 +52,16 @@ export const useUserStore = create<UserStore>()(
                     })
                 );
             },
+            setSelectedUser: async (user: SingleValue<SearchListInput>) => {
+                set(
+                    produce((draft) => {
+                        draft.selectedUser = user;
+                    })
+                );
+            },
         }),
         {
-            name: 'users',
+            name: 'userStore',
             partialize: (state) => state,
         }
     )

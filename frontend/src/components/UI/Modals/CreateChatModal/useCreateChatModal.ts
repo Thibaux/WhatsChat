@@ -5,11 +5,20 @@ import { useUserStore } from '../../../../store/UserStore';
 import { convertUsersToSearchListInput } from '../../../../utils/converting/convertUsersToSearchListInput';
 import { excludeUserFromList } from '../../../../utils/converting/excludeUserFromList';
 
-export const useCreateChatModal = (isOpen: boolean) => {
+interface useCreateChatModalInterface {
+    isOpen: boolean;
+    onClose: () => void;
+}
+export const useCreateChatModal = ({
+    isOpen,
+    onClose,
+}: useCreateChatModalInterface) => {
     const { userObject, users, getAllUsers, setSelectedUser, selectedUser } =
         useUserStore();
     const { handleCreateChat } = useChatsStore();
     const [chatTitleValue, setChatTitleValue] = useState('');
+    const [showErrorMss, setShowErrorMss] = useState(false);
+    const [errorMss, setErrorMss] = useState('');
 
     const usersExceptLoggedInUser = excludeUserFromList(users, userObject);
     const searchListUsers = convertUsersToSearchListInput(
@@ -22,12 +31,22 @@ export const useCreateChatModal = (isOpen: boolean) => {
         setChatTitleValue(updatedChatTitle.target.value);
     };
 
-    const handleCreate = () => {
+    const handleCreate = async () => {
+        setShowErrorMss(false);
+
         if (selectedUser) {
-            handleCreateChat({
+            const result = await handleCreateChat({
                 userId: selectedUser.value,
                 chatTitle: chatTitleValue,
             });
+
+            if (result.status === 'SUCCESS') {
+                onClose();
+                setChatTitleValue('');
+            } else {
+                setShowErrorMss(true);
+                setErrorMss(result.data.message);
+            }
         }
     };
 
@@ -43,5 +62,7 @@ export const useCreateChatModal = (isOpen: boolean) => {
         chatTitleValue,
         handleChatTitleChange,
         handleCreate,
+        showErrorMss,
+        errorMss,
     };
 };

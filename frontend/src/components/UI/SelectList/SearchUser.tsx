@@ -1,6 +1,11 @@
 import React from 'react';
-import Select from 'react-select';
+import Select, { SingleValue } from 'react-select';
 
-export const SearchUser = ({ users }: { users: SearchListInput[] }) => {
-    return <Select options={users} />;
+interface SearchUserInterface  {
+    users: SearchListInput[],
+    handleChange: (u: SingleValue<SearchListInput>) => void,
+}
+
+export const SearchUser = ({ users, handleChange }: SearchUserInterface) => {
+    return <Select onChange={handleChange} options={users} />;
 };

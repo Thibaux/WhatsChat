@@ -2,10 +2,7 @@ import create from 'zustand';
 import { devtools } from 'zustand/middleware';
 import produce from 'immer';
 import { useUserStore } from './UserStore';
-import {
-    postCreateUser,
-    postLoginDetails,
-} from '../services/UserService/UserService';
+import { postCreateUser, postLoginDetails } from '../services/UserService';
 
 type LoginStore = {
     successfulLogin: boolean;

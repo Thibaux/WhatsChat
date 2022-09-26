@@ -1,1 +1,1 @@
-export * from './CreateChatModal';
+export * from './CreateChatModal/CreateChatModal'

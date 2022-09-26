@@ -1,8 +1,8 @@
 import create from 'zustand';
 import { devtools } from 'zustand/middleware';
 import produce from 'immer';
-import { getChats } from '../services/ChatService/GetChats';
 import { useMessagesStore } from './MessagesStore';
+import { getChats, createChat } from '../services/ChatService';
 
 type ChatsStore = {
     renderChat: boolean;
@@ -21,7 +21,13 @@ type ChatsStore = {
         chatTitle: string;
     }) => void;
     getChats: () => void;
-    handleCreateChat: () => void;
+    handleCreateChat: ({
+        userId,
+        chatTitle,
+    }: {
+        userId: string;
+        chatTitle: string;
+    }) => Promise<ApiResponseType>;
 };
 
 export const useChatsStore = create<ChatsStore>()(
@@ -41,12 +47,12 @@ export const useChatsStore = create<ChatsStore>()(
         setRenderChat: async ({ showChat, chatId, chatTitle }) => {
             useMessagesStore.getState().getMessages(chatId);
 
-            await set(
+            set(
                 produce((draft) => {
                     draft.currentChat = { chatId, chatTitle };
                 })
             );
-            await set(
+            set(
                 produce((draft) => {
                     draft.renderChat = showChat;
                 })
@@ -55,14 +61,23 @@ export const useChatsStore = create<ChatsStore>()(
         getChats: async () => {
             const chats = await getChats();
 
-            await set(
+            set(
                 produce((draft) => {
                     draft.chats = chats;
                 })
             );
         },
-        handleCreateChat: async () => {
-            console.log('s;aldjkf');
+        handleCreateChat: async ({ userId, chatTitle }) => {
+            const result = await createChat({ userId, chatTitle });
+
+            if (result.status === 'SUCCESS') {
+                set(
+                    produce((draft) => {
+                        draft.chats.push(result.data);
+                    })
+                );
+            }
+            return result;
         },
     }))
 );

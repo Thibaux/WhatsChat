@@ -1,4 +1,4 @@
-import { backendApiInstance } from '../../utils/apiInstance';
+import { backendApiInstance } from '../utils/apiInstance';
 
 export const postLoginDetails = async (loginValues: LoginValues) => {
     try {

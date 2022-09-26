@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useChatsStore } from '../../../../store/ChatsStore';
 
 export const useChatsOverview = () => {
-    const { chats, getChats, setRenderChat } = useChatsStore();
+    const { chats, getChats, setRenderChat, currentChat } = useChatsStore();
 
     const handleClickToChat = (chatId: string, chatTitle: string) => {
         setRenderChat({ showChat: true, chatId, chatTitle });
@@ -12,5 +12,5 @@ export const useChatsOverview = () => {
         getChats();
     }, []);
 
-    return { chats, handleClickToChat };
+    return { chats, handleClickToChat, currentChat };
 };

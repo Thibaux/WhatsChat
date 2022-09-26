@@ -48,3 +48,8 @@ type SearchListInput = {
     value: string;
     label: string;
 };
+
+type ApiResponseType = {
+    status: 'SUCCESS' | 'FAILED';
+    data: any;
+};
