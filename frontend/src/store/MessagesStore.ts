@@ -6,11 +6,21 @@ import {
     getMessagesOfChat,
     sendMessageToApi,
 } from '../services/MessagesService';
+import { convertApiMessagesToLocalMessages } from '../utils/converting';
 
 type MessagesStore = {
     messages: Message[];
+    localMessages: LocalMessages[];
     getMessages: (chatId: string) => void;
-    updateLocalMessages: (message: string) => void;
+    updateLocalMessages: ({
+        userId,
+        username,
+        message,
+    }: {
+        userId?: string;
+        username?: string;
+        message: string;
+    }) => void;
     sendMessage: (message: string) => void;
 };
 
@@ -36,26 +46,31 @@ export const useMessagesStore = create<MessagesStore>()(
                 },
             },
         ],
-        // OF DIT:
-        // messages: [
-        //     {
-        //         username: '',
-        //         content: '',
-        //     },
-        // ],
+        localMessages: [
+            {
+                userId: '',
+                username: '',
+                message: '',
+            },
+        ],
         getMessages: async (chatId: string) => {
             const result = await getMessagesOfChat(chatId);
 
-            await set(
+            set(
                 produce((draft) => {
-                    draft.messages = result;
+                    draft.localMessages =
+                        convertApiMessagesToLocalMessages(result);
                 })
             );
         },
-        updateLocalMessages: async (message: string) => {
-            await set(
+        updateLocalMessages: ({ userId, username, message }) => {
+            set(
                 produce((draft) => {
-                    draft.messages.push(message);
+                    draft.localMessages.push({
+                        userId,
+                        username,
+                        message,
+                    });
                 })
             );
         },

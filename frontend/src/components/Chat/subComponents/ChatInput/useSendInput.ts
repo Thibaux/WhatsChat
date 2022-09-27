@@ -1,15 +1,8 @@
-import { ChangeEventHandler, useEffect, useState } from 'react';
-import { io, Socket } from 'socket.io-client';
+import { ChangeEventHandler, useState } from 'react';
 import { useMessagesStore } from '../../../../store/MessagesStore';
 import { useUserStore } from '../../../../store/UserStore';
 import { useChatsStore } from '../../../../store/ChatsStore';
-import { DefaultEventsMap } from '@socket.io/component-emitter';
-
-const apiUrl = 'http://localhost:8080';
-// const socket = io(serverPort, {
-//     withCredentials: false,
-// });
-let socket: Socket<DefaultEventsMap, DefaultEventsMap>;
+import { SOCKET } from '../../../../utils/Constants';
 
 export const useSendInput = () => {
     const [messageValue, setMessageValue] = useState('');
@@ -18,6 +11,7 @@ export const useSendInput = () => {
     const { userObject } = useUserStore();
 
     const u = userObject.username;
+    const userId = userObject._id;
     const c = currentChat.chatId;
 
     const handleTextChange: ChangeEventHandler = (
@@ -27,12 +21,18 @@ export const useSendInput = () => {
         setMessageValue(text);
     };
     const handleSend = () => {
-        socket.emit('sendMessage', {
-            userName: u,
+        SOCKET.emit('sendMessage', {
             chatId: c,
+            userId,
+            userName: u,
             message: messageValue,
         });
-        updateLocalMessages(messageValue);
+        updateLocalMessages({
+            userId,
+            username: u,
+            message: messageValue,
+        });
+
         sendMessage(messageValue);
         setMessageValue('');
     };
@@ -53,13 +53,6 @@ export const useSendInput = () => {
     //     });
     // });
     // });
-
-    useEffect(() => {
-        socket = io(apiUrl);
-        socket.on('connect', () => {
-            console.log(' aslkdjf;lsakjdf');
-        });
-    }, []);
 
     // useEffect(() => {
     //
