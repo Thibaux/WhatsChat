@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import styles from './loginForm.module.scss';
-import { SubmitButton } from '../../../Buttons/SubmitButton';
+import { SubmitButton } from '../../../UI/Buttons';
 import { TextInput } from '../../../Forms/Input/TextInput/TextInput';
 import { PasswordInput } from '../../../Forms/Input/PasswordInput';
 import { useLoginForm } from './useLoginFrom';
@@ -25,9 +25,9 @@ export const LoginForm = () => {
                 <TextInput
                     value={loginFormValues.emailValue}
                     handleChange={handleEmailChange}
+                    hasError={loginFormErrors.emailValueError}
                     label='E-mail address'
                     placeholder='john.doe@email.com'
-                    hasError={loginFormErrors.emailValueError}
                     innerRef={inputRef}
                 />
             </div>

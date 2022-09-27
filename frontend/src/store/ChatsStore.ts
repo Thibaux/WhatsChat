@@ -1,27 +1,39 @@
 import create from 'zustand';
 import { devtools } from 'zustand/middleware';
 import produce from 'immer';
-import { getChats } from '../services/ChatService/GetChats';
 import { useMessagesStore } from './MessagesStore';
+import { getChats, createChat } from '../services/ChatService';
 
 type ChatsStore = {
     renderChat: boolean;
-    currentChatId: string;
+    currentChat: {
+        chatId: string;
+        chatTitle: string;
+    };
     chats: Chat[];
     setRenderChat: ({
         showChat,
         chatId,
+        chatTitle,
     }: {
         showChat: boolean;
         chatId: string;
+        chatTitle: string;
     }) => void;
     getChats: () => void;
+    handleCreateChat: ({
+        userId,
+        chatTitle,
+    }: {
+        userId: string;
+        chatTitle: string;
+    }) => Promise<ApiResponseType>;
 };
 
 export const useChatsStore = create<ChatsStore>()(
     devtools((set) => ({
         renderChat: false,
-        currentChatId: '',
+        currentChat: { chatId: '', chatTitle: '' },
         chats: [
             {
                 _id: '',
@@ -32,15 +44,15 @@ export const useChatsStore = create<ChatsStore>()(
                 __v: 0,
             },
         ],
-        setRenderChat: async ({ showChat, chatId }) => {
+        setRenderChat: async ({ showChat, chatId, chatTitle }) => {
             useMessagesStore.getState().getMessages(chatId);
 
-            await set(
+            set(
                 produce((draft) => {
-                    draft.currentChatId = chatId;
+                    draft.currentChat = { chatId, chatTitle };
                 })
             );
-            await set(
+            set(
                 produce((draft) => {
                     draft.renderChat = showChat;
                 })
@@ -49,11 +61,23 @@ export const useChatsStore = create<ChatsStore>()(
         getChats: async () => {
             const chats = await getChats();
 
-            await set(
+            set(
                 produce((draft) => {
                     draft.chats = chats;
                 })
             );
+        },
+        handleCreateChat: async ({ userId, chatTitle }) => {
+            const result = await createChat({ userId, chatTitle });
+
+            if (result.status === 'SUCCESS') {
+                set(
+                    produce((draft) => {
+                        draft.chats.push(result.data);
+                    })
+                );
+            }
+            return result;
         },
     }))
 );

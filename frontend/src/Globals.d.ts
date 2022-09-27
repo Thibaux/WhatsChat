@@ -30,7 +30,7 @@ type LoginValues = Pick<UserValues, 'emailValue', 'passwordValue'>;
 type LoginValuesErrors = {
     emailValueError: boolean;
     passwordValueError: boolean;
-    usernameValuesError?: boolean;
+    usernameValueError?: boolean;
 };
 
 type UserObject = {
@@ -39,4 +39,17 @@ type UserObject = {
     email: string;
     picture: string;
     token: string;
+    createdAt?: string;
+    updatedAt?: string;
+    __v?: number;
+};
+
+type SearchListInput = {
+    value: string;
+    label: string;
+};
+
+type ApiResponseType = {
+    status: 'SUCCESS' | 'FAILED';
+    data: any;
 };
