@@ -42,6 +42,7 @@ export const useChatsStore = create<ChatsStore>()(
                 createdAt: '',
                 updatedAt: '',
                 __v: 0,
+                friendsUsername: '',
             },
         ],
         setRenderChat: async ({ showChat, chatId, chatTitle }) => {

@@ -7,6 +7,7 @@ interface ChatCardInterface {
     handleClickToChat: (chatId: string, chatTitle: string) => void;
     chatTitle: string;
     updatedAt: string;
+    chatFriend: string | undefined;
 }
 
 export const ChatCard = ({
@@ -14,7 +15,10 @@ export const ChatCard = ({
     handleClickToChat,
     chatTitle,
     updatedAt,
+    chatFriend,
 }: ChatCardInterface) => {
+    console.log(chatFriend);
+
     return (
         <div
             id={chatId}

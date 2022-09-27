@@ -51,12 +51,6 @@ export const useCreateChatModal = ({
         }
     };
 
-    useEffect(() => {
-        if (isOpen) {
-            getAllUsers();
-        }
-    }, [isOpen]);
-
     return {
         setSelectedUser,
         searchListUsers,
