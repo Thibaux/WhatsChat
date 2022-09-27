@@ -3,27 +3,23 @@
     flex-direction: row;
     justify-content: space-between;
     height: 80vh;
-    width: 60vw;
+    width: 75vw;
     background-color: whitesmoke;
     border-radius: 10px;
 
-    @media (max-width: 800px) {
-        width: 90vw;
+    &__chatsWrapper {
+        width: 25vw;
     }
 
-    &__chatsWrapper {
-        width: auto;
+    &__headerWrapper {
+        height: 5rem;
+        background-color: #0066b2;
     }
 
     &__middleSection {
         display: flex;
         flex-direction: column;
         width: 75%;
-    }
-
-    &__headerWrapper {
-        height: 5rem;
-        background-color: #0066b2;
     }
 
     &__contentWrapper {
@@ -35,5 +31,21 @@
     &__inputWrapper {
         height: 5rem;
         background-color: whitesmoke;
+    }
+
+    @media (max-width: 1350px) {
+        width: 90vw;
+    }
+    @media (max-width: 1250px) {
+        width: 100vw;
+    }
+    @media (max-width: 750px) {
+        height: 100vh;
+    }
+
+    @media (max-width: 1000px) {
+        &__chatsWrapper {
+            width: 30vw;
+        }
     }
 }

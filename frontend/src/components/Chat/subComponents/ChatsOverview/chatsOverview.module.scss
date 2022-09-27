@@ -2,10 +2,16 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    width: 100%;
 
     &__chats {
         overflow-y: scroll;
-        overflow-x: hidden;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
+    &__chats::-webkit-scrollbar {
+        display: none;
     }
 
     &__selectedChat {
