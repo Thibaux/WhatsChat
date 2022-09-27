@@ -2,13 +2,11 @@ import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
 import styles from './chatContent.module.scss';
-import { useMessagesStore } from '../../../../store/MessagesStore';
 import { useUserStore } from '../../../../store/UserStore';
 import { useChatContent } from './useChatContent';
 
 export const ChatContent = () => {
-    const { scrollIntoViewRef } = useChatContent();
-    const { localMessages } = useMessagesStore();
+    const { localMessages, scrollIntoViewRef } = useChatContent();
     const { userObject } = useUserStore();
 
     return (

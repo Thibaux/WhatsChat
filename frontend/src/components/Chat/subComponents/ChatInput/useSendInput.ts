@@ -20,11 +20,11 @@ export const useSendInput = () => {
         const text = event?.target.value;
         setMessageValue(text);
     };
-    const handleSend = () => {
-        SOCKET.emit('sendMessage', {
+    const handleSend = async () => {
+        await SOCKET.emit('send_message', {
             chatId: c,
             userId,
-            userName: u,
+            username: u,
             message: messageValue,
         });
         updateLocalMessages({
