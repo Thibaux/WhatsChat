@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { Suspense } from 'react';
 import styles from './chat.module.scss';
 import {
     ChatContent,
@@ -14,7 +14,9 @@ export const Chat = () => {
     return (
         <div className={styles.chatAppWrapper}>
             <section className={styles.chatAppWrapper__chatsWrapper}>
-                <ChatsOverview />
+                <Suspense fallback={<p>Loading...</p>}>
+                    <ChatsOverview />
+                </Suspense>
             </section>
             <div className={styles.chatAppWrapper__middleSection}>
                 <section className={styles.chatAppWrapper__headerWrapper}>

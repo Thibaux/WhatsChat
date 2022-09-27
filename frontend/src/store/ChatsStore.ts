@@ -2,7 +2,9 @@ import create from 'zustand';
 import { devtools } from 'zustand/middleware';
 import produce from 'immer';
 import { useMessagesStore } from './MessagesStore';
-import { getChats, createChat } from '../services/ChatService';
+import { createChat, getChats } from '../services/ChatService';
+import { appendFriendsUsernameToChatArray } from '../utils/converting';
+import { useUserStore } from './UserStore';
 
 type ChatsStore = {
     renderChat: boolean;
@@ -42,6 +44,7 @@ export const useChatsStore = create<ChatsStore>()(
                 createdAt: '',
                 updatedAt: '',
                 __v: 0,
+                friendsUsername: '',
             },
         ],
         setRenderChat: async ({ showChat, chatId, chatTitle }) => {
@@ -63,7 +66,11 @@ export const useChatsStore = create<ChatsStore>()(
 
             set(
                 produce((draft) => {
-                    draft.chats = chats;
+                    draft.chats = appendFriendsUsernameToChatArray({
+                        chats,
+                        userObject: useUserStore.getState().userObject,
+                        users: useUserStore.getState().users,
+                    });
                 })
             );
         },

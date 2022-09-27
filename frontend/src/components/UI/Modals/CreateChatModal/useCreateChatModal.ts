@@ -1,9 +1,10 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useChatsStore } from '../../../../store/ChatsStore';
 import { useUserStore } from '../../../../store/UserStore';
-
-import { convertUsersToSearchListInput } from '../../../../utils/converting/convertUsersToSearchListInput';
-import { excludeUserFromList } from '../../../../utils/converting/excludeUserFromList';
+import {
+    convertUsersToSearchListInput,
+    excludeUserFromList,
+} from '../../../../utils/converting';
 
 interface UseCreateChatModalInterface {
     isOpen: boolean;
@@ -50,12 +51,6 @@ export const useCreateChatModal = ({
             }
         }
     };
-
-    useEffect(() => {
-        if (isOpen) {
-            getAllUsers();
-        }
-    }, [isOpen]);
 
     return {
         setSelectedUser,

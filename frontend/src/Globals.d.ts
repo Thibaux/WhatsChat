@@ -8,6 +8,7 @@ type Chat = {
     createdAt: string;
     updatedAt: string;
     __v: number;
+    friendsUsername?: string;
 };
 
 type Message = {
