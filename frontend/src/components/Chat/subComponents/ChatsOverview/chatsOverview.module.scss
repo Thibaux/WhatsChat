@@ -1,30 +1,11 @@
 .chatsOverviewWrapper {
     display: flex;
     flex-direction: column;
+    height: 100%;
 
-    &__chatCard {
-        height: 100%;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-        padding-left: 1rem;
-
-        h3 {
-            font-weight: bold;
-        }
-
-        p {
-            padding-bottom: 1rem;
-        }
-
-        hr {
-            border-top: 2px solid black;
-        }
-    }
-
-    &__chatCard:hover {
-        background-color: #dcdcdc;
-        cursor: pointer;
-        width: 110%;
+    &__chats {
+        overflow-y: scroll;
+        overflow-x: hidden;
     }
 
     &__selectedChat {

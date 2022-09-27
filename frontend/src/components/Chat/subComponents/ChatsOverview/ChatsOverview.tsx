@@ -11,24 +11,28 @@ export const ChatsOverview = () => {
         <div className={styles.chatsOverviewWrapper}>
             <Header />
             <Suspense fallback={<p>Loading...</p>}>
-                {chats.map(({ _id, chatTitle, updatedAt, friendsUsername }) => (
-                    <div
-                        key={_id}
-                        style={
-                            currentChat.chatId === _id
-                                ? { backgroundColor: 'lightgrey' }
-                                : {}
-                        }
-                    >
-                        <ChatCard
-                            chatId={_id}
-                            handleClickToChat={handleClickToChat}
-                            chatTitle={chatTitle}
-                            updatedAt={updatedAt}
-                            chatFriend={friendsUsername}
-                        />
-                    </div>
-                ))}
+                <div className={styles.chatsOverviewWrapper__chats}>
+                    {chats.map(
+                        ({ _id, chatTitle, updatedAt, friendsUsername }) => (
+                            <div
+                                key={_id}
+                                style={
+                                    currentChat.chatId === _id
+                                        ? { backgroundColor: 'lightgrey' }
+                                        : {}
+                                }
+                            >
+                                <ChatCard
+                                    chatId={_id}
+                                    handleClickToChat={handleClickToChat}
+                                    chatTitle={chatTitle}
+                                    updatedAt={updatedAt}
+                                    chatFriend={friendsUsername}
+                                />
+                            </div>
+                        )
+                    )}
+                </div>
             </Suspense>
         </div>
     );

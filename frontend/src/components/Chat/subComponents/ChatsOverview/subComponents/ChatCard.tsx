@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../chatsOverview.module.scss';
+import styles from './chatCard.module.scss';
 import { convertDateTime } from '../../../../../utils/converting';
 
 interface ChatCardInterface {
@@ -21,12 +21,14 @@ export const ChatCard = ({
         <div
             id={chatId}
             key={chatId}
-            className={styles.chatsOverviewWrapper__chatCard}
+            className={styles.chatCardWrapper}
             onClick={() => handleClickToChat(chatId, chatTitle)}
         >
-            <h3>{chatTitle}</h3>
+            <div className={styles.chatCardWrapper__header}>
+                <h3>{chatTitle}</h3>
+                <p>{chatFriend}</p>
+            </div>
             <p>{convertDateTime(updatedAt)}</p>
-            <p>{chatFriend}</p>
             <hr />
         </div>
     );
