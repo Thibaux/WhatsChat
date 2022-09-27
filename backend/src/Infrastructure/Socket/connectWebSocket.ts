@@ -12,14 +12,14 @@ export const connectWebSocket = (completeServer: any) => {
         socket.on('connect_error', (err) => {
             console.log(`connect_error due to ${err.message}`);
         });
-        socket.on('join', ({ userName, chatId }) => {
+        socket.on('joinRoom', ({ username, chatId }) => {
             socket.join(chatId);
 
-            socket.broadcast.to(chatId).emit('message', { text: `${userName} has joined the chat!` });
+            socket.broadcast.to(chatId).emit('message', { text: `${username} has joined the chat!` });
         });
 
-        socket.on('sendMessage', ({ userName, chatId, message }) => {
-            io.to(chatId).emit('message', { user: userName, text: message });
+        socket.on('sendMessage', ({ chatId, userId, username, message }) => {
+            socket.to(chatId).emit('receive_message', { userId, username, message });
         });
 
         socket.on('disconnect', () => {
