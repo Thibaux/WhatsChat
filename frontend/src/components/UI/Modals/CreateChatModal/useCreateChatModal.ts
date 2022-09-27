@@ -5,14 +5,15 @@ import { useUserStore } from '../../../../store/UserStore';
 import { convertUsersToSearchListInput } from '../../../../utils/converting/convertUsersToSearchListInput';
 import { excludeUserFromList } from '../../../../utils/converting/excludeUserFromList';
 
-interface useCreateChatModalInterface {
+interface UseCreateChatModalInterface {
     isOpen: boolean;
     onClose: () => void;
 }
+
 export const useCreateChatModal = ({
     isOpen,
     onClose,
-}: useCreateChatModalInterface) => {
+}: UseCreateChatModalInterface) => {
     const { userObject, users, getAllUsers, setSelectedUser, selectedUser } =
         useUserStore();
     const { handleCreateChat } = useChatsStore();
@@ -45,7 +46,7 @@ export const useCreateChatModal = ({
                 setChatTitleValue('');
             } else {
                 setShowErrorMss(true);
-                setErrorMss(result.data.message);
+                setErrorMss(result.data.response.data.message);
             }
         }
     };

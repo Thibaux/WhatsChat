@@ -29,6 +29,12 @@ export const createChat = async ({
                 data: result.data.chat,
             };
         }
+        if (result.status === 400) {
+            return {
+                status: 'FAILED',
+                data: result,
+            };
+        }
         return {
             status: 'FAILED',
             data: result.data,
