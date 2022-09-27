@@ -3,8 +3,7 @@ import { getAccessToken } from './getAccessToken';
 
 export const backendApiInstance = () => {
     return axios.create({
-        baseURL:
-            process.env.REACT_APP_BACKEND_API_URL || 'http://localhost:8080',
+        baseURL: process.env.REACT_APP_BACKEND_API_URL,
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',
