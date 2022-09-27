@@ -13,6 +13,19 @@
         justify-content: space-between;
     }
 
+    &__right {
+        display: flex;
+        flex-direction: row;
+        width: 12rem;
+        justify-content: space-between;
+        align-content: space-evenly;
+        padding-right: 1rem;
+
+        p {
+            margin-top: 0.4rem;
+        }
+    }
+
     .userName {
         font-size: large;
         margin-right: 2rem;
