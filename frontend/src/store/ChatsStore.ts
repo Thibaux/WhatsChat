@@ -2,7 +2,7 @@ import create from 'zustand';
 import { devtools } from 'zustand/middleware';
 import produce from 'immer';
 import { useMessagesStore } from './MessagesStore';
-import { createChat, getChats } from '../services/ChatService';
+import { createChat, deleteChat, getChats } from '../services/ChatService';
 import { appendFriendsUsernameToChatArray } from '../utils/converting';
 import { useUserStore } from './UserStore';
 
@@ -13,6 +13,10 @@ type ChatsStore = {
         chatTitle: string;
     };
     chats: Chat[];
+    statusDeletionChat: {
+        status: string;
+        message?: string;
+    };
     setRenderChat: ({
         showChat,
         chatId,
@@ -30,6 +34,7 @@ type ChatsStore = {
         userId: string;
         chatTitle: string;
     }) => Promise<ApiResponseType>;
+    handleDeleteChat: () => void;
 };
 
 export const useChatsStore = create<ChatsStore>()(
@@ -47,6 +52,9 @@ export const useChatsStore = create<ChatsStore>()(
                 friendsUsername: '',
             },
         ],
+        statusDeletionChat: {
+            status: '',
+        },
         setRenderChat: async ({ showChat, chatId, chatTitle }) => {
             useMessagesStore.getState().getMessages(chatId);
 
@@ -85,6 +93,30 @@ export const useChatsStore = create<ChatsStore>()(
                 );
             }
             return result;
+        },
+        handleDeleteChat: async () => {
+            const result = await deleteChat(
+                useChatsStore.getState().currentChat.chatId
+            );
+
+            if (result.status === 'SUCCESS') {
+                set(
+                    produce((draft) => {
+                        draft.statusDeletionChat = {
+                            status: result.status,
+                        };
+                    })
+                );
+            } else {
+                set(
+                    produce((draft) => {
+                        draft.statusDeletionChat = {
+                            status: result.status,
+                            message: result.data.message,
+                        };
+                    })
+                );
+            }
         },
     }))
 );
