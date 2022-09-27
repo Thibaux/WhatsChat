@@ -54,3 +54,9 @@ type ApiResponseType = {
     status: 'SUCCESS' | 'FAILED';
     data: any;
 };
+
+type LocalMessages = {
+    userId: string;
+    username: string;
+    message: string;
+};

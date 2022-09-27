@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react';
 import styles from './sendButton.module.scss';
 
-export const SendButton = ({ handleSend }: { handleSend: () => void }) => {
+interface SendButtonInterface {
+    handleSend: () => void;
+}
+
+export const SendButton = ({ handleSend }: SendButtonInterface) => {
     useEffect(() => {
         const keyDownHandler = (event: any) => {
             if (event.key === 'Enter') {

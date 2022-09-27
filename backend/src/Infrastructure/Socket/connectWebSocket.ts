@@ -9,22 +9,18 @@ export const connectWebSocket = (completeServer: any) => {
     });
 
     io.on('connect', (socket) => {
-        socket.on('connect_error', (err) => {
-            console.log(`connect_error due to ${err.message}`);
-        });
-        socket.on('join', ({ userName, chatId }) => {
+        socket.on('join_room', ({ username, chatId }) => {
             socket.join(chatId);
 
-            socket.broadcast.to(chatId).emit('message', { text: `${userName} has joined the chat!` });
+            socket.broadcast.to(chatId).emit('admin_message', { message: `${username} has joined the chat!` });
         });
 
-        socket.on('sendMessage', ({ userName, chatId, message }) => {
-            io.to(chatId).emit('message', { user: userName, text: message });
+        socket.on('send_message', ({ chatId, userId, username, message }) => {
+            socket.to(chatId).emit('receive_message', { userId, username, message });
         });
 
         socket.on('disconnect', () => {
-            // io.to(user.room).emit('message', { user: 'Admin', text: `${user.name} has left.` });
-            console.log(' user disconneccteeedd');
+            console.log('byee!');
         });
     });
 };
