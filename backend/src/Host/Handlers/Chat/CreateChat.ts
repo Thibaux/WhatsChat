@@ -10,17 +10,25 @@ export const CreateChat = async (req: Request, res: Response, next: NextFunction
 
         const authUser = GetUserFromToken(req.headers.authorization);
 
-        const isChat = await Chat.find({
+        // check if a chat exists with these users and with the provided title
+        const chats = await Chat.find({
             $and: [
-                { users: { $elemMatch: { $eq: req.body.userId } } },
-                { users: { $elemMatch: { $eq: authUser.userId } } },
+                {
+                    $or: [
+                        { users: { $elemMatch: { $eq: req.body.userId } } },
+                        { users: { $elemMatch: { $eq: authUser.userId } } },
+                    ],
+                },
+                {
+                    $or: [{ chatTitle: { $regex: req.body.chatTitle } }],
+                },
             ],
         }).populate('users', '-password');
 
-        if (isChat.length > 0) {
-            res.status(200).json({
+        if (chats.length > 0) {
+            res.status(400).json({
                 message: 'Chat already exists!',
-                chat: isChat[0],
+                chat: chats[0],
             });
         } else {
             const result = await createChat(req.body.chatTitle, req.body.userId, authUser);
