@@ -6,6 +6,13 @@
     margin-left: 3rem;
     height: 5rem;
 
+    &__left {
+        display: flex;
+        flex-direction: row;
+        width: 21rem;
+        justify-content: space-between;
+    }
+
     .userName {
         font-size: large;
         margin-right: 2rem;

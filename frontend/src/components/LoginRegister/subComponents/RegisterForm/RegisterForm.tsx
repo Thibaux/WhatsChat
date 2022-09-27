@@ -1,9 +1,10 @@
 import React from 'react';
+import { ArrowForwardIcon } from '@chakra-ui/icons';
 import styles from './registerForm.module.scss';
 import { TextInput } from '../../../Forms/Input/TextInput/TextInput';
 import { PasswordInput } from '../../../Forms/Input/PasswordInput';
-import { SubmitButton } from '../../../UI/Buttons';
 import { useRegisterForm } from './useRegisterForm';
+import { GenericButton } from '../../../UI/Buttons';
 
 export const RegisterForm = () => {
     const {
@@ -44,9 +45,11 @@ export const RegisterForm = () => {
             </div>
 
             <div className={styles.registerBtnWrapper}>
-                <SubmitButton
-                    buttonText='Sign up'
-                    handleSubmit={submitRegister}
+                <GenericButton
+                    title='Sign up'
+                    handleClick={submitRegister}
+                    color='blue'
+                    icon={<ArrowForwardIcon />}
                 />
             </div>
         </div>

@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react';
+import { ArrowRightIcon } from '@chakra-ui/icons';
 import styles from './loginForm.module.scss';
-import { SubmitButton } from '../../../UI/Buttons';
 import { TextInput } from '../../../Forms/Input/TextInput/TextInput';
 import { PasswordInput } from '../../../Forms/Input/PasswordInput';
 import { useLoginForm } from './useLoginFrom';
+import { GenericButton } from '../../../UI/Buttons';
 
 export const LoginForm = () => {
     const {
@@ -38,7 +39,12 @@ export const LoginForm = () => {
             />
 
             <div className={styles.loginBtnWrapper}>
-                <SubmitButton buttonText='Login' handleSubmit={submitLogin} />
+                <GenericButton
+                    title='Login'
+                    handleClick={submitLogin}
+                    color='blue'
+                    icon={<ArrowRightIcon />}
+                />
             </div>
         </div>
     );

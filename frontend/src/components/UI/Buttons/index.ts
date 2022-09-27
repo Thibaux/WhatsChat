@@ -1,2 +1,2 @@
 export * from './SendButton/SendButton';
-export * from './SubmitButton/SubmitButton';
+export * from './GenericButton/GenericButton';
