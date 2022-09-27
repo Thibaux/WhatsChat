@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense } from 'react';
 import styles from './chat.module.scss';
 import {
     ChatContent,
@@ -9,17 +9,13 @@ import {
 import { useChatsStore } from '../../store/ChatsStore';
 
 export const Chat = () => {
-    const { renderChat, chats, getChats } = useChatsStore();
-
-    useEffect(() => {
-        getChats();
-    }, []);
+    const { renderChat } = useChatsStore();
 
     return (
         <div className={styles.chatAppWrapper}>
             <section className={styles.chatAppWrapper__chatsWrapper}>
                 <Suspense fallback={<p>Loading...</p>}>
-                    <ChatsOverview chats={chats} />
+                    <ChatsOverview />
                 </Suspense>
             </section>
             <div className={styles.chatAppWrapper__middleSection}>

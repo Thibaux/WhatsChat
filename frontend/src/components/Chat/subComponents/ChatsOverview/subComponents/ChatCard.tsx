@@ -17,8 +17,6 @@ export const ChatCard = ({
     updatedAt,
     chatFriend,
 }: ChatCardInterface) => {
-    console.log(chatFriend);
-
     return (
         <div
             id={chatId}
@@ -28,6 +26,7 @@ export const ChatCard = ({
         >
             <h3>{chatTitle}</h3>
             <p>{convertDateTime(updatedAt)}</p>
+            <p>{chatFriend}</p>
             <hr />
         </div>
     );
