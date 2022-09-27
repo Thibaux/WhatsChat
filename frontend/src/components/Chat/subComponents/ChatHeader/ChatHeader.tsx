@@ -9,14 +9,12 @@ import { GenericButton } from '../../../UI/Buttons';
 
 export const ChatHeader = () => {
     const { userObject } = useUserStore();
-    const { currentChat, handleDeleteChat, statusDeletionChat } =
-        useChatsStore();
+    const { currentChat, handleDeleteChat } = useChatsStore();
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
         <div className={styles.titleWrapper}>
             <div className={styles.titleWrapper__left}>
-                {statusDeletionChat.status === 'SUCCESS' && <p>SUCCESS</p>}
                 <GenericButton
                     title='Create chat'
                     handleClick={onOpen}

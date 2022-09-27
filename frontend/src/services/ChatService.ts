@@ -51,7 +51,7 @@ export const deleteChat = async (chatId: string): Promise<ApiResponseType> => {
     try {
         const result = await backendApiInstance().delete(`/chat/${chatId}`);
 
-        if (result.status === 204) {
+        if (result.status === 200) {
             return {
                 status: 'SUCCESS',
                 data: result.data,
