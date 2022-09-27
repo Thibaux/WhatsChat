@@ -1,8 +1,10 @@
 import create from 'zustand';
 import { devtools } from 'zustand/middleware';
 import produce from 'immer';
-import { getChats } from '../services/ChatService/GetChats';
 import { useMessagesStore } from './MessagesStore';
+import { createChat, getChats } from '../services/ChatService';
+import { appendFriendsUsernameToChatArray } from '../utils/converting';
+import { useUserStore } from './UserStore';
 
 type ChatsStore = {
     renderChat: boolean;
@@ -21,6 +23,13 @@ type ChatsStore = {
         chatTitle: string;
     }) => void;
     getChats: () => void;
+    handleCreateChat: ({
+        userId,
+        chatTitle,
+    }: {
+        userId: string;
+        chatTitle: string;
+    }) => Promise<ApiResponseType>;
 };
 
 export const useChatsStore = create<ChatsStore>()(
@@ -35,17 +44,18 @@ export const useChatsStore = create<ChatsStore>()(
                 createdAt: '',
                 updatedAt: '',
                 __v: 0,
+                friendsUsername: '',
             },
         ],
         setRenderChat: async ({ showChat, chatId, chatTitle }) => {
             useMessagesStore.getState().getMessages(chatId);
 
-            await set(
+            set(
                 produce((draft) => {
                     draft.currentChat = { chatId, chatTitle };
                 })
             );
-            await set(
+            set(
                 produce((draft) => {
                     draft.renderChat = showChat;
                 })
@@ -54,11 +64,27 @@ export const useChatsStore = create<ChatsStore>()(
         getChats: async () => {
             const chats = await getChats();
 
-            await set(
+            set(
                 produce((draft) => {
-                    draft.chats = chats;
+                    draft.chats = appendFriendsUsernameToChatArray({
+                        chats,
+                        userObject: useUserStore.getState().userObject,
+                        users: useUserStore.getState().users,
+                    });
                 })
             );
+        },
+        handleCreateChat: async ({ userId, chatTitle }) => {
+            const result = await createChat({ userId, chatTitle });
+
+            if (result.status === 'SUCCESS') {
+                set(
+                    produce((draft) => {
+                        draft.chats.push(result.data);
+                    })
+                );
+            }
+            return result;
         },
     }))
 );

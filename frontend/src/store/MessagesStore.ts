@@ -1,9 +1,11 @@
 import create from 'zustand';
 import { devtools } from 'zustand/middleware';
 import produce from 'immer';
-import { getMessagesOfChat } from '../services/MessagesService/GetMessagesOfChat';
-import { sendMessageToApi } from '../services/MessagesService/SendMessageToApi';
 import { useChatsStore } from './ChatsStore';
+import {
+    getMessagesOfChat,
+    sendMessageToApi,
+} from '../services/MessagesService';
 
 type MessagesStore = {
     messages: Message[];

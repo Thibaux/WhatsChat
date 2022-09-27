@@ -11,7 +11,7 @@ interface TextInputProps {
     placeholder: string;
     value: string;
     handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
-    hasError: boolean | undefined;
+    hasError?: boolean | undefined;
     innerRef?: RefObject<HTMLInputElement>;
 }
 

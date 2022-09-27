@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './registerForm.module.scss';
 import { TextInput } from '../../../Forms/Input/TextInput/TextInput';
 import { PasswordInput } from '../../../Forms/Input/PasswordInput';
-import { SubmitButton } from '../../../Buttons/SubmitButton';
+import { SubmitButton } from '../../../UI/Buttons';
 import { useRegisterForm } from './useRegisterForm';
 
 export const RegisterForm = () => {

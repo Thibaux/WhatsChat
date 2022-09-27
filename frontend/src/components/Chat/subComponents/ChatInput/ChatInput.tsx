@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Textarea } from '@chakra-ui/react';
 import styles from './chatInput.module.scss';
 import { useSendInput } from './useSendInput';
-import { SendButton } from '../../../Buttons/SendButton/SendButton';
+import { SendButton } from '../../../UI/Buttons';
 
 export const ChatInput = () => {
     const { messageValue, handleTextChange, handleSend } = useSendInput();

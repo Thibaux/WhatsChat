@@ -1,4 +1,4 @@
-import { backendApiInstance } from '../../utils/apiInstance';
+import { backendApiInstance } from '../utils/apiInstance';
 
 export const postLoginDetails = async (loginValues: LoginValues) => {
     try {
@@ -34,6 +34,28 @@ export const postCreateUser = async (userValues: UserValues) => {
         });
 
         if (result.status === 201) {
+            return {
+                status: 'SUCCESS',
+                data: result.data,
+            };
+        }
+        return {
+            status: 'FAILED',
+            data: result.data,
+        };
+    } catch (e) {
+        return {
+            status: 'FAILED',
+            data: e,
+        };
+    }
+};
+
+export const getUsers = async (searchValue?: string) => {
+    try {
+        const result = await backendApiInstance().get(`/users?search=`);
+
+        if (result.status === 200) {
             return {
                 status: 'SUCCESS',
                 data: result.data,

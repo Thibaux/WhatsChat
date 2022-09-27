@@ -3,9 +3,9 @@ import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import styles from './loginRegister.module.scss';
 import { LoginForm, RegisterForm } from './subComponents';
 import { Header } from '../Header/Header';
-import { GenericError } from '../Errors/GenericError';
+import { GenericError } from '../UI/Errors';
 import { useLoginRegisterStore } from '../../store/LoginStore';
-import { SuccessfulRegisterAlert } from '../Alerts/SuccessfulRegisterAlert';
+import { SuccessfulRegisterAlert } from '../UI/Alerts';
 
 export const LoginRegister = () => {
     const {

@@ -1,5 +1,5 @@
 export const getAccessToken = (): string => {
-    const state = localStorage.getItem('userObject');
+    const state = localStorage.getItem('userStore');
 
     if (!state) {
         return '';
