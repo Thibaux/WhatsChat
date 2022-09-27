@@ -3,13 +3,13 @@ import { BadRequestError } from '../../../Infrastructure/Errors/BadRequestError'
 
 export const DeleteChat = async (req, res, next) => {
     try {
-        if (!req.params.chatId)
-            throw new BadRequestError('ChatId not provided!');
+        if (!req.params.chatId) throw new BadRequestError('ChatId not provided!');
 
         const result = await removeChatByUserId(req.params.chatId);
 
-        if (!result.success)
-            throw new BadRequestError('User could not be created!');
+        if (!result.success) {
+            throw new BadRequestError('Chat could not be deleted!');
+        }
 
         res.status(200).json(result.payload);
     } catch (error) {
