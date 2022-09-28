@@ -1,6 +1,6 @@
 {
     "parser": "@typescript-eslint/parser",
-    "plugins": ["@typescript-eslint", "prettier", "only-warn"],
+    "plugins": ["@typescript-eslint", "prettier", "only-warn","unused-imports"],
     "extends": [
       "plugin:@typescript-eslint/recommended",
       "airbnb",
@@ -12,6 +12,16 @@
       "project": "./tsconfig.json"
     },
     "rules": {
+      "unused-imports/no-unused-imports": "error",
+      "unused-imports/no-unused-vars": [
+        "warn",
+        {
+          "vars": "all",
+          "varsIgnorePattern": "^_",
+          "args": "after-used",
+          "argsIgnorePattern": "^_"
+        }
+      ],
       "no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["draft"] }],
       "jsx-a11y/label-has-associated-control": ["error", {
         "required": {
@@ -43,5 +53,5 @@
         }
       ]
     }
-    
+
   }
