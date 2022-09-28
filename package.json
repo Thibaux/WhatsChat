@@ -4,7 +4,7 @@
     "description": "This is a simple chat app. Two users can chat with each other via a Websocket.",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "serve-backend": "nodemon -r dotenv/config -L -e js,ts backend/src/Host/Server.ts",
+        "serve-backend": "node backend/dist/src/Host/Server.js",
         "ci-backend": "cd backend && npm i",
         "build-backend": "cd backend && npx tsc",
         "start": "npm-run-all ci-backend build-backend serve-backend"
