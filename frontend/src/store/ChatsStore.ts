@@ -34,7 +34,7 @@ type ChatsStore = {
         userId: string;
         chatTitle: string;
     }) => Promise<ApiResponseType>;
-    handleDeleteChat: () => void;
+    handleDeleteChat: () => Promise<ApiResponseType>;
     updateLocalChats: (chatIdToDelete: string) => void;
 };
 
@@ -96,7 +96,8 @@ export const useChatsStore = create<ChatsStore>()(
             return result;
         },
         handleDeleteChat: async () => {
-            const chatIdToDelete = useChatsStore.getState().currentChat.chatId;
+            const chatIdToDelete: string =
+                useChatsStore.getState().currentChat.chatId;
             const result = await deleteChat(chatIdToDelete);
 
             if (result.status === 'SUCCESS') {
@@ -118,12 +119,13 @@ export const useChatsStore = create<ChatsStore>()(
                     })
                 );
             }
+            return result;
         },
         updateLocalChats: (chatIdToDelete) => {
             const { chats } = useChatsStore.getState();
 
             const updatedChats = chats.filter(
-                (chat) => chat._id !== chatIdToDelete
+                (chat: Chat) => chat._id !== chatIdToDelete
             );
 
             set(

@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { useDisclosure } from '@chakra-ui/react';
-import { DeleteIcon, PlusSquareIcon, SmallCloseIcon } from '@chakra-ui/icons';
+import { PlusSquareIcon, SmallCloseIcon } from '@chakra-ui/icons';
 import styles from './chatHeader.module.scss';
 import { useUserStore } from '../../../../store/UserStore';
 import { CreateChatModal } from '../../../UI/Modals';
 import { useChatsStore } from '../../../../store/ChatsStore';
 import { GenericButton } from '../../../UI/Buttons';
+import { DeleteChat } from './subComponents/DeleteChat';
 
 export const ChatHeader = () => {
     const { userObject } = useUserStore();
-    const { currentChat, handleDeleteChat } = useChatsStore();
+    const { currentChat } = useChatsStore();
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const logUserOut = () => {
@@ -26,14 +27,7 @@ export const ChatHeader = () => {
                     color='gray'
                     icon={<PlusSquareIcon />}
                 />
-                {currentChat.chatId !== '' && (
-                    <GenericButton
-                        title='Delete chat'
-                        handleClick={handleDeleteChat}
-                        color='red'
-                        icon={<DeleteIcon />}
-                    />
-                )}
+                {currentChat.chatId !== '' && <DeleteChat />}
             </div>
             <CreateChatModal isOpen={isOpen} onClose={onClose} />
 

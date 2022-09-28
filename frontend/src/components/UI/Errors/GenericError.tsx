@@ -8,7 +8,7 @@ import {
 
 interface GenericErrorInterface {
     title: string;
-    description: string;
+    description: string | undefined;
 }
 
 export const GenericError = ({ title, description }: GenericErrorInterface) => {
