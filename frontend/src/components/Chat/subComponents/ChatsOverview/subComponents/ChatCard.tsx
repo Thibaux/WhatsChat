@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './chatCard.module.scss';
-import { convertDateTime } from '../../../../../utils/converting';
+import { convertDateTime } from '../../../../../utils/Converting';
 
 interface ChatCardInterface {
     chatId: string;

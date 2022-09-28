@@ -1,4 +1,4 @@
-import { getFriendsUsername } from './Users/getFriendsUsername';
+import { getFriendsUsername } from './Users/GetFriendsUsername/getFriendsUsername';
 
 interface AppendFriendsUsernameToChatArrayInterface {
     chats: Chat[];
