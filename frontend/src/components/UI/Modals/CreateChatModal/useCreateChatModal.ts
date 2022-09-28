@@ -4,7 +4,7 @@ import { useUserStore } from '../../../../store/UserStore';
 import {
     convertUsersToSearchListInput,
     excludeUserFromList,
-} from '../../../../utils/converting';
+} from '../../../../utils/Converting';
 
 interface UseCreateChatModalInterface {
     isOpen: boolean;

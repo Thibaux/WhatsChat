@@ -2,5 +2,5 @@ export const filterOutLoggedInUser = (
     loggedInUserId: string,
     userIds: string[]
 ): string => {
-    return userIds.filter((userId) => userId !== loggedInUserId)[0];
+    return userIds.filter((userId: string) => userId !== loggedInUserId)[0];
 };

@@ -6,7 +6,7 @@ import {
     getMessagesOfChat,
     sendMessageToApi,
 } from '../services/MessagesService';
-import { convertApiMessagesToLocalMessages } from '../utils/converting';
+import { convertApiMessagesToLocalMessages } from '../utils/Converting';
 
 type MessagesStore = {
     messages: Message[];

@@ -1,7 +1,7 @@
-import { filterOutLoggedInUser } from './filterOutLoggedInUser';
-import { getUserObjectById } from './getUserObjectById';
+import { filterOutLoggedInUser } from '../filterOutLoggedInUser';
+import { getUserObjectById } from '../getUserObjectById';
 
-interface GetFriendsUsernameInterface {
+export interface GetFriendsUsernameInterface {
     userObject: UserObject;
     chatUsers: string[];
     users: UserObject[];

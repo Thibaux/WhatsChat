@@ -3,7 +3,7 @@ import { devtools } from 'zustand/middleware';
 import produce from 'immer';
 import { useMessagesStore } from './MessagesStore';
 import { createChat, deleteChat, getChats } from '../services/ChatService';
-import { appendFriendsUsernameToChatArray } from '../utils/converting';
+import { appendFriendsUsernameToChatArray } from '../utils/Converting';
 import { useUserStore } from './UserStore';
 
 type ChatsStore = {
