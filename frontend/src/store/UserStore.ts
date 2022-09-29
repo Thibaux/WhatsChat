@@ -1,8 +1,8 @@
 import create from 'zustand';
 import produce from 'immer';
 import { persist } from 'zustand/middleware';
-import { getUsers } from '../services/UserService';
 import { SingleValue } from 'react-select';
+import { getUsers } from '../services/UserService';
 
 type UserStore = {
     userObject: UserObject;
