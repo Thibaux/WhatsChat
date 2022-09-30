@@ -1,5 +1,7 @@
 ## Chat app
 
+Check it out: https://chat-app-frontend-peach.vercel.app
+
 This is a websocket chat app. A user can create chats with other users. This repository contains the react frontend and the express api backend.
 
 Frontend:
