@@ -4,9 +4,17 @@ import styles from './chatInput.module.scss';
 import { useSendInput } from './useSendInput';
 import { SendButton } from '../../../UI/Buttons';
 import { useChatsStore } from '../../../../store/ChatsStore';
+import { EmojiPickerModal } from '../../../UI/Modals/EmojiPickerModal/EmojiPickerModal';
 
 export const ChatInput = () => {
-    const { messageValue, handleTextChange, handleSend } = useSendInput();
+    const {
+        messageValue,
+        handleTextChange,
+        handleSend,
+        handleEmojiPickerClick,
+        emojiPickerModalIsOpen,
+    } = useSendInput();
+
     const { currentChat } = useChatsStore();
 
     return (
@@ -21,6 +29,10 @@ export const ChatInput = () => {
                     disabled={currentChat.chatId === ''}
                 />
             </div>
+            {/* <Icon as={BsEmojiSmileUpsideDown} /> */}
+            <EmojiPickerModal isOpen={emojiPickerModalIsOpen} />
+            {/* <div onClick={handleEmojiPickerClick} /> */}
+
             <SendButton handleSend={handleSend} />
         </div>
     );

@@ -6,6 +6,7 @@ import { SOCKET } from '../../../../utils/Constants';
 
 export const useSendInput = () => {
     const [messageValue, setMessageValue] = useState('');
+    const [emojiPickerModalIsOpen, setEmojiPickerModalIsOpen] = useState(false);
     const { sendMessage, updateLocalMessages } = useMessagesStore();
     const { currentChat } = useChatsStore();
     const { userObject } = useUserStore();
@@ -20,6 +21,12 @@ export const useSendInput = () => {
         const text = event?.target.value;
         setMessageValue(text);
     };
+
+    const handleEmojiPickerClick = () => {
+        console.log('sdf');
+        setEmojiPickerModalIsOpen(true);
+    };
+
     const handleSend = async () => {
         await SOCKET.emit('send_message', {
             chatId: c,
@@ -37,49 +44,11 @@ export const useSendInput = () => {
         setMessageValue('');
     };
 
-    // const handleSend = () => {
-    //     socket.emit('sendMessage', messageValue, () => setMessageValue(''));
-    // };
-    // const getIdOfLastMessage = (): number => {
-    //     if (!chatMessages) return 0;
-    //     return chatMessages[chatMessages.length].id;
-    // };
-    // useEffect(() => {
-    // socket.on('message', (message) => {
-    //     sendMessage({
-    //         id: getIdOfLastMessage(),
-    //         sender: 'jan',
-    //         message: message.message,
-    //     });
-    // });
-    // });
-
-    // useEffect(() => {
-    //
-    //     socket = io(apiUrl, {
-    //         withCredentials: false,
-    //     });
-    //
-    //     socket.emit('join', { u, c }, (e: any) => {
-    //         if (e) {
-    //             console.log(e);
-    //         }
-    //     });
-    // }, []);
-    //
-    // useEffect(() => {
-    //     socket.on(
-    //         'message',
-    //         ({ userName: u, chatId: c, message: socketMessage }) => {
-    //             console.log(u + c);
-    //             updateLocalMessages(socketMessage);
-    //         }
-    //     );
-    // }, []);
-
     return {
         messageValue,
         handleTextChange,
         handleSend,
+        handleEmojiPickerClick,
+        emojiPickerModalIsOpen,
     };
 };
