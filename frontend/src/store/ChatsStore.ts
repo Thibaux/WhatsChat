@@ -4,6 +4,7 @@ import produce from 'immer';
 import { useMessagesStore } from './MessagesStore';
 import { createChat, deleteChat, getChats } from '../services/ChatService';
 import { appendFriendsUsernameToChatArray } from '../utils/Converting';
+import { useLoginRegisterStore } from './LoginStore';
 import { useUserStore } from './UserStore';
 
 type ChatsStore = {
@@ -71,6 +72,10 @@ export const useChatsStore = create<ChatsStore>()(
             );
         },
         getChats: async () => {
+            if (!useLoginRegisterStore.getState().successfulLogin) {
+                return;
+            }
+
             const chats = await getChats();
 
             set(
