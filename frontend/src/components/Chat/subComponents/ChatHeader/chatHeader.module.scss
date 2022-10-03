@@ -16,7 +16,7 @@
     &__right {
         display: flex;
         flex-direction: row;
-        width: 14rem;
+        min-width: 14rem;
         justify-content: space-between;
         align-content: space-evenly;
         padding-right: 1rem;
@@ -30,6 +30,7 @@
         margin-top: 0;
         font-size: 1.5rem;
         margin-right: 2rem;
+        width: auto;
         font-weight: 500;
         color: whitesmoke;
     }
