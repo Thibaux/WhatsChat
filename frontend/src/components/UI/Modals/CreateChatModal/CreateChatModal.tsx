@@ -10,7 +10,7 @@ import {
     ModalOverlay,
 } from '@chakra-ui/react';
 import { SearchUser } from '../../SelectList/SearchUser';
-import { TextInput } from '../../../Forms/Input/TextInput/TextInput';
+import { TextInput } from '../../../Forms/Input';
 import { useCreateChatModal } from './useCreateChatModal';
 import styles from './createChatModal.module.scss';
 import { GenericError } from '../../Errors';

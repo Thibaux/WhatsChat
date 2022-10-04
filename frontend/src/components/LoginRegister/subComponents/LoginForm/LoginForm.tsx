@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { ArrowRightIcon } from '@chakra-ui/icons';
 import styles from './loginForm.module.scss';
-import { TextInput } from '../../../Forms/Input/TextInput/TextInput';
-import { PasswordInput } from '../../../Forms/Input/PasswordInput';
+import { PasswordInput, TextInput } from '../../../Forms/Input';
 import { useLoginForm } from './useLoginFrom';
 import { GenericButton } from '../../../UI/Buttons';
 

@@ -5,8 +5,8 @@ import { BsEmojiSmileUpsideDown } from 'react-icons/bs';
 import styles from './chatInput.module.scss';
 import { useSendInput } from './useSendInput';
 import { SendButton } from '../../../UI/Buttons';
-import { MessageInput } from '../../../Forms/Input/MessageInput/MessageInput';
-import { EmojiPickerModal } from '../../../UI/Modals/EmojiPickerModal/EmojiPickerModal';
+import { MessageInput } from '../../../Forms/Input';
+import { EmojiPickerModal } from '../../../UI/Modals';
 
 export const ChatInput = () => {
     const {
@@ -50,13 +50,7 @@ export const ChatInput = () => {
                 />
             </div>
 
-            {isOpen && (
-                <EmojiPickerModal
-                    handleEmojiPickerClick={handleEmojiPickerClick}
-                    isOpen={isOpen}
-                    onClose={onClose}
-                />
-            )}
+            {isOpen && <EmojiPickerModal isOpen={isOpen} onClose={onClose} />}
 
             <SendButton handleSend={handleSend} />
         </div>
