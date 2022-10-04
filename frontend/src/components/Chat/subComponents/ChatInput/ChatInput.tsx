@@ -1,9 +1,11 @@
 import * as React from 'react';
-import { Textarea } from '@chakra-ui/react';
+import { useState } from 'react';
+import { Icon } from '@chakra-ui/react';
+import { BsEmojiSmileUpsideDown } from 'react-icons/bs';
 import styles from './chatInput.module.scss';
 import { useSendInput } from './useSendInput';
 import { SendButton } from '../../../UI/Buttons';
-import { useChatsStore } from '../../../../store/ChatsStore';
+import { MessageInput } from '../../../Forms/Input/MessageInput/MessageInput';
 import { EmojiPickerModal } from '../../../UI/Modals/EmojiPickerModal/EmojiPickerModal';
 
 export const ChatInput = () => {
@@ -12,26 +14,49 @@ export const ChatInput = () => {
         handleTextChange,
         handleSend,
         handleEmojiPickerClick,
-        emojiPickerModalIsOpen,
+        isOpen,
+        handleEmojiOpen,
+        onClose,
+        chatId,
     } = useSendInput();
+    const [over, setOver] = useState(false);
+    let emojiWrapperStyle = {};
 
-    const { currentChat } = useChatsStore();
+    if (over && chatId !== '') {
+        emojiWrapperStyle = {
+            cursor: 'pointer',
+            backgroundColor: '#9a9a9a',
+        };
+    }
 
     return (
         <div className={styles.inputWrapper}>
+            <div
+                onClick={handleEmojiOpen}
+                className={styles.inputWrapper__emojiWrapper}
+                style={emojiWrapperStyle}
+                onMouseOver={() => setOver(true)}
+                onMouseOut={() => setOver(false)}
+            >
+                <Icon as={BsEmojiSmileUpsideDown} w={6} h={6} />
+            </div>
+
             <div className={styles.inputWrapper__textarea}>
-                <Textarea
+                <MessageInput
                     value={messageValue}
-                    onChange={handleTextChange}
+                    handleChange={handleTextChange}
                     placeholder='Your message'
-                    size='sm'
-                    resize='none'
-                    disabled={currentChat.chatId === ''}
+                    isDisabled={chatId === ''}
                 />
             </div>
-            {/* <Icon as={BsEmojiSmileUpsideDown} /> */}
-            <EmojiPickerModal isOpen={emojiPickerModalIsOpen} />
-            {/* <div onClick={handleEmojiPickerClick} /> */}
+
+            {isOpen && (
+                <EmojiPickerModal
+                    handleEmojiPickerClick={handleEmojiPickerClick}
+                    isOpen={isOpen}
+                    onClose={onClose}
+                />
+            )}
 
             <SendButton handleSend={handleSend} />
         </div>

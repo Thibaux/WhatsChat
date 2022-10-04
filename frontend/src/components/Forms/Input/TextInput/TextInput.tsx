@@ -28,7 +28,6 @@ export const TextInput = ({
             {label}
         </FormLabel>
         <Input
-            variant='flushed'
             _placeholder={{ opacity: 1, color: 'gray.600' }}
             placeholder={placeholder}
             value={value}

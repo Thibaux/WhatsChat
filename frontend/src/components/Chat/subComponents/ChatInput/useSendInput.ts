@@ -1,4 +1,6 @@
 import { ChangeEventHandler, useState } from 'react';
+import { useDisclosure } from '@chakra-ui/react';
+import { EmojiClickData } from 'emoji-picker-react/src/types/exposedTypes';
 import { useMessagesStore } from '../../../../store/MessagesStore';
 import { useUserStore } from '../../../../store/UserStore';
 import { useChatsStore } from '../../../../store/ChatsStore';
@@ -6,14 +8,20 @@ import { SOCKET } from '../../../../utils/Constants';
 
 export const useSendInput = () => {
     const [messageValue, setMessageValue] = useState('');
-    const [emojiPickerModalIsOpen, setEmojiPickerModalIsOpen] = useState(false);
     const { sendMessage, updateLocalMessages } = useMessagesStore();
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
     const { currentChat } = useChatsStore();
     const { userObject } = useUserStore();
 
     const u = userObject.username;
     const userId = userObject._id;
-    const c = currentChat.chatId;
+    const { chatId } = currentChat;
+
+    const handleEmojiOpen = () => {
+        if (!chatId) return;
+        onOpen();
+    };
 
     const handleTextChange: ChangeEventHandler = (
         event: React.ChangeEvent<HTMLInputElement>
@@ -22,14 +30,22 @@ export const useSendInput = () => {
         setMessageValue(text);
     };
 
-    const handleEmojiPickerClick = () => {
-        console.log('sdf');
-        setEmojiPickerModalIsOpen(true);
+    const addEmojiToMessageInput = (emoji: string) => {
+        const newMessageValue = `${messageValue}${emoji}`;
+        setMessageValue(newMessageValue);
+    };
+
+    const handleEmojiPickerClick = (
+        emoji: EmojiClickData,
+        event: MouseEvent
+    ) => {
+        addEmojiToMessageInput(emoji.emoji);
+        onClose();
     };
 
     const handleSend = async () => {
         await SOCKET.emit('send_message', {
-            chatId: c,
+            chatId,
             userId,
             username: u,
             message: messageValue,
@@ -49,6 +65,9 @@ export const useSendInput = () => {
         handleTextChange,
         handleSend,
         handleEmojiPickerClick,
-        emojiPickerModalIsOpen,
+        isOpen,
+        handleEmojiOpen,
+        onClose,
+        chatId,
     };
 };
