@@ -6,7 +6,8 @@
       "moduleResolution": "node",
       "sourceMap": true,
       "outDir": "dist",
-      "allowSyntheticDefaultImports": true
+      "allowSyntheticDefaultImports": true,
+      "jsx": "react"
     },
     "lib": ["es2015"],
     "exclude": [
