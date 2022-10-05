@@ -22,13 +22,13 @@
     }
 
     &__contentWrapper {
-        min-height: calc(100% - 10rem);
+        height: 95%;
         overflow-y: auto;
         background-color: #c4c4c4;
     }
 
     &__inputWrapper {
-        height: 5rem;
+        height: 5%;
         background-color: whitesmoke;
     }
 
