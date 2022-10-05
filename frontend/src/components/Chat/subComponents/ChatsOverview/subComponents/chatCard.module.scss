@@ -1,0 +1,29 @@
+.chatCardWrapper {
+    display: flex;
+    flex-direction: column;
+    padding-left: 1rem;
+    width: 100%;
+
+    &__header {
+        display: flex;
+        flex-direction: row;
+        width: 90%;
+        height: 2.5rem;
+        justify-content: space-between;
+
+        h3 {
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+    }
+
+    hr {
+        margin-top: 0.5rem;
+        border-top: 2px solid black;
+    }
+}
+
+.chatCardWrapper:hover {
+    background-color: #dcdcdc;
+    cursor: pointer;
+}

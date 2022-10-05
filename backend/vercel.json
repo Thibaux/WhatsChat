@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "chat-app-backend",
+  "builds": [
+    { "src": "src/Host/Server.ts", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "src/Host/Server.ts" }
+  ]
+}

@@ -1,0 +1,21 @@
+.chatsOverviewWrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+
+    &__chats {
+        overflow-y: scroll;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
+    &__chats::-webkit-scrollbar {
+        display: none;
+    }
+
+    &__selectedChat {
+        background-color: black;
+        color: white;
+    }
+}

@@ -1,25 +1,38 @@
-import React, { useEffect } from 'react';
-import { ChatStoreInterface, useChatStore } from '../../../../store/store';
+import { useEffect, useRef } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { SOCKET } from '../../../../utils/Constants';
+import { useMessagesStore } from '../../../../store/MessagesStore';
 
 export const useChatContent = () => {
-    const { chatMessages, getChatMessages } = useChatStore();
-    const senderOfFirstMessage = useChatStore(
-        React.useCallback(
-            (state: ChatStoreInterface) => state.chatMessages[0].sender,
-            []
-        )
-    );
-
-    const myRef = React.useRef(null as any);
-    const executeScroll = () => myRef.current.scrollIntoView();
+    const { localMessages, updateLocalMessages } = useMessagesStore();
+    const scrollIntoViewRef = useRef(null as any);
+    const executeScroll = () =>
+        scrollIntoViewRef.current?.scrollIntoView({ behavior: 'smooth' });
 
     useEffect(() => {
         executeScroll();
     });
 
     useEffect(() => {
-        getChatMessages();
-    });
+        SOCKET.on('receive_message', ({ userId, username, message }) => {
+            updateLocalMessages({ userId, username, message });
+        });
+        SOCKET.on('admin_message', ({ message }) => {
+            updateLocalMessages({
+                userId: uuidv4(),
+                username: 'admin',
+                message,
+            });
+        });
 
-    return { chatMessages, senderOfFirstMessage, myRef };
+        return () => {
+            SOCKET.off('receive_message');
+            SOCKET.off('admin_message');
+        };
+    }, [SOCKET, localMessages, updateLocalMessages]);
+
+    return {
+        scrollIntoViewRef,
+        localMessages,
+    };
 };

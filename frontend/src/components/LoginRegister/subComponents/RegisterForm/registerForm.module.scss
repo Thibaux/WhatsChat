@@ -1,0 +1,19 @@
+.registerFormWrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1rem 1rem 2rem;
+
+    &__username {
+        padding-bottom: 2rem;
+    }
+
+    &__email {
+        padding-bottom: 2rem;
+    }
+}
+
+.registerBtnWrapper {
+    display: flex;
+    justify-content: right;
+    padding-top: 4rem;
+}

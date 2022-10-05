@@ -1,16 +1,36 @@
 .titleWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-left: 3rem;
-  height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-content: center;
+    margin-left: 3rem;
+    height: 5rem;
 
-  h2 {
-    font-weight: 700;
-  }
+    &__left {
+        display: flex;
+        flex-direction: row;
+        width: 19rem;
+        justify-content: space-between;
+    }
 
-  .userName {
-    margin-right: 2rem;
-    font-weight: 500;
-  }
+    &__right {
+        display: flex;
+        flex-direction: row;
+        width: 14rem;
+        justify-content: space-between;
+        align-content: space-evenly;
+        padding-right: 1rem;
+
+        p {
+            margin-top: 0.4rem;
+        }
+    }
+
+    .userName {
+        margin-top: 0;
+        font-size: 1.5rem;
+        margin-right: 2rem;
+        font-weight: 500;
+        color: whitesmoke;
+    }
 }

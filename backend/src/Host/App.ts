@@ -1,18 +1,28 @@
 import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
+import { createServer } from 'http';
 import bodyParser from 'body-parser';
 import router from './Routes';
 import { connectToDb } from '../Infrastructure/Database/ConnectToDb';
 import { ErrorHandler, RouteNotFound } from './Middleware';
+import { connectWebSocket } from '../Infrastructure/Socket/connectWebSocket';
 
 dotenv.config();
 
 const app = express();
+const completeServer = createServer(app);
 connectToDb();
 
 app.set('port', process.env.PORT);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(
+    cors({
+        origin: '*',
+    })
+);
 
 app.use((req, res, next) => {
     res.header('Content-Type', 'application/json');
@@ -28,4 +38,6 @@ app.use(router);
 app.use(ErrorHandler);
 app.use(RouteNotFound);
 
-export default app;
+connectWebSocket(completeServer);
+
+export default completeServer;
