@@ -1,8 +1,7 @@
 import React from 'react';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import styles from './registerForm.module.scss';
-import { TextInput } from '../../../Forms/Input/TextInput/TextInput';
-import { PasswordInput } from '../../../Forms/Input/PasswordInput';
+import { PasswordInput, TextInput } from '../../../Forms/Input';
 import { useRegisterForm } from './useRegisterForm';
 import { GenericButton } from '../../../UI/Buttons';
 
