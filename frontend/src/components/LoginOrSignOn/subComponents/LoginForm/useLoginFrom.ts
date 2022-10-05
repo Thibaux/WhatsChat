@@ -1,26 +1,26 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useLoginStore } from '../../../../store/LoginStore';
 import { objectHasSomeTrueValues } from '../../../../utils/Validation';
+import { useLoginRegisterStore } from '../../../../store/LoginStore';
 
 export const useLoginForm = () => {
     const {
         loginFormValues,
         loginFormErrors,
-        updateLoginFormValue,
+        updateFormValue,
         clearLoginErrors,
         postLogin,
-    } = useLoginStore();
+    } = useLoginRegisterStore();
     const [submittedLogin, setSubmittedLogin] = useState(false);
 
     const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-        updateLoginFormValue({
+        updateFormValue({
             value: e.target.value,
             objectName: 'loginFormValues',
             keyName: 'emailValue',
         });
     };
     const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-        updateLoginFormValue({
+        updateFormValue({
             value: e.target.value,
             objectName: 'loginFormValues',
             keyName: 'passwordValue',
@@ -29,14 +29,14 @@ export const useLoginForm = () => {
 
     const validateLoginValues = (): boolean => {
         if (loginFormValues.emailValue === '') {
-            updateLoginFormValue({
+            updateFormValue({
                 value: true,
                 objectName: 'loginFormErrors',
                 keyName: 'emailValueError',
             });
         }
         if (loginFormValues.passwordValue === '') {
-            updateLoginFormValue({
+            updateFormValue({
                 value: true,
                 objectName: 'loginFormErrors',
                 keyName: 'passwordValueError',

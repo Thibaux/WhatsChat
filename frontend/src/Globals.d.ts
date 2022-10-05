@@ -18,7 +18,7 @@ type Message = {
     chat: Chat;
 };
 
-type Sender = Pick<UserObject, '_id', 'username', 'email', 'picture'>;
+type Sender = Pick<UserObject, '_id' | 'username' | 'email' | 'picture'>;
 
 type UserValues = {
     emailValue: string;
@@ -26,7 +26,7 @@ type UserValues = {
     usernameValue: string;
 };
 
-type LoginValues = Pick<UserValues, 'emailValue', 'passwordValue'>;
+type LoginValues = Pick<UserValues, 'emailValue' | 'passwordValue'>;
 
 type LoginValuesErrors = {
     emailValueError: boolean;

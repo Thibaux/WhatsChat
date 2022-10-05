@@ -15,7 +15,6 @@ type LoginStore = {
     registerFormErrors: LoginValuesErrors;
     updateFormValue: ({
         value,
-
         objectName,
         keyName,
     }: {
@@ -37,7 +36,7 @@ export const useLoginRegisterStore = create<LoginStore>()(
         successfulRegister: false,
         showFailedRegisterError: false,
         loginFormValues: {
-            email: '',
+            emailValue: '',
             passwordValue: '',
         },
         loginFormErrors: {
