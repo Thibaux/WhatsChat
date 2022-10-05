@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Icon } from '@chakra-ui/react';
 import { BsEmojiSmileUpsideDown } from 'react-icons/bs';
+import { useOnClickOutside } from 'usehooks-ts';
 import styles from './chatInput.module.scss';
 import { useSendInput } from './useSendInput';
 import { SendButton } from '../../../UI/Buttons';
@@ -21,6 +22,7 @@ export const ChatInput = () => {
     } = useSendInput();
     const [over, setOver] = useState(false);
     let emojiWrapperStyle = {};
+    const ref = useRef(null);
 
     if (over && chatId !== '') {
         emojiWrapperStyle = {
@@ -29,6 +31,7 @@ export const ChatInput = () => {
         };
     }
 
+    useOnClickOutside(ref, onClose);
     return (
         <div className={styles.inputWrapper}>
             <div
@@ -50,7 +53,12 @@ export const ChatInput = () => {
                 />
             </div>
 
-            {isOpen && <EmojiPickerModal isOpen={isOpen} onClose={onClose} />}
+            {isOpen && (
+                <EmojiPickerModal
+                    handleEmojiPickerClick={handleEmojiPickerClick}
+                    wrapperRef={ref}
+                />
+            )}
 
             <SendButton handleSend={handleSend} />
         </div>
