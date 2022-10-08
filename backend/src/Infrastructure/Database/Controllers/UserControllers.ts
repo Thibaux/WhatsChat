@@ -81,9 +81,7 @@ export const removeUserByUserId = async (userId: string): Promise<RemoveUserByUs
     }
 };
 
-export const findOneUserByEmail = async (email: string) => {
-    return User.findOne({ email });
-};
+export const findOneUserByEmail = async (email: string) => User.findOne({ email });
 
 interface FindOneUserByIdReturnI {
     success: boolean;
