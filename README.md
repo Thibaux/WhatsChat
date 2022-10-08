@@ -1,6 +1,7 @@
 ## Chat app
 
 Check it out: https://chat-app-frontend-peach.vercel.app
+
 Note: If the chats/messages do not load initially, plase wait and refresh.
 The backend is hosted on Heroku, and the cold starts are long... 
 
