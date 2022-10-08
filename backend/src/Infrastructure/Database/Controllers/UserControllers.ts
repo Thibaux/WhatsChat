@@ -40,9 +40,7 @@ interface GetAllUsersOrSearchReturnI {
     success: boolean;
     payload: HydratedDocument<UserSchema> | string;
 }
-export const getAllUsersOrSearch = async (
-    searchQuery: string
-): Promise<GetAllUsersOrSearchReturnI> => {
+export const getAllUsersOrSearch = async (searchQuery: string): Promise<GetAllUsersOrSearchReturnI> => {
     try {
         let users;
 
@@ -69,9 +67,7 @@ interface RemoveUserByUserIdReturnI {
     payload: HydratedDocument<UserSchema> | string;
 }
 
-export const removeUserByUserId = async (
-    userId: string
-): Promise<RemoveUserByUserIdReturnI> => {
+export const removeUserByUserId = async (userId: string): Promise<RemoveUserByUserIdReturnI> => {
     try {
         return {
             success: true,
@@ -86,11 +82,7 @@ export const removeUserByUserId = async (
 };
 
 export const findOneUserByEmail = async (email: string) => {
-    try {
-        return await User.findOne({ email });
-    } catch (e) {
-        return e.message;
-    }
+    return User.findOne({ email });
 };
 
 interface FindOneUserByIdReturnI {
@@ -98,9 +90,7 @@ interface FindOneUserByIdReturnI {
     payload: HydratedDocument<UserSchema> | string;
 }
 
-export const findOneUserById = async (
-    id: string
-): Promise<FindOneUserByIdReturnI> => {
+export const findOneUserById = async (id: string): Promise<FindOneUserByIdReturnI> => {
     try {
         return {
             success: true,

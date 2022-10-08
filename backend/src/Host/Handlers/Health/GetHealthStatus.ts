@@ -1,7 +1,5 @@
-export const GetHealthStatus = async (req, res, next) => {
-    try {
-        res.status(200).json({ status: 'ok' });
-    } catch (error) {
-        next(error);
-    }
+import { Request, Response } from 'express';
+
+export const GetHealthStatus = async (req: Request, res: Response) => {
+    res.status(200).json({ status: 'ok' });
 };

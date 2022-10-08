@@ -12,10 +12,7 @@ export const LoginUser = async (req: Request, res: Response, next: NextFunction)
 
         const result = await findOneUserByEmail(req.body.email);
 
-        if (!result)
-            res.status(400).send({
-                error: 'User could not be found!',
-            });
+        if (!result) throw new BadRequestError('User not found!');
 
         if (await matchPassword(result.password, req.body.password)) {
             returnObject = {
@@ -30,7 +27,7 @@ export const LoginUser = async (req: Request, res: Response, next: NextFunction)
         }
 
         res.status(200).json(returnObject);
-    } catch (error) {
-        next(error);
+    } catch (e) {
+        next(e);
     }
 };
