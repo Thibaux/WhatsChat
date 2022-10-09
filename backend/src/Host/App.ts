@@ -5,7 +5,7 @@ import { createServer } from 'http';
 import bodyParser from 'body-parser';
 import router from './Routes';
 import { connectToDb } from '../Infrastructure/Database/ConnectToDb';
-import { ErrorHandler, RouteNotFound, UnexpectedErrorsHandler } from './Middleware';
+import { ErrorHandler, RouteNotFound } from './Middleware';
 import { connectWebSocket } from '../Infrastructure/Socket/connectWebSocket';
 
 dotenv.config();
@@ -36,7 +36,6 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(UnexpectedErrorsHandler);
 app.use(router);
 app.use(ErrorHandler);
 app.use(RouteNotFound);

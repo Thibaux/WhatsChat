@@ -1,10 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { BadRequestError } from '../../../Infrastructure/Errors/BadRequestError';
-import {
-    getAllMessagesOfChat,
-    postMessageToChat,
-} from '../../../Infrastructure/Database/Controllers/MessageController';
-import { GetUserFromToken } from '../../../Services/Auth/GetUserFromToken';
+import { postMessageToChat } from '../../../Infrastructure/Database/Controllers';
+import { GetUserFromToken } from '../../../Services/Auth';
 
 export const PostMessageToChat = async (req: Request, res: Response, next: NextFunction) => {
     try {

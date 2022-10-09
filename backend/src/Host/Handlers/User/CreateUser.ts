@@ -1,18 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
-import { hashPassword } from '../../../Services/Auth/HashPassword';
+import { hashPassword } from '../../../Services/Auth';
 import { saveUser } from '../../../Infrastructure/Database/Controllers';
 import { BadRequestError } from '../../../Infrastructure/Errors/BadRequestError';
 
-export const CreateUser = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
+export const CreateUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
         if (!req.body.username || !req.body.password || !req.body.email)
-            throw new BadRequestError(
-                'Username, email or password not provided!'
-            );
+            throw new BadRequestError('Username, email or password not provided!');
 
         const hash = await hashPassword(req.body.password);
 
@@ -23,10 +17,7 @@ export const CreateUser = async (
         });
 
         if (!result.success) {
-            throw new BadRequestError(
-                'User could not be created!',
-                result.payload
-            );
+            throw new BadRequestError('User could not be created!', result.payload);
         }
 
         res.status(201).send({

@@ -1,7 +1,6 @@
 import express from 'express';
-import { Authorize } from '../Middleware/Authentication/Authorize';
-import { GetAllMessagesOfChat } from '../Handlers/Message/GetAllMessagesOfChat';
-import { PostMessageToChat } from '../Handlers/Message/PostMessageToChat';
+import { Authorize } from '../Middleware';
+import { GetAllMessagesOfChat, PostMessageToChat } from '../Handlers/Message';
 
 const messagesRouter = express.Router();
 

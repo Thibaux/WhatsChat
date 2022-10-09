@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { BadRequestError } from '../../../Infrastructure/Errors/BadRequestError';
-import { getAllMessagesOfChat } from '../../../Infrastructure/Database/Controllers/MessageController';
+import { getAllMessagesOfChat } from '../../../Infrastructure/Database/Controllers';
 
 export const GetAllMessagesOfChat = async (req: Request, res: Response, next: NextFunction) => {
     try {

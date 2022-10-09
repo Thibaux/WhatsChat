@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { findOneUserByEmail } from '../../../Infrastructure/Database/Controllers';
-import { generateToken } from '../../../Services/Auth/GenerateToken';
-import { matchPassword } from '../../../Services/Auth/MatchPassword';
+import { generateToken, matchPassword } from '../../../Services/Auth';
 import { BadRequestError } from '../../../Infrastructure/Errors/BadRequestError';
 
 export const LoginUser = async (req: Request, res: Response, next: NextFunction) => {

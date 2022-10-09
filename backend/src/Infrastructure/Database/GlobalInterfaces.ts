@@ -1,10 +1,5 @@
 import * as mongoose from 'mongoose';
 
-export type MongoUser = {
-    _id: string;
-    username: string;
-};
-
 export type BasicPropertyType = {
     type: string;
     required: [boolean, string];
