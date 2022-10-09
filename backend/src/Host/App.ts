@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { createServer } from 'http';
@@ -15,8 +15,15 @@ const completeServer = createServer(app);
 connectToDb();
 
 app.set('port', process.env.PORT);
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+    bodyParser.json()(req, res, (err) => {
+        if (err) {
+            return res.sendStatus(400);
+        }
+        next();
+    });
+});
 
 app.use(
     cors({
@@ -29,12 +36,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get('/', (req: Request, res: Response) => {
-    res.send({ status: 'ok' }).status(200);
-});
-
 app.use(router);
-
 app.use(ErrorHandler);
 app.use(RouteNotFound);
 

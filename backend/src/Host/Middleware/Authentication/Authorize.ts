@@ -1,5 +1,5 @@
 import { UnauthorizedError } from '../../../Infrastructure/Errors/UnauthorizedError';
-import { GetUserFromToken } from '../../../Services/Auth/GetUserFromToken';
+import { GetUserFromToken } from '../../../Services/Auth';
 import { findOneUserById } from '../../../Infrastructure/Database/Controllers';
 import { BadRequestError } from '../../../Infrastructure/Errors/BadRequestError';
 

@@ -1,11 +1,6 @@
 import express from 'express';
-import { Authorize } from '../Middleware/Authentication/Authorize';
-import {
-    CreateUser,
-    DeleteUser,
-    GetAllUsers,
-    LoginUser,
-} from '../Handlers/User';
+import { Authorize } from '../Middleware';
+import { CreateUser, DeleteUser, GetAllUsers, LoginUser } from '../Handlers/User';
 
 const userRouter = express.Router();
 

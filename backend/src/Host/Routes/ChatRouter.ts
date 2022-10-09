@@ -1,6 +1,6 @@
 import express from 'express';
 import { CreateChat, DeleteChat, GetChatsFromUser } from '../Handlers/Chat';
-import { Authorize } from '../Middleware/Authentication/Authorize';
+import { Authorize } from '../Middleware';
 
 const chatRouter = express.Router();
 

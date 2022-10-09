@@ -1,5 +1,5 @@
-import { UnauthorizedError } from '../../Infrastructure/Errors/UnauthorizedError';
-import { BadRequestError } from '../../Infrastructure/Errors/BadRequestError';
+import { UnauthorizedError } from '../../../Infrastructure/Errors/UnauthorizedError';
+import { BadRequestError } from '../../../Infrastructure/Errors/BadRequestError';
 
 export const ErrorHandler = (err, req, res, next) => {
     if (err instanceof BadRequestError) {

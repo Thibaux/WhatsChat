@@ -6,9 +6,10 @@ import healthRouter from './HealthRouter';
 
 const router = express.Router();
 
+router.use('/', healthRouter);
+router.use('/health', healthRouter);
 router.use('/users', userRouter);
 router.use('/chat', chatRouter);
 router.use('/messages', messagesRouter);
-router.use('/health', healthRouter);
 
 export default router;

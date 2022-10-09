@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { Chat } from '../../../Infrastructure/Database/Models/Chat';
-import { GetUserFromToken } from '../../../Services/Auth/GetUserFromToken';
+import { GetUserFromToken } from '../../../Services/Auth';
 import { createChat } from '../../../Infrastructure/Database/Controllers';
 import { BadRequestError } from '../../../Infrastructure/Errors/BadRequestError';
 
