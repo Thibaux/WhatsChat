@@ -7,16 +7,13 @@ import {
 } from '../../../../utils/Converting';
 
 interface UseCreateChatModalInterface {
-    isOpen: boolean;
     onClose: () => void;
 }
 
 export const useCreateChatModal = ({
-    isOpen,
     onClose,
 }: UseCreateChatModalInterface) => {
-    const { userObject, users, getAllUsers, setSelectedUser, selectedUser } =
-        useUserStore();
+    const { userObject, users, setSelectedUser, selectedUser } = useUserStore();
     const { handleCreateChat } = useChatsStore();
     const [chatTitleValue, setChatTitleValue] = useState('');
     const [showErrorMss, setShowErrorMss] = useState(false);

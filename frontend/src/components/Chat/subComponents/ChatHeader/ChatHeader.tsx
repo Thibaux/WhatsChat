@@ -1,11 +1,17 @@
 import * as React from 'react';
-import { useDisclosure } from '@chakra-ui/react';
-import { PlusSquareIcon, SmallCloseIcon } from '@chakra-ui/icons';
+import {
+    Button,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
+    useDisclosure,
+} from '@chakra-ui/react';
+import { ChevronDownIcon, CloseIcon, PlusSquareIcon } from '@chakra-ui/icons';
 import styles from './chatHeader.module.scss';
 import { useUserStore } from '../../../../store/UserStore';
 import { CreateChatModal } from '../../../UI/Modals';
 import { useChatsStore } from '../../../../store/ChatsStore';
-import { GenericButton } from '../../../UI/Buttons';
 import { DeleteChat } from './subComponents/DeleteChat';
 
 export const ChatHeader = () => {
@@ -21,24 +27,26 @@ export const ChatHeader = () => {
     return (
         <div className={styles.titleWrapper}>
             <div className={styles.titleWrapper__left}>
-                <GenericButton
-                    title='Create chat'
-                    handleClick={onOpen}
-                    color='gray'
-                    icon={<PlusSquareIcon />}
-                />
-                {currentChat.chatId !== '' && <DeleteChat />}
+                <Menu>
+                    <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                        Actions
+                    </MenuButton>
+                    <MenuList>
+                        <MenuItem onClick={onOpen} icon={<PlusSquareIcon />}>
+                            Create chat
+                        </MenuItem>
+                        {currentChat.chatId !== '' && <DeleteChat />}
+                        <MenuItem onClick={logUserOut} icon={<CloseIcon />}>
+                            Log out
+                        </MenuItem>
+                    </MenuList>
+                </Menu>
             </div>
             <CreateChatModal isOpen={isOpen} onClose={onClose} />
 
             <div className={styles.titleWrapper__right}>
                 <p className={styles.userName}>{userObject.username}</p>
-                <GenericButton
-                    title='Log out'
-                    handleClick={logUserOut}
-                    color='cyan'
-                    icon={<SmallCloseIcon />}
-                />
+                <img src={userObject.picture} alt='User avatar' />
             </div>
         </div>
     );
