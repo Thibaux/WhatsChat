@@ -1,7 +1,6 @@
 import React from 'react';
 import { DeleteIcon } from '@chakra-ui/icons';
-import { useDisclosure } from '@chakra-ui/react';
-import { GenericButton } from '../../../../UI/Buttons';
+import { MenuItem, useDisclosure } from '@chakra-ui/react';
 import { ConfirmDeleteChat } from '../../../../UI/Modals';
 
 export const DeleteChat = () => {
@@ -9,12 +8,9 @@ export const DeleteChat = () => {
 
     return (
         <>
-            <GenericButton
-                title='Delete chat'
-                handleClick={onOpen}
-                color='red'
-                icon={<DeleteIcon />}
-            />
+            <MenuItem onClick={onOpen} icon={<DeleteIcon />}>
+                Delete chat
+            </MenuItem>
             <ConfirmDeleteChat isOpen={isOpen} onClose={onClose} />
         </>
     );

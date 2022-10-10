@@ -1,10 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
+import { AvatarGenerator } from 'random-avatar-generator';
 import { findOneUserByEmail } from '../../../Infrastructure/Database/Controllers';
 import { generateToken, matchPassword } from '../../../Services/Auth';
 import { BadRequestError } from '../../../Infrastructure/Errors/BadRequestError';
 
 export const LoginUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const generator = new AvatarGenerator();
         let returnObject;
 
         if (!req.body.email || !req.body.password) throw new BadRequestError('Email and/or password is not provided!');
@@ -18,7 +20,7 @@ export const LoginUser = async (req: Request, res: Response, next: NextFunction)
                 _id: result.id,
                 username: result.username,
                 email: result.email,
-                picture: result.picture,
+                picture: generator.generateRandomAvatar(result.id),
                 token: generateToken(result.id, result.username),
             };
         } else {

@@ -3,7 +3,6 @@
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
-
     "dependencies": {
         "@types/jsonwebtoken": "^8.5.8",
         "@types/mocha": "^9.1.1",
@@ -23,6 +22,7 @@
         "mongoose": "^6.4.4",
         "nodemon": "^2.0.19",
         "prettier": "^2.7.1",
+        "random-avatar-generator": "^2.0.0",
         "socket.io": "^4.5.1",
         "supertest": "^6.2.4",
         "ts-node": "^10.9.1"

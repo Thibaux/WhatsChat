@@ -16,13 +16,13 @@
     &__right {
         display: flex;
         flex-direction: row;
-        min-width: 14rem;
-        justify-content: space-between;
-        align-content: space-evenly;
+        min-width: auto;
+        justify-content: flex-end;
         padding-right: 1rem;
 
-        p {
-            margin-top: 0.4rem;
+        img {
+            height: 40px;
+            width: 40px;
         }
     }
 

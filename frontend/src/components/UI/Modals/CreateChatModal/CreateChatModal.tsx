@@ -32,7 +32,7 @@ export const CreateChatModal = ({
         handleCreate,
         showErrorMss,
         errorMss,
-    } = useCreateChatModal({ isOpen, onClose });
+    } = useCreateChatModal({ onClose });
 
     return (
         <Modal onClose={onClose} isOpen={isOpen} isCentered>
